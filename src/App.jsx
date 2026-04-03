@@ -2,6 +2,7 @@ import './App.css'
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import HubSelection from "./Screens/HubSelection";
 import SelectState from "./Screens/SelectState";
+import CreateAccount from "./Screens/CreateAccount";
 
 function App() {
   return (
@@ -9,6 +10,7 @@ function App() {
       <Routes>
         <Route path="/" element={<SelectState />} />
         <Route path="/apply/hub" element={<HubSelection />} />
+        <Route path="/create-account" element={<CreateAccount />} />
       </Routes>
     </BrowserRouter>
   );

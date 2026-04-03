@@ -12,7 +12,7 @@ const HubSelection = () => {
   const handleContinue = () => {
     if (selectedHubLocal) {
       setSelectedHubGlobal(selectedHubLocal);
-      alert(`Successfully applied to: ${selectedHubLocal}`);
+      navigate("/create-account")
     }
   };
   const navigate = useNavigate();
