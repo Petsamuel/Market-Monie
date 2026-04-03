@@ -124,7 +124,7 @@ const HubSelection = () => {
             </div>
 
             <button
-              onClick={() => navigate("/")}
+              onClick={() => navigate("/create-account")}
               className="w-full border p-2.5 rounded-xl bg-green-800 text-white text-sm hover:bg-green-900 hover:text-white hover:border-green-900 transition-colors duration-400 "
             >
               Continue Anyway
