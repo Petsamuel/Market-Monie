@@ -4,3 +4,13 @@ body {
   background: #f4f6f9;
   font-family: "Poppins";
 }
+
+@layer utilities {
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}

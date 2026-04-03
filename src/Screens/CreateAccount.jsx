@@ -5,6 +5,7 @@ import { FiUserPlus, FiUserCheck } from "react-icons/fi";
 
 
 const CreateAccount = () => {
+    const navigate = useNavigate();
 
   return (
     <section className='w-full h-screen flex items-center justify-center'>
@@ -37,7 +38,7 @@ const CreateAccount = () => {
                 </button>
 
                 <button className='w-full text-left rounded-2xl border border-gray-500 hover:border-gray-500 p-3 hover:bg-gray-300'
-                        onClick={Navigate("/personal-details")}
+                        onClick={() => navigate("/personal-details")}
                 >
                     <div className='flex items-center lg:m-3 lg:gap-6'>
                         <div className='flex gap-3'>
