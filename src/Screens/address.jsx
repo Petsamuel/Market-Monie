@@ -36,28 +36,28 @@ const Address = () => {
     return (
         <section className='w-full min-h-screen flex items-center justify-center p-4 py-10'>
             <div className='rounded-2xl bg-white border border-white w-full max-w-2xl flex flex-col items-center gap-5 p-6 shadow-sm'>
-                            <div className='flex gap-2 w-full justify-between text-sm'>
-                                <button className='flex flex-col items-center rounded-lg p-2 w-1/4 text-slate-400'>
-                                    <BsPerson />
-                                    <span>Personal</span>
-                                    <span>A</span>
-                                </button>
-                                <button className='text-green-800 bg-green-100 flex flex-col items-center rounded-lg p-2 w-1/4'>
-                                    <HiOutlineLocationMarker />
-                                    <span>Address</span>
-                                    <span>B</span>
-                                </button>
-                                <button className='flex flex-col items-center rounded-lg p-2 w-1/4 text-slate-400'>
-                                    <LuBuilding2 />
-                                    <span>Business</span>
-                                    <span>C</span>
-                                </button>
-                                <button className='flex flex-col items-center rounded-lg p-2 w-1/4 text-slate-400'>
-                                   <FiCreditCard />
-                                    <span>Loan</span>
-                                    <span>D</span>
-                                </button>
-                            </div>
+                <div className='flex gap-2 w-full justify-between text-sm'>
+                    <button className='flex flex-col items-center rounded-lg p-2 w-1/4 text-slate-400'>
+                        <BsPerson />
+                        <span>Personal</span>
+                        <span>A</span>
+                    </button>
+                    <button className='text-green-800 bg-green-100 flex flex-col items-center rounded-lg p-2 w-1/4'>
+                        <HiOutlineLocationMarker />
+                        <span>Address</span>
+                        <span>B</span>
+                    </button>
+                    <button className='flex flex-col items-center rounded-lg p-2 w-1/4 text-slate-400'>
+                        <LuBuilding2 />
+                        <span>Business</span>
+                        <span>C</span>
+                    </button>
+                    <button className='flex flex-col items-center rounded-lg p-2 w-1/4 text-slate-400'>
+                        <FiCreditCard />
+                        <span>Loan</span>
+                        <span>D</span>
+                    </button>
+                </div>
                 <h2 className='font-semibold text-left w-full'>Residential Address</h2>
                 {error && (
                     <div className='w-full p-2 bg-red-50 text-red-600 rounded-lg text-xs text-center border border-red-200'>
