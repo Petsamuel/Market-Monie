@@ -1,37 +1,27 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { locations } from '../store/Data';
 import { stateLgaMapping } from '../store/LgaData';
 import FormHeader from './formHeader';
-import ProgressBar from './ProgressBar';
-
+import ProgressBar from "./ProgressBar"
+import { useForm } from "../store/FormContext";
 
 const Address = () => {
     const navigate = useNavigate();
-    const [selectedState, setSelectedState] = useState("");
-    const [selectedLga, setSelectedLga] = useState("");
-    const [houseAddress, setHouseAddress] = useState("");
-    const [lgas, setLgas] = useState([]);
+    const { formData, setFormData } = useForm();
     const [error, setError] = useState(false);
-
-    const lgaRef = useRef(null);
-
-const handleStateChange = (e) => {
-    const state = e.target.value;
-    setSelectedState(state);
-    setLgas(stateLgaMapping[state] || []);
-    setSelectedLga("");
-    setError(false);
-
-    setTimeout(() => {
-        lgaRef.current?.focus();
-    }, 100);
-};
-
+    const [lgas, setLgas] = useState([]);
     const isFormValid =
-    selectedState &&
-    selectedLga &&
-    houseAddress.trim();
+  !!formData.state &&
+  !!formData.lga &&
+  formData.houseAddress?.trim().length > 0;
+
+
+useEffect(() => {
+  if (formData.state) {
+    setLgas(stateLgaMapping[formData.state] || []);
+  }
+}, [formData.state]);
 
     const currentStep = 5;
     const handleNext = () => {
@@ -40,6 +30,12 @@ const handleStateChange = (e) => {
         return;
     }
     navigate("/business");
+};
+const handleChange = (e) => {
+  setFormData({
+    ...formData,
+    [e.target.id]: e.target.value
+  });
 };
 
     return (
@@ -59,11 +55,20 @@ const handleStateChange = (e) => {
                     <select
                         name="state"
                         id="state"
-                        value={selectedState}
-                        onChange={handleStateChange}
-                        
-                        className='border border-gray-500 rounded-xl px-2 h-[40px] bg-white outline-none w-full scrollbar-hide'
-                    >
+                        value={formData.state}
+                        onChange={(e) => {
+                            const state = e.target.value;
+
+                            setFormData({
+                            ...formData,
+                            state,
+                            lga: ""
+                            });
+
+                            setLgas(stateLgaMapping[state] || []);
+                            setError(false);
+                        }}
+                        className='border border-gray-500 rounded-xl px-2 h-[40px] bg-white outline-none w-full scrollbar-hide'>
                         <option value="">Select State</option>
                         {locations.map((state) => (
                             <option key={state} value={state}>{state}</option>
@@ -75,17 +80,19 @@ const handleStateChange = (e) => {
                     <label htmlFor="local-government">Local Government Area (LGA) <span className='text-red-500'>*</span></label>
                     <select
                         name="local-government"
-                        id="local-government"
-                        value={selectedLga}
-                        ref={lgaRef}
+                       id="lga"
+                        value={formData.lga}
                         onChange={(e) => {
-                            setSelectedLga(e.target.value);
+                            setFormData({
+                            ...formData,
+                            lga: e.target.value
+                            });
                             setError(false);
                         }}
-                        disabled={!selectedState}
+                        disabled={!formData.state}
                         className='border border-gray-500 rounded-xl px-2 h-[40px] bg-white outline-none w-full scrollbar-hide disabled:bg-gray-100 disabled:cursor-not-allowed'
                     >
-                        <option value="">{selectedState ? "Select LGA" : "Select State First"}</option>
+                        <option value="">{formData.state ? "Select LGA" : "Select State First"} </option>
                         {lgas.map((lga) => (
                             <option key={lga} value={lga}>{lga}</option>
                         ))}
@@ -93,19 +100,16 @@ const handleStateChange = (e) => {
                 </div>
                 <div className='flex flex-col w-full'>
                     <label htmlFor="area">Area/Street <span className='text-slate-400'>(optional)</span></label>
-                    <input type="text" name="area" id="area" placeholder='e.g Victoria, Lekki Phase 1' className='border border-gray-500 rounded-xl p-2' />
+                    <input type="text" id="area" value={formData.area} onChange={(e) => setFormData({ ...formData, area: e.target.value })} placeholder='e.g Victoria, Lekki Phase 1' className='border border-gray-500 rounded-xl p-2'/>
                 </div>
                 <div className='flex flex-col w-full'>
-                    <label htmlFor="house-address">House Address <span className='text-red-500'>*</span></label>
+                    <label htmlFor="houseAddress">House Address <span className='text-red-500'>*</span></label>
                     <input
                         type="text"
-                        name="house-address"
-                        id="house-address"
-                        value={houseAddress}
-                        onChange={(e) => {
-                            setHouseAddress(e.target.value);
-                            setError(false);
-                        }}
+                        name="houseAddress"
+                       id="houseAddress"
+                        value={formData.houseAddress}
+                        onChange={handleChange}
                         placeholder='house number and street name'
                         className='border border-gray-500 rounded-xl p-2'
                     />
@@ -116,17 +120,17 @@ const handleStateChange = (e) => {
                         Back
                     </button>
                     <button
-    onClick={handleNext}
-    disabled={!isFormValid}
-    className={`rounded-xl p-2 w-1/2 transition-all duration-200 font-medium
-    ${
-        isFormValid
-        ? "bg-green-800 text-white hover:bg-green-900"
-        : "bg-green-100 text-green-400 cursor-not-allowed"
-    }`}
->
-    Next
-</button>
+                    onClick={handleNext}
+                    disabled={!isFormValid}
+                    className={`rounded-xl p-2 w-1/2 transition-all duration-200 font-medium
+                    ${
+                        isFormValid
+                        ? "bg-green-800 text-white hover:bg-green-900"
+                        : "bg-green-100 text-green-400 cursor-not-allowed"
+                    }`}
+                >
+                    Next
+                </button>
                 </div>
             </div>
         </section>
