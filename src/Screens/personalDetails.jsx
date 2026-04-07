@@ -7,7 +7,7 @@ import { useForm } from "../store/FormContext";
 
 const PersonalDetails = () => {
     const navigate = useNavigate();
-    
+
     const { formData, setFormData } = useForm();
 
     const [error, setError] = useState(false);
