@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { IoLocationOutline } from "react-icons/io5";
-import { FaChevronDown, FaChevronUp } from "react-icons/fa";
-import { locations } from '..//store/Data.js';
+import { FaChevronDown, FaChevronUp, FaArrowLeft } from "react-icons/fa";
+import { locations } from '..//store/Data';
 import { useNavigate } from "react-router-dom";
 import { setSelectedStateGlobal } from "../store/Data";
 import ProgressBar from './ProgressBar.jsx';
@@ -18,9 +18,11 @@ const SelectState = () => {
     setQuery(value);
     setSelectedLocation(""); // important
 
-    const results = locations.filter((loc) =>
+    const results = Array.isArray(locations)
+  ? locations.filter((loc) =>
       loc.toLowerCase().includes(value.toLowerCase())
-    );
+    )
+  : [];
 
     setFiltered(results);
   };
@@ -31,11 +33,13 @@ const SelectState = () => {
   };
   return (
     <section className='w-full min-h-screen flex items-center justify-center p-4 py-10'>
-      <div className='rounded-2xl bg-white shadow-lg border border-white w-full max-w-xl flex flex-col items-center gap-5 p-6'>
-        <h3 className='w-full  rounded-t-2xl text-center py-3 font-semibold border-b border-slate-300'>Select State</h3>
-        <div className='w-full'>
-          <ProgressBar currentStep={1} totalSteps={8} />
-        </div>
+      <div className='rounded-2xl relative bg-white shadow-lg border border-white w-full max-w-xl flex flex-col items-center gap-5 p-6'>
+        <button onClick={() => navigate(-1)} className="p-2 text-gray-500 hover:text-green-600 text-xl flex absolute left-4 top-10 hover:bg-slate-200 rounded-full transition-colors duration-200">
+          <FaArrowLeft />
+        </button>
+         <img src="/marketmonie.png" className='w-40' alt="" />
+        <h3 className='w-full  rounded-t-2xl text-center pb-3 font-semibold border-b border-slate-300'>Select State</h3>
+        <ProgressBar currentStep={1} totalSteps={8} />
         <div className='flex items-center gap-3 text-md lg:text-2xl px-3'>
           <div className='bg-[#e8f7ef] p-3 rounded-2xl'>
             <IoLocationOutline className=' text-[#3e8b4b]' />
@@ -46,7 +50,6 @@ const SelectState = () => {
         <label htmlFor="stateLocated">Select your state</label>
 
         <div className="w-full relative px-3">
-          {/* INPUT */}
           <input
             type="text"
             value={selectedLocation || query}

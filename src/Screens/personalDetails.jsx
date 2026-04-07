@@ -11,28 +11,32 @@ const PersonalDetails = () => {
     const { formData, setFormData } = useForm();
 
     const [error, setError] = useState(false);
-    const { firstName, lastName, phoneNumber, dateOfBirth } = formData;
+    const { firstName, lastName, phoneNumber, email, dateOfBirth } = formData;
+    const isEmailValid = /\S+@\S+\.\S+/.test(email);
     const isFormValid =
-        firstName.trim().length > 0 &&
-        lastName.trim().length > 0 &&
-        phoneNumber.trim().length > 0 &&
-        !!dateOfBirth;
+    firstName.trim().length > 0 &&
+    lastName.trim().length > 0 &&
+    isEmailValid &&
+    phoneNumber.trim().length > 0 &&
+    !!dateOfBirth;
 
     const handleChange = (e) => {
-        setFormData({
-            ...formData,
-            [e.target.id]: e.target.value
-        });
-    };
+  setFormData({
+    ...formData,
+    [e.target.id]: e.target.value
+});
+setError(false);
+};
 
     const currentStep = 4;
-    const handleContinue = () => {
-        if (!isFormValid) {
-            setError(true);
-            return;
-        }
-        navigate("/address");
-    };
+    const handleContinue = (e) => {
+    e.preventDefault();
+    if (!isFormValid) {
+        setError(true);
+        return;
+    }
+    navigate("/address");
+};
 
     return (
         <section className='w-full min-h-screen flex items-center justify-center py-10 bg-[#f4f6f9]'>
@@ -48,7 +52,8 @@ const PersonalDetails = () => {
                         Please fill in all required fields
                     </div>
                 )}
-
+                
+                <form onSubmit={handleContinue} className='w-full'>
                 <div className='flex gap-3 w-full'>
                     <div className='flex flex-col gap-2 w-1/2'>
                         <label htmlFor="firstName">First Name <span className='text-red-500'>*</span></label>
@@ -59,38 +64,40 @@ const PersonalDetails = () => {
                         <input type="text" id="lastName" required value={formData.lastName} onChange={handleChange} placeholder='Last Name' className='border border-gray-300 rounded-lg p-2' />
                     </div>
                 </div>
-                <div className='flex flex-col gap-2 items-start justify-start w-full '>
+                <div className='flex flex-col gap-1 items-start justify-start w-full '>
                     <label htmlFor="phoneNumber">Phone Number <span className='text-red-500'>*</span></label>
                     <div className='flex items-center border border-gray-300 rounded-lg w-full'>
-                        <span className='p-2 bg-slate-100 border-r border-gray-300 text-slate-500 rounded-l-lg text-sm'>+234</span>
+                        <span className='p-2 bg-slate-100 border-r flex flex-row border-gray-300 text-slate-500 rounded-l-lg text-sm'>+234(0)</span>
                         <input type="text" id="phoneNumber" required value={formData.phoneNumber} onChange={handleChange} placeholder='Phone Number' className='p-2 w-full rounded-r-lg outline-none text-sm' maxLength={10} />
                     </div>
                 </div>
 
-                <div className='flex flex-col gap-3 items-start justify-start w-full '>
-                    <label htmlFor="email">Email Address <span className='text-slate-400'>(optional)</span></label>
+                <div className='flex flex-col gap-2 items-start justify-start w-full '>
+                    <label htmlFor="email">Email Address <span className='text-red-500'>*</span></label>
                     <input type="email" id="email" placeholder='Email Address' value={formData.email} onChange={handleChange} className='border border-gray-300 rounded-lg p-2 w-full' />
                 </div>
-                <div className='flex flex-col gap-3 items-start justiify-start w-full'>
+                <div className='flex flex-col gap-2 items-start justify-start w-full'>
                     <label htmlFor="dateOfBirth">Date of birth <span className='text-red-500'>*</span></label>
                     <input type="date" id="dateOfBirth" required value={formData.dateOfBirth} onChange={handleChange} placeholder='dd/mm/yyyy' className='border border-gray-300 rounded-lg p-2 w-full' />
                 </div>
                 <div className='flex flex-col gap-1 items-start justify-start w-full'>
-                    <label htmlFor="ID">ID Document <span className='text-slate-400'>(optional)</span></label>
+                    <label htmlFor="ID">ID Document <span className='text-red-500'>*</span></label>
                     <p className='text-[10px] text-slate-400 mb-1 lg:text-xs'>NIN, Driver's License, Passport, Voter's Card</p>
-                    <input type="file" id="ID" className='border border-gray-300 rounded-lg p-2 w-full cursor-pointer' />
+                    <input type="file" id="ID" onChange={(e) => setFormData({ ...formData, ID: e.target.files[0] })} className='border border-gray-300 rounded-lg p-2 w-full cursor-pointer' />
                 </div>
-                <div className='w-full'>
-                    <button
-                        onClick={handleContinue}
-                        disabled={!isFormValid}
-                        className={`rounded-xl p-2.5 w-full transition-all duration-200 shadow-md font-medium
-                    ${isFormValid
-                                ? "bg-green-800 text-white hover:bg-green-900 cursor-pointer"
-                                : "bg-green-100 text-green-400 cursor-not-allowed"}`}>
-                        Continue
-                    </button>
+                <div className='w-full mt-2'>
+                   <button
+                   type='submit'
+                    disabled={!isFormValid}
+                    className={`rounded-xl p-2.5 w-full transition-all duration-200 shadow-md font-medium
+                    ${
+                        isFormValid
+                        ? "bg-green-800 text-white hover:bg-green-900 cursor-pointer"
+                        : "bg-green-100 text-green-400 cursor-not-allowed"}`}>
+                    Continue
+                </button>
                 </div>
+                </form>
             </div>
         </section>
     );

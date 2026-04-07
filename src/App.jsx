@@ -4,11 +4,12 @@ import HubSelection from "./Screens/HubSelection";
 import SelectState from "./Screens/SelectState";
 import CreateAccount from "./Screens/CreateAccount";
 import PersonalDetails from "./Screens/personalDetails";
-import Address from "./Screens/address";
+import Address from "./Screens/Address";
 import Business from './Screens/business';
 import Loan from './Screens/loan';
 import AccountCreation from './Screens/AccountCreation';
 import Preview from './Screens/PreviewPage'
+import Login from './Screens/Login'
 
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
         <Route path="/business" element={<Business />} />
         <Route path="/loan" element={<Loan />} />
         <Route path="/preview" element={<Preview />} />
+        <Route path='/login' element={<Login />} />
       </Routes>
     </BrowserRouter>
   );
