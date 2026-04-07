@@ -4,7 +4,7 @@ import HubSelection from "./Screens/HubSelection";
 import SelectState from "./Screens/SelectState";
 import CreateAccount from "./Screens/CreateAccount";
 import PersonalDetails from "./Screens/personalDetails";
-import Address from "./Screens/Address";
+import Address from "./Screens/address";
 import Business from './Screens/business';
 import Loan from './Screens/loan';
 import AccountCreation from './Screens/AccountCreation';
