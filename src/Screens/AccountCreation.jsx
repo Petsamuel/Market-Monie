@@ -85,7 +85,7 @@ const isOtpComplete = otp.every(d => d !== "");
                 <div className='flex flex-col gap-2 items-start justify-start w-full '>
                     <label htmlFor="phoneNumber">Phone Number <span className='text-red-500'>*</span></label>
                     <div className='flex items-center border border-gray-300 rounded-lg w-full'>
-                        <span className='p-2 bg-slate-100 border-r border-gray-300 text-slate-500 rounded-l-lg text-sm'>+234</span>
+                        <span className='p-2 bg-slate-100 border-r border-gray-300 text-slate-500 rounded-l-lg text-sm'>+234(0)</span>
                         <input type="text" id="phoneNumber" value={phone} onChange={(e) => {const value = e.target.value.replace(/\D/g, "").slice(0, 10); setPhone(value);}} required  placeholder='Phone Number' className='p-2 w-full rounded-r-lg outline-none text-sm' maxLength={10} />
                     </div>
                 </div>
@@ -126,7 +126,6 @@ const isOtpComplete = otp.every(d => d !== "");
                 </div>
                 <div className='flex gap-1 text-md'>
                   <p className='text-slate-400'>Already have an account?</p>
-                  <a href="/login" className='text-green-800 font-semibold hover:underline'>Login</a>
                   <button onClick={() => navigate("/login")} className='text-green-800 font-semibold hover:underline'>Login</button>
                 </div>
 
