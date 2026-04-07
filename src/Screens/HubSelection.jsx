@@ -14,7 +14,7 @@ const HubSelection = () => {
   const handleContinue = () => {
     if (selectedHubLocal) {
       setSelectedHubGlobal(selectedHubLocal);
-      navigate("/CreateAccount")
+      navigate("/create-account")
     }
   };
 
@@ -36,7 +36,7 @@ const HubSelection = () => {
               <img src="/marketmonie.png" className='w-40' alt="" />
           <h3 className='w-full  rounded-t-2xl text-center pb-3 font-semibold border-b border-slate-300'>Select State</h3>
           <ProgressBar currentStep={currentStep} totalSteps={8} />
-        
+  
         <div className='flex items-center gap-3 text-md lg:text-2xl px-3 mt-2'>
           <div className='bg-[#e8f7ef] p-3 rounded-2xl'>
             <LuBuilding2 className=' text-[#3e8b4b]' />

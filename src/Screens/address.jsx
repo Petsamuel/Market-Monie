@@ -42,6 +42,8 @@ const Address = () => {
   setError(false);
 };
     const [lgas, setLgas] = useState([]);
+
+
     const isFormValid =
   !!formData.state &&
   !!formData.lga &&
@@ -53,24 +55,26 @@ useEffect(() => {
   if (formData.state) {
     const lgaList = stateLgaMapping[formData.state] || [];
     setLgas(lgaList);
-    setFilteredLgas(lgaList); // 👈 important
+    setFilteredLgas(lgaList);
   }
 }, [formData.state]);
 
     const currentStep = 5;
+
     const handleNext = () => {
-    if (!isFormValid) {
-        setError(true);
-        return;
-    }
-    navigate("/business");
-};
-const handleChange = (e) => {
-  setFormData({
-    ...formData,
-    [e.target.id]: e.target.value
-  });
-};
+        if (!isFormValid) {
+            setError(true);
+            return;
+        }
+        navigate("/business");
+    };
+
+    const handleChange = (e) => {
+        setFormData({
+            ...formData,
+            [e.target.id]: e.target.value
+        });
+    };
 
 const handleLgaChange = (e) => {
   const value = e.target.value;
@@ -97,9 +101,13 @@ const handleLgaSelect = (lga) => {
     return (
         <section className='w-full min-h-screen flex items-center justify-center p-4 py-10 bg-[#f4f6f9]'>
             <div className='rounded-2xl bg-white border border-white w-full max-w-2xl flex flex-col items-center gap-5 p-6 shadow-sm'>
-                <ProgressBar currentStep={currentStep} totalSteps={8} />
+                <div className='w-full'>
+                    <ProgressBar currentStep={currentStep} totalSteps={8} />
+                </div>
                 <FormHeader />
-                <h2 className='font-bold text-left w-full text-xl'>Residential Address</h2>
+                <h2 className='font-bold text-left w-full text-xl'>
+                    Residential Address
+                </h2>
                 {error && (
                     <div className='w-full p-2 bg-red-50 text-red-600 rounded-lg text-xs text-center border border-red-200'>
                         Please fill in all required fields
@@ -108,28 +116,6 @@ const handleLgaSelect = (lga) => {
 
                 <div className='flex flex-col w-full relative'>
                     <label htmlFor="state">State <span className='text-red-500'>*</span></label>
-                    {/* <select
-                        name="state"
-                        id="state"
-                        value={formData.state}
-                        onChange={(e) => {
-                            const state = e.target.value;
-
-                            setFormData({
-                            ...formData,
-                            state,
-                            lga: ""
-                            });
-
-                            setLgas(stateLgaMapping[state] || []);
-                            setError(false);
-                        }}
-                        className='border border-gray-500 rounded-xl px-2 h-[40px] bg-white outline-none w-full scrollbar-hide'>
-                        <option value="">Select State</option>
-                        {locations.map((state) => (
-                            <option key={state} value={state}>{state}</option>
-                        ))}
-                    </select> */}
                     <input
                                 type="text"
                                 value={query || selectedLocation}
@@ -138,7 +124,7 @@ const handleLgaSelect = (lga) => {
                                 placeholder="Select State"
                                 className="w-full border border-slate-400 p-2 rounded-2xl outline-none"
                               />
-                              <button onClick={() => setOpen(prev => !prev)}>
+                              <button type='button' onClick={() => setOpen(prev => !prev)}>
                                 {open ? (
                                   <FaChevronUp className="absolute right-7 top-9" />
                                 ) : (
@@ -166,7 +152,6 @@ const handleLgaSelect = (lga) => {
             </div>
           )}
                 </div>
-
                <div className='flex flex-col w-full relative'>
                 <label>LGA <span className='text-red-500'>*</span></label>
 
@@ -216,8 +201,8 @@ const handleLgaSelect = (lga) => {
                     <input
                         type="text"
                         name="houseAddress"
-                       id="houseAddress"
-                        value={formData.houseAddress}
+                        id="houseAddress"
+                        value={formData.houseAddress || ""}
                         onChange={handleChange}
                         placeholder='house number and street name'
                         className='border border-gray-500 rounded-xl p-2'
@@ -229,17 +214,16 @@ const handleLgaSelect = (lga) => {
                         Back
                     </button>
                     <button
-                    onClick={handleNext}
-                    disabled={!isFormValid}
-                    className={`rounded-xl p-2 w-1/2 transition-all duration-200 font-medium
-                    ${
-                        isFormValid
-                        ? "bg-green-800 text-white hover:bg-green-900"
-                        : "bg-green-100 text-green-400 cursor-not-allowed"
-                    }`}
-                >
-                    Next
-                </button>
+                        onClick={handleNext}
+                        disabled={!isFormValid}
+                        className={`rounded-xl p-2 w-1/2 transition-all duration-200 font-medium
+    ${isFormValid
+                                ? "bg-green-800 text-white hover:bg-green-900"
+                                : "bg-green-100 text-green-400 cursor-not-allowed"
+                            }`}
+                    >
+                        Next
+                    </button>
                 </div>
             </div>
         </section>
