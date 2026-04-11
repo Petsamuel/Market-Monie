@@ -1,10 +1,19 @@
 import { FiMapPin, FiChevronRight, FiChevronDown, FiGlobe } from "react-icons/fi";
-import { hubsByState } from "../../../data/hubs";
+import { branchAddresses } from "../../../store/Data";
 
 const HubSelection = ({ selectedState, selectedHub, onSelectState, onSelectHub, onContinue }) => {
-  const hubs = hubsByState[selectedState] || [];
+  // Map our states to handle the FCT (Abuja) case if necessary
+  const displayState = selectedState === "Abuja" ? "FCT (Abuja)" : selectedState;
+  const hubsRaw = branchAddresses[displayState] || [];
+  
+  // Transform raw addresses into hub objects consistent with our components
+  const hubs = hubsRaw.map((address, index) => ({
+    name: address.split(',')[0], // Use the first part of address as a name
+    address: address
+  }));
+
   const hasHubs = hubs.length > 0;
-  const states = Object.keys(hubsByState);
+  const states = Object.keys(branchAddresses);
 
   const handleStateChange = (e) => {
     onSelectState(e.target.value);
@@ -47,8 +56,9 @@ const HubSelection = ({ selectedState, selectedHub, onSelectState, onSelectHub, 
               onChange={handleStateChange}
               className="block w-full rounded-xl border-gray-200 border-2 bg-gray-50/30 pl-11 pr-11 py-4 text-gray-900 shadow-sm transition-all focus:border-emerald-600 focus:ring-4 focus:ring-emerald-500/10 outline-none font-medium appearance-none"
             >
+              <option className="text-black bg-white" value="" disabled>Choose your state</option>
               {states.map((state, index) => (
-                <option key={index} value={state}>
+                <option className="text-black bg-white" key={index} value={state}>
                   {state}
                 </option>
               ))}
@@ -74,9 +84,9 @@ const HubSelection = ({ selectedState, selectedHub, onSelectState, onSelectHub, 
                 onChange={handleHubChange}
                 className="block w-full rounded-xl border-gray-200 border-2 bg-gray-50/30 pl-11 pr-11 py-4 text-gray-900 shadow-sm transition-all focus:border-emerald-600 focus:ring-4 focus:ring-emerald-500/10 outline-none font-medium appearance-none"
               >
-                <option value="" disabled>Select a hub near you</option>
+                <option className="text-black bg-white" value="" disabled>Select a hub near you</option>
                 {hubs.map((hub, index) => (
-                  <option key={index} value={hub.name}>
+                  <option className="text-black bg-white" key={index} value={hub.name}>
                     {hub.name}
                   </option>
                 ))}
@@ -88,21 +98,21 @@ const HubSelection = ({ selectedState, selectedHub, onSelectState, onSelectHub, 
             
             {selectedHub && (
               <div className="p-4 bg-emerald-50/50 rounded-xl border border-emerald-100 mt-4 animate-in fade-in slide-in-from-top-2 duration-300">
-                 <p className="text-xs font-bold text-emerald-700 uppercase tracking-wider mb-1">Hub Address</p>
-                 <p className="text-sm text-emerald-900 leading-relaxed font-sans font-medium">
+                 <p className="text-xs font-bold text-emerald-700 uppercase tracking-wider mb-1">Hub Full Address</p>
+                 <p className="text-sm text-emerald-900 leading-relaxed font-sans font-medium italic">
                     {selectedHub.address}
                  </p>
               </div>
             )}
           </div>
-        ) : (
+        ) : selectedState && (
           <div className="p-8 text-center bg-amber-50 rounded-2xl border-2 border-amber-100 border-dashed animate-in fade-in zoom-in-95 duration-500">
              <div className="inline-flex items-center justify-center h-16 w-16 bg-amber-100 rounded-full text-amber-600 mb-4 mx-auto">
                 <FiMapPin size={32} />
              </div>
-             <p className="text-amber-900 font-semibold mb-2">No Hub Available in {selectedState}</p>
+             <p className="text-amber-900 font-semibold mb-2">No Hub Service in {selectedState} yet</p>
              <p className="text-sm text-amber-700 leading-relaxed italic">
-                You can still proceed with your application, and an agent will reach out to you within 72 hours to 1 week.
+                You can still proceed with your application. Our remote agents will reach out to you within 48-72 hours.
              </p>
           </div>
         )}

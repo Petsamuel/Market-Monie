@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import HubSelection from "./components/loan-form/hub-selection";
 import PersonalDetails from "./components/loan-form/personal-details";
 import AddressDetails from "./components/loan-form/address-details";
+import IdentificationDetails from "./components/loan-form/identification-details";
 import BusinessDetails from "./components/loan-form/business-details";
 import FinancialDetails from "./components/loan-form/financial-details";
 import ExistingLoans from "./components/loan-form/existing-loans";
@@ -14,7 +15,7 @@ const LoanApplication = () => {
   const navigate = useNavigate();
   
   // Step management
-  const [step, setStep] = useState(0); // 0: Hub, 1: Personal, 2: Address, 3: Business, 4: Financial, 5: Loans, 6: Review, 7: Success
+  const [step, setStep] = useState(0); // 0: Hub, 1: Personal, 2: Address, 3: Identification, 4: Business, 5: Financial, 6: Loans, 7: Review, 8: Success
 
   // Form State
   const [formData, setFormData] = useState({
@@ -35,23 +36,30 @@ const LoanApplication = () => {
     lga: "",
     area: "",
     houseAddress: "",
-    idFile: null,
 
-    // Step 3: Business
+    // Step 3: Identification
+    idType: "",
+    idNumber: "",
+    idFile: null,
+    proofType: "",
+    proofFile: null,
+
+    // Step 4: Business
     businessName: "",
     businessState: "",
     businessLga: "",
     businessArea: "",
     businessType: "",
+    otherBusiness: "",
     businessYears: "",
     dailySales: "",
 
-    // Step 4: Financial
+    // Step 5: Financial
     loanAmount: "",
     bankName: "",
     accountNumber: "",
 
-    // Step 5: Loans
+    // Step 6: Loans
     hasExistingLoan: null,
     loans: []
   });
@@ -109,7 +117,7 @@ const LoanApplication = () => {
       );
     case 3:
       return (
-        <BusinessDetails 
+        <IdentificationDetails 
           data={formData} 
           onChange={updateFormData}
           onContinue={nextStep}
@@ -118,7 +126,7 @@ const LoanApplication = () => {
       );
     case 4:
       return (
-        <FinancialDetails 
+        <BusinessDetails 
           data={formData} 
           onChange={updateFormData}
           onContinue={nextStep}
@@ -127,7 +135,7 @@ const LoanApplication = () => {
       );
     case 5:
       return (
-        <ExistingLoans 
+        <FinancialDetails 
           data={formData} 
           onChange={updateFormData}
           onContinue={nextStep}
@@ -136,6 +144,15 @@ const LoanApplication = () => {
       );
     case 6:
       return (
+        <ExistingLoans 
+          data={formData} 
+          onChange={updateFormData}
+          onContinue={nextStep}
+          onBack={prevStep}
+        />
+      );
+    case 7:
+      return (
         <ReviewApplication 
           data={formData} 
           onEdit={goToStep}
@@ -143,7 +160,7 @@ const LoanApplication = () => {
           onCancel={handleCancel}
         />
       );
-    case 7:
+    case 8:
       return (
         <ApplicationSuccess referenceId="MM-94202" />
       );

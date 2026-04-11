@@ -17,6 +17,12 @@ import PhoneVerification from "./(onboarding)/phone-verification";
 import BvnVerification from "./(onboarding)/bvn-verification";
 import LoanApplication from "./(onboarding)/loan-application";
 
+// Dashboard Components
+import DashboardLayout from "./(dashboard)/layout";
+import Dashboard from "./(dashboard)/Dashboard";
+import Analytics from "./(dashboard)/Analytics";
+import ComingSoon from "./(dashboard)/ComingSoon";
+
 // Create a client
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -58,6 +64,19 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/verify-email" element={<VerifyEmail />} />
+          </Route>
+
+          {/* Dashboard Routes */}
+          <Route element={<DashboardLayout />}>
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/dashboard/loan-requests" element={<ComingSoon title="My Loan Request" />} />
+            <Route path="/dashboard/loan-requests/history" element={<ComingSoon title="Loan History" />} />
+            <Route path="/dashboard/loan-requests/tracker" element={<ComingSoon title="Status Tracker" />} />
+            <Route path="/dashboard/loan-requests/details" element={<ComingSoon title="Loan Details" />} />
+            <Route path="/dashboard/analytics" element={<Analytics />} />
+            <Route path="/dashboard/settings" element={<ComingSoon title="Settings" />} />
+            <Route path="/dashboard/support" element={<ComingSoon title="Support Center" />} />
+            <Route path="/dashboard/make-payment" element={<ComingSoon title="Make Payment" />} />
           </Route>
 
           {/* Fallback */}

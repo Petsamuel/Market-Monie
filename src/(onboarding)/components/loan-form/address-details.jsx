@@ -6,13 +6,14 @@ import { locationService } from "../../../services/locationService";
 const AddressDetails = ({ data, onChange, onContinue, onBack }) => {
   // Query for states
   const { data: states = [], isLoading: loadingStates } = useQuery({
-    queryKey: ['states'],
+    queryKey: ['location-states'],
     queryFn: () => locationService.getStates(),
   });
+  console.log("states=>", states)
 
   // Query for LGAs (enabled only if state is selected)
   const { data: lgas = [], isFetching: loadingLgas } = useQuery({
-    queryKey: ['lgas', data.state],
+    queryKey: ['location-lgas', data.state],
     queryFn: () => locationService.getLGAs(data.state),
     enabled: !!data.state,
   });
@@ -66,34 +67,6 @@ const AddressDetails = ({ data, onChange, onContinue, onBack }) => {
           placeholder="Enter house number"
           icon={<FiHome />} 
         />
-
-        <div className="pt-4">
-           <label className="text-xs font-bold text-gray-400 uppercase tracking-widest ml-1 block mb-4">
-            Upload Identification
-          </label>
-          <div className="relative group cursor-pointer">
-            <input 
-              type="file" 
-              className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10" 
-              onChange={(e) => onChange('idFile', e.target.files[0])}
-            />
-            <div className={`p-8 rounded-2xl border-2 border-dashed transition-all flex flex-col items-center justify-center gap-3 ${
-              data.idFile ? "bg-emerald-50 border-emerald-300" : "bg-gray-50/50 border-gray-200 hover:border-emerald-300 group-hover:bg-emerald-50/30"
-            }`}>
-              <div className={`h-12 w-12 rounded-full flex items-center justify-center mb-2 ${
-                data.idFile ? "bg-emerald-100 text-emerald-600" : "bg-gray-100 text-gray-400"
-              }`}>
-                {data.idFile ? <FiFileText size={24} /> : <FiUploadCloud size={24} />}
-              </div>
-              <p className={`text-sm font-bold ${data.idFile ? "text-emerald-700" : "text-gray-900"}`}>
-                {data.idFile ? data.idFile.name : "Click to upload ID"}
-              </p>
-              <p className="text-xs text-gray-500 text-center">
-                 Driver's license, NIN, or International Passport
-              </p>
-            </div>
-          </div>
-        </div>
 
         <div className="flex gap-4 mt-10">
           <button
@@ -152,9 +125,9 @@ const SelectGroup = ({ label, value, onChange, options, icon, disabled = false }
           disabled ? "opacity-50 grayscale cursor-not-allowed" : ""
         }`}
       >
-        <option value="">{disabled && !value ? "Loading..." : `Select ${label}`}</option>
+        <option className="text-black bg-white" value="">{disabled && !value ? "Loading..." : `Select ${label}`}</option>
         {options.map((opt, i) => (
-          <option key={i} value={opt}>{opt}</option>
+          <option className="text-black bg-white" key={i} value={opt}>{opt}</option>
         ))}
       </select>
       <div className="absolute inset-y-0 right-0 flex items-center pr-4 pointer-events-none text-gray-400">

@@ -8,7 +8,7 @@ const ApplicationSuccess = ({ referenceId }) => {
     <div className="animate-in fade-in zoom-in-95 duration-700 py-10">
       <div className="flex flex-col items-center text-center">
         <div className="relative mb-10">
-          <div className="h-32 w-32 bg-emerald-100 rounded-full flex items-center justify-center animate-pulse">
+          <div className="h-32 w-32  rounded-full flex items-center justify-center ">
             <div className="h-24 w-24 bg-emerald-600 rounded-full flex items-center justify-center text-white shadow-2xl shadow-emerald-200">
               <FiCheckCircle size={48} />
             </div>
@@ -34,14 +34,14 @@ const ApplicationSuccess = ({ referenceId }) => {
           <div className="flex gap-4 p-4 bg-gray-50 rounded-2xl border border-gray-100 text-left">
             <FiSmartphone className="shrink-0 text-emerald-600 mt-1" size={20} />
             <p className="text-sm text-gray-600 leading-relaxed">
-              You’ve received an SMS with your reference ID. Please log in to your account to track updates.
+              You’ve received an SMS/Email with your reference ID. Please log in to your account to track updates.
             </p>
           </div>
         </div>
 
         <button
           onClick={() => navigate('/dashboard')}
-          className="mt-12 flex items-center justify-center gap-2 w-full max-w-xs rounded-xl bg-gray-900 py-4 text-sm font-bold text-white shadow-xl hover:bg-black transition-all font-poppins group"
+          className="mt-12 flex items-center justify-center gap-2 w-full max-w-xs rounded-xl bg-green-600 py-4 text-sm font-bold text-white shadow-xl hover:bg-green-500 transition-all font-poppins group"
         >
           Take Me to Dashboard
           <FiArrowRight className="transition-transform group-hover:translate-x-1" />

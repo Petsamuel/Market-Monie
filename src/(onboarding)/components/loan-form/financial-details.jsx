@@ -1,4 +1,5 @@
 import { FiDollarSign, FiCreditCard, FiActivity } from "react-icons/fi";
+import { banks } from "../../../store/Data";
 
 const FinancialDetails = ({ data, onChange, onContinue, onBack }) => {
   return (
@@ -36,7 +37,7 @@ const FinancialDetails = ({ data, onChange, onContinue, onBack }) => {
           label="What is the name of your bank?" 
           value={data.bankName} 
           onChange={(e) => onChange('bankName', e.target.value)}
-          options={["GTBank", "First Bank", "Zenith Bank", "Access Bank", "UBA", "Kuda"]}
+          options={banks}
           icon={<FiActivity />} 
         />
 
@@ -58,7 +59,7 @@ const FinancialDetails = ({ data, onChange, onContinue, onBack }) => {
           <button
             onClick={onContinue}
             disabled={!data.loanAmount || !data.bankName || data.accountNumber.length < 10}
-            className="flex-[2] rounded-xl bg-emerald-600 py-4 text-sm font-semibold text-white shadow-xl shadow-emerald-200/50 hover:bg-emerald-500 disabled:opacity-50 transition-all font-poppins"
+            className="flex-2 rounded-xl bg-emerald-600 py-4 text-sm font-semibold text-white shadow-xl shadow-emerald-200/50 hover:bg-emerald-500 disabled:opacity-50 transition-all font-poppins"
           >
             Continue
           </button>
@@ -88,7 +89,7 @@ const InputGroup = ({ label, value, onChange, icon, placeholder }) => (
   </div>
 );
 
-const SelectGroup = ({ label, value, onChange, options, icon }) => (
+const SelectGroup = ({ label, value, onChange, options, icon, disabled = false }) => (
   <div className="space-y-2">
     <label className="text-xs font-bold text-gray-400 uppercase tracking-widest ml-1">
       {label}
@@ -100,11 +101,14 @@ const SelectGroup = ({ label, value, onChange, options, icon }) => (
       <select
         value={value}
         onChange={onChange}
-        className="block w-full rounded-xl border-gray-200 border-2 bg-gray-50/30 pl-11 pr-4 py-4 text-gray-900 shadow-sm transition-all focus:border-emerald-600 focus:ring-4 focus:ring-emerald-500/10 outline-none font-medium appearance-none"
+        disabled={disabled}
+        className={`block w-full rounded-xl border-gray-200 border-2 bg-gray-50/30 pl-11 pr-4 py-4 text-gray-900 shadow-sm transition-all focus:border-emerald-600 focus:ring-4 focus:ring-emerald-500/10 outline-none font-medium appearance-none ${
+          disabled ? "opacity-50 grayscale cursor-not-allowed" : ""
+        }`}
       >
-        <option value="">Select Bank</option>
+        <option className="text-black bg-white" value="">{disabled && !value ? "Loading..." : `Select ${label}`}</option>
         {options.map((opt, i) => (
-          <option key={i} value={opt}>{opt}</option>
+          <option className="text-black bg-white" key={i} value={opt}>{opt}</option>
         ))}
       </select>
       <div className="absolute inset-y-0 right-0 flex items-center pr-4 pointer-events-none text-gray-400">

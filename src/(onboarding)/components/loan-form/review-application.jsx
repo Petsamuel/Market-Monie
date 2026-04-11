@@ -21,17 +21,21 @@ const ReviewApplication = ({ data, onEdit, onSubmit, onCancel }) => {
 
         <ReviewSection title="Residential Address" icon={<FiHome />} onEdit={() => onEdit(2)}>
           <InfoItem label="Address" value={`${data.houseAddress || ''} ${data.area || ''}, ${data.lga}, ${data.state}`} />
-          <InfoItem label="ID Type" value={data.idFile ? data.idFile.name : "Uploaded"} />
         </ReviewSection>
 
-        <ReviewSection title="Business Info" icon={<FiBriefcase />} onEdit={() => onEdit(3)}>
+        <ReviewSection title="Identification & Docs" icon={<FiFileText />} onEdit={() => onEdit(3)}>
+          <InfoItem label="ID Details" value={`${data.idType} (${data.idNumber})`} />
+          <InfoItem label="Proof of Res." value={data.proofType} />
+        </ReviewSection>
+
+        <ReviewSection title="Business Info" icon={<FiBriefcase />} onEdit={() => onEdit(4)}>
           <InfoItem label="Business Name" value={data.businessName} />
-          <InfoItem label="Business Type" value={data.businessType} />
+          <InfoItem label="Business Type" value={data.businessType === "Other" ? data.otherBusiness : data.businessType} />
           <InfoItem label="Daily Sales" value={`₦${data.dailySales}`} />
           <InfoItem label="Location" value={`${data.businessArea || ''}, ${data.businessLga}, ${data.businessState}`} />
         </ReviewSection>
 
-        <ReviewSection title="Loan Details" icon={<FiCreditCard />} onEdit={() => onEdit(4)}>
+        <ReviewSection title="Loan Details" icon={<FiCreditCard />} onEdit={() => onEdit(5)}>
           <InfoItem label="Loan Amount" value={`₦${Number(data.loanAmount).toLocaleString()}`} />
           <InfoItem label="Bank Account" value={`${data.bankName} - ${data.accountNumber}`} />
           <InfoItem label="Existing Loans" value={data.hasExistingLoan ? `${data.loans.length} Loan(s)` : "None"} />

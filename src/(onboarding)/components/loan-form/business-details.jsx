@@ -6,13 +6,13 @@ import { locationService } from "../../../services/locationService";
 const BusinessDetails = ({ data, onChange, onContinue, onBack }) => {
   // Query for states
   const { data: states = [], isLoading: loadingStates } = useQuery({
-    queryKey: ['states'],
+    queryKey: ['location-states'],
     queryFn: () => locationService.getStates(),
   });
 
   // Query for LGAs (enabled only if state is selected)
   const { data: lgas = [], isFetching: loadingLgas } = useQuery({
-    queryKey: ['lgas', data.businessState],
+    queryKey: ['location-lgas', data.businessState],
     queryFn: () => locationService.getLGAs(data.businessState),
     enabled: !!data.businessState,
   });
@@ -94,6 +94,18 @@ const BusinessDetails = ({ data, onChange, onContinue, onBack }) => {
           icon={<FiBriefcase />} 
         />
 
+        {data.businessType === "Other" && (
+          <div className="animate-in slide-in-from-top-2 duration-300">
+            <InputGroup 
+              label="Please specify your business type" 
+              value={data.otherBusiness} 
+              onChange={(e) => onChange('otherBusiness', e.target.value)}
+              placeholder="e.g. Tailoring, Graphic Design"
+              icon={<FiType />} 
+            />
+          </div>
+        )}
+
         <div className="grid grid-cols-1 gap-6">
           <SelectGroup 
             label="How many years have you been in business?" 
@@ -120,7 +132,14 @@ const BusinessDetails = ({ data, onChange, onContinue, onBack }) => {
           </button>
           <button
             onClick={onContinue}
-            disabled={!data.businessName || !data.businessState || !data.businessLga || !data.businessType || !data.dailySales}
+            disabled={
+              !data.businessName || 
+              !data.businessState || 
+              !data.businessLga || 
+              !data.businessType || 
+              (data.businessType === "Other" && !data.otherBusiness) ||
+              !data.dailySales
+            }
             className="flex-2 rounded-xl bg-emerald-600 py-4 text-sm font-semibold text-white shadow-xl shadow-emerald-200/50 hover:bg-emerald-500 disabled:opacity-50 transition-all font-poppins"
           >
             Continue
@@ -168,9 +187,9 @@ const SelectGroup = ({ label, value, onChange, options, icon, disabled = false }
           disabled ? "opacity-50 grayscale cursor-not-allowed" : ""
         }`}
       >
-        <option value="">{disabled && !value ? "Loading..." : `Select ${label}`}</option>
+        <option className="text-black bg-white" value="">{disabled && !value ? "Loading..." : `Select ${label}`}</option>
         {options.map((opt, i) => (
-          <option key={i} value={opt}>{opt}</option>
+          <option className="text-black bg-white" key={i} value={opt}>{opt}</option>
         ))}
       </select>
       <div className="absolute inset-y-0 right-0 flex items-center pr-4 pointer-events-none text-gray-400">

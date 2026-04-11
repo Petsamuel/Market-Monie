@@ -5,7 +5,7 @@
 
 export const locationService = {
   /**
-   * Fetches all Nigerian states and their LGAs
+   * Fetches all Nigerian states
    */
   async getLocations() {
     try {
@@ -28,7 +28,7 @@ export const locationService = {
    */
   async getStates() {
     const locations = await this.getLocations();
-    return locations.map(l => l.state || l.name);
+    return locations.map(l => typeof l === 'string' ? l : (l.state || l.name));
   },
 
   /**
@@ -36,8 +36,18 @@ export const locationService = {
    */
   async getLGAs(stateName) {
     if (!stateName) return [];
-    const locations = await this.getLocations();
-    const stateData = locations.find(l => (l.state || l.name) === stateName);
-    return stateData ? stateData.lgas : [];
+    
+    try {
+      const response = await fetch(`https://nga-states-lga.onrender.com/?state=${stateName}`);
+      if (!response.ok) throw new Error("Failed to fetch LGAs");
+      const data = await response.json();
+      if (Array.isArray(data) && data.length > 0) return data;
+      throw new Error("Invalid LGA data");
+    } catch (error) {
+      console.error("LGA API Error:", error);
+      const locations = await this.getLocations();
+      const stateData = locations.find(l => typeof l !== 'string' && (l.state || l.name) === stateName);
+      return stateData ? stateData.lgas : [];
+    }
   }
 };
