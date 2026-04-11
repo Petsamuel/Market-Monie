@@ -1,14 +1,6 @@
 import './App.css'
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import HubSelection from "./Screens/HubSelection";
 import SelectState from "./Screens/SelectState";
-import CreateAccount from "./Screens/CreateAccount";
-import PersonalDetails from "./Screens/personalDetails";
-import Address from "./Screens/address";
-import Business from './Screens/business';
-import Loan from './Screens/loan';
-import AccountCreation from './Screens/AccountCreation';
-import Preview from './Screens/PreviewPage'
 
 // New Auth Components
 import AuthLayout from "./(auth)/layout";
@@ -16,20 +8,25 @@ import Login from "./(auth)/login/login";
 import Register from "./(auth)/register/register";
 import VerifyEmail from "./(auth)/register/verify-email";
 import SuccessScreen from "./components/ui/success-screen";
+
+// New Onboarding Components
 import OnboardingLayout from "./(onboarding)/layout";
 import PhoneVerification from "./(onboarding)/phone-verification";
 import BvnVerification from "./(onboarding)/bvn-verification";
+import LoanApplication from "./(onboarding)/loan-application";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
+        {/* Entry Point */}
         <Route path="/" element={<SelectState />} />
         
-        {/* Onboarding Routes */}
+        {/* Onboarding & Application Routes */}
         <Route element={<OnboardingLayout />}>
           <Route path="/onboarding/phone" element={<PhoneVerification />} />
           <Route path="/onboarding/bvn" element={<BvnVerification />} />
+          <Route path="/apply/hub" element={<LoanApplication />} />
         </Route>
         
         {/* Standalone Success Screens */}
@@ -44,25 +41,13 @@ function App() {
 
         {/* Auth Routes */}
         <Route element={<AuthLayout />}>
-
-
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/verify-email" element={<VerifyEmail />} />
         </Route>
 
-
-        <Route path="/apply/hub" element={<HubSelection />} />
-        <Route path="/create-account" element={<CreateAccount />} />
-        <Route path="/account-creation" element={<AccountCreation />} />
-        <Route path="/personal-details" element={<PersonalDetails />} />
-        <Route path="/address" element={<Address />} />
-        <Route path="/business" element={<Business />} />
-        <Route path="/loan" element={<Loan />} />
-        <Route path="/preview" element={<Preview />} />
-        
-        {/* Redirect old login path if necessary, or just overwrite */}
-        {/* <Route path='/old-login' element={<OldLogin />} /> */}
+        {/* Fallback */}
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </BrowserRouter>
   );
