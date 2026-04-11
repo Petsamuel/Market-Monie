@@ -27,8 +27,8 @@ const AuthLayout = () => {
 
   return (
     <div className="flex min-h-screen bg-white">
-      {/* Left Side: Carousel */}
-      <div className="hidden lg:relative lg:flex lg:w-2/3 overflow-hidden">
+      {/* Left Side: Carousel (Sticky — stays fixed while page scrolls) */}
+      <div className="hidden lg:flex lg:w-2/3 lg:sticky lg:top-0 lg:h-screen overflow-hidden">
         {carouselItems.map((item, index) => (
           <div
             key={index}
@@ -37,7 +37,7 @@ const AuthLayout = () => {
             }`}
           >
             <img
-              className="absolute inset-0 h-full w-full object-cover overflow-hidden"
+              className="absolute inset-0 h-full w-full object-cover"
               src={item.image}
               alt={item.title}
             />
@@ -91,8 +91,8 @@ const AuthLayout = () => {
         </div>
       </div>
 
-      {/* Right Side: Form Content */}
-      <div className="flex flex-1 flex-col justify-center px-4 py-12 sm:px-6 lg:flex-none lg:px-20 xl:px-20 bg-white overflow-y-auto">
+      {/* Right Side: Form Content (Scrolls with the page) */}
+      <div className="flex flex-1 flex-col justify-center px-4 py-12 sm:px-6 lg:flex-none lg:px-20 xl:px-20 bg-white">
         <div className="mx-auto w-full max-w-lg lg:w-md">
           <div className="mb-10 lg:hidden text-left">
              <img src="/market-monie.png" alt="Market Monie" className="h-8 w-auto" />

@@ -1,12 +1,29 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { FiArrowLeft, FiShield, FiAlertCircle } from "react-icons/fi";
+import { FiArrowLeft, FiShield, FiAlertCircle, FiCheck } from "react-icons/fi";
 import { toast } from "sonner";
+import BvnConfirmation from "./components/bvn-confirmation";
 
 const BvnVerification = () => {
   const navigate = useNavigate();
   const [bvn, setBvn] = useState("");
   const [isVerifying, setIsVerifying] = useState(false);
+  const [showConfirmation, setShowConfirmation] = useState(false);
+  const [userData, setUserData] = useState(null);
+  const [isConfirmed, setIsConfirmed] = useState(false);
+  const [redirectTimer, setRedirectTimer] = useState(5);
+
+  useEffect(() => {
+    let interval;
+    if (isConfirmed && redirectTimer > 0) {
+      interval = setInterval(() => {
+        setRedirectTimer((prev) => prev - 1);
+      }, 1000);
+    } else if (isConfirmed && redirectTimer === 0) {
+      navigate("/apply/hub");
+    }
+    return () => clearInterval(interval);
+  }, [isConfirmed, redirectTimer, navigate]);
 
   const handleBvnChange = (e) => {
     const value = e.target.value.replace(/\D/g, "");
@@ -23,13 +40,66 @@ const BvnVerification = () => {
     }
 
     setIsVerifying(true);
+    
     // Mock API call
     setTimeout(() => {
       setIsVerifying(false);
-      toast.success("BVN Verified Successfully!");
-      navigate("/onboarding/kyc-success"); 
+      
+      if (bvn === "12345678901") {
+        setUserData({
+          photo: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+          firstname: "Samuel",
+          lastname: "Peter",
+          middlename: "Blessing",
+          dob: "27th Jan 2000"
+        });
+        setShowConfirmation(true);
+        toast.success("BVN Details Retrieved");
+      } else {
+        toast.error("Invalid BVN. Please check and try again.");
+      }
     }, 2000);
   };
+
+  const handleConfirm = () => {
+    setIsConfirmed(true);
+  };
+
+  if (isConfirmed) {
+    return (
+      <div className="flex flex-col items-center justify-center text-center py-10 animate-in fade-in duration-500">
+        {/* Success Icon Wrapper */}
+        <div className="relative mb-8">
+          <div className="h-28 w-28 bg-emerald-100 rounded-full flex items-center justify-center">
+            <div className="h-20 w-20 bg-emerald-600 rounded-full flex items-center justify-center text-white shadow-lg">
+              <FiCheck size={36} strokeWidth={3} />
+            </div>
+          </div>
+        </div>
+
+        <h2 className="text-3xl font-bold font-poppins text-gray-900">
+           BVN Verified
+        </h2>
+        <p className="mt-4 text-gray-500 text-lg leading-relaxed">
+          Your identity details have been successfully confirmed.
+        </p>
+
+        <p className="mt-12 text-[#6366f1] font-semibold text-lg tracking-wide">
+          Redirecting in {redirectTimer}...
+        </p>
+      </div>
+    );
+  }
+
+  if (showConfirmation) {
+    return (
+      <BvnConfirmation 
+        userData={userData} 
+        onConfirm={handleConfirm} 
+        onBack={() => setShowConfirmation(false)} 
+      />
+    );
+  }
 
   return (
     <div className="animate-in fade-in slide-in-from-bottom-4 duration-700">
