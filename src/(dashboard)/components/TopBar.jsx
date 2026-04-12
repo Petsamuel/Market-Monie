@@ -1,7 +1,7 @@
-import { FiBell, FiUser, FiSearch } from "react-icons/fi";
+import { FiBell, FiUser, FiSearch, FiMenu } from "react-icons/fi";
 import { useLocation } from "react-router-dom";
 
-const TopBar = ({ user, loanStage }) => {
+const TopBar = ({ user, loanStage, toggleMobile }) => {
   const location = useLocation();
 
   const getTitle = () => {
@@ -14,21 +14,30 @@ const TopBar = ({ user, loanStage }) => {
   };
 
   return (
-    <header className="h-20 bg-white border-b border-gray-100 px-8 flex items-center justify-between sticky top-0 z-30 shrink-0">
-      {/* Left: Greeting & Title */}
-      <div className="flex flex-col">
-        <div className="flex items-center gap-2 mb-0.5">
-          <h1 className="text-xl font-bold text-gray-900 font-poppins">
-            {loanStage === 'NO_LOAN' ? (
-              <>Hello {user.firstname}, you can borrow up to <span className="text-emerald-600">₦10,000,000</span></>
-            ) : (
-              <>Hello {user.firstname}</>
-            )}
-          </h1>
+    <header className="h-20 bg-white border-b border-gray-100 px-4 md:px-8 flex items-center justify-between sticky top-0 z-30 shrink-0">
+      {/* Left: Mobile Toggle & Greeting */}
+      <div className="flex items-center gap-4">
+        <button 
+          onClick={toggleMobile}
+          className="lg:hidden p-2 hover:bg-gray-100 rounded-xl text-gray-600 transition-colors"
+        >
+          <FiMenu size={20} />
+        </button>
+        
+        <div className="flex flex-col">
+          <div className="flex items-center gap-2 mb-0.5">
+            <h1 className="text-sm md:text-xl font-bold text-gray-900 font-poppins line-clamp-1">
+              {loanStage === 'NO_LOAN' ? (
+                <>Hello {user.firstname}, you can borrow up to <span className="text-emerald-600">₦10,000,000</span></>
+              ) : (
+                <>Hello {user.firstname}</>
+              )}
+            </h1>
+          </div>
+          <p className="text-[9px] md:text-[10px] text-emerald-600 font-bold uppercase tracking-[0.2em]">
+            {getTitle()}
+          </p>
         </div>
-        <p className="text-[10px] text-emerald-600 font-bold uppercase tracking-[0.2em]">
-          {getTitle()}
-        </p>
       </div>
 
       {/* Right: Actions */}
