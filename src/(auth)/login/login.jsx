@@ -40,17 +40,17 @@ const Login = () => {
         <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
           <div>
             <label className="block text-sm font-medium leading-6 text-gray-900">
-              Email address
+              Phone Number
             </label>
             <div className="mt-2">
               <input
-                {...register("email")}
-                type="email"
+                {...register("phone")}
+                type="tel"
                 className="block w-full rounded-lg border-0 py-3.5 px-4 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-emerald-600 sm:text-sm sm:leading-6 bg-gray-50/50"
-                placeholder="you@example.com"
+                placeholder="e.g. 08123456789"
               />
-              {errors.email && (
-                <p className="mt-2 text-xs text-red-500 font-medium">{errors.email.message}</p>
+              {errors.phone && (
+                <p className="mt-2 text-xs text-red-500 font-medium">{errors.phone.message}</p>
               )}
             </div>
           </div>

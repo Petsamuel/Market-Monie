@@ -8,7 +8,7 @@ import SelectState from "./Screens/SelectState";
 import AuthLayout from "./(auth)/layout";
 import Login from "./(auth)/login/login";
 import Register from "./(auth)/register/register";
-import VerifyEmail from "./(auth)/register/verify-email";
+import VerifyOTP from "./(auth)/register/verify-otp";
 import ForgotPassword from "./(auth)/forgot-password/forgot-password";
 import SuccessScreen from "./components/ui/success-screen";
 
@@ -25,6 +25,7 @@ import Analytics from "./(dashboard)/Analytics";
 import ComingSoon from "./(dashboard)/ComingSoon";
 
 import LandingPage from "./LandingPage";
+import LandingPage2 from "./LandingPage2";
 
 // Create a client
 const queryClient = new QueryClient({
@@ -44,7 +45,8 @@ function AnimatedRoutes() {
     <AnimatePresence mode="wait">
       <Routes location={location} key={location.pathname}>
         {/* Entry Point */}
-        <Route path="/" element={<LandingPage />} />
+        <Route path="/" element={<LandingPage2 />} />
+        <Route path="/landing-2" element={<LandingPage2 />} />
         <Route path="/select-state" element={<SelectState />} />
         
         {/* Onboarding & Application Routes */}
@@ -68,7 +70,7 @@ function AnimatedRoutes() {
         <Route element={<AuthLayout />}>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/verify-email" element={<VerifyEmail />} />
+          <Route path="/verify-otp" element={<VerifyOTP />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
         </Route>
 

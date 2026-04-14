@@ -1,5 +1,7 @@
 import { FiCheckCircle, FiClock, FiSmartphone, FiArrowRight } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
+import { isGuestGlobal } from "../../../store/Data";
+
 
 const ApplicationSuccess = ({ referenceId }) => {
   const navigate = useNavigate();
@@ -39,13 +41,28 @@ const ApplicationSuccess = ({ referenceId }) => {
           </div>
         </div>
 
-        <button
-          onClick={() => navigate('/dashboard')}
-          className="mt-12 flex items-center justify-center gap-2 w-full max-w-xs rounded-xl bg-green-600 py-4 text-sm font-bold text-white shadow-xl hover:bg-green-500 transition-all font-poppins group"
-        >
-          Take Me to Dashboard
-          <FiArrowRight className="transition-transform group-hover:translate-x-1" />
-        </button>
+        {!isGuestGlobal ? (
+          <button
+            onClick={() => navigate('/dashboard')}
+            className="mt-12 flex items-center justify-center gap-2 w-full max-w-xs rounded-xl bg-green-600 py-4 text-sm font-bold text-white shadow-xl hover:bg-green-500 transition-all font-poppins group"
+          >
+            Take Me to Dashboard
+            <FiArrowRight className="transition-transform group-hover:translate-x-1" />
+          </button>
+        ) : (
+          <div className="mt-12 space-y-4 w-full max-w-xs">
+            <button
+              onClick={() => navigate('/register')}
+              className="flex items-center justify-center gap-2 w-full rounded-xl bg-emerald-600 py-4 text-sm font-bold text-white shadow-xl hover:bg-emerald-500 transition-all font-poppins group"
+            >
+              Create Your Account First
+              <FiArrowRight className="transition-transform group-hover:translate-x-1" />
+            </button>
+            <p className="text-[10px] text-gray-400 font-medium px-4">
+              Register now to track your application status and access your business dashboard.
+            </p>
+          </div>
+        )}
       </div>
     </div>
   );

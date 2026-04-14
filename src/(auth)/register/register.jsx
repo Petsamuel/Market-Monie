@@ -22,7 +22,7 @@ const Register = () => {
   });
 
   const passwordValue = watch("password", "");
-  const emailValue = watch("email", "");
+  const phoneValue = watch("phone", "");
 
   const calculateStrength = (password) => {
     if (!password) return { score: 0, label: "", color: "bg-gray-200" };
@@ -41,17 +41,17 @@ const Register = () => {
   const isWeak = strength.label === "Weak";
 
   const onSubmit = async (data) => {
-    // Mock check for existing email
-    if (data.email === "exists@gmail.com") {
-      setFormError("email", { 
+    // Mock check for existing phone
+    if (data.phone === "08123456789") {
+      setFormError("phone", { 
         type: "manual", 
-        message: "This email is already registered." 
+        message: "This phone number is already registered." 
       });
       return;
     }
 
     console.log("Register Data:", data);
-    navigate("/verify-email", { state: { email: data.email } });
+    navigate("/verify-otp", { state: { phone: data.phone } });
   };
 
 
@@ -73,26 +73,25 @@ const Register = () => {
         <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
           <div>
             <label className="block text-sm font-medium leading-6 text-gray-900">
-              Email address
+              Phone Number
             </label>
             <div className="mt-2">
               <input
-                {...register("email")}
-                type="email"
+                {...register("phone")}
+                type="tel"
                 className="block w-full rounded-lg border-0 py-3.5 px-4 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-emerald-600 sm:text-sm sm:leading-6 bg-gray-50/50"
-                placeholder="you@example.com"
+                placeholder="e.g. 08123456789"
               />
-              {errors.email && (
+              {errors.phone && (
                 <p className="mt-2 text-xs text-red-500 font-medium leading-relaxed">
-                  {errors.email.message}{" "}
-                  {errors.email.message.includes("registered") && (
+                  {errors.phone.message}{" "}
+                  {errors.phone.message.includes("registered") && (
                     <Link to="/login" className="text-emerald-600 underline hover:text-emerald-500">
                       Log in here
                     </Link>
                   )}
                 </p>
               )}
-
             </div>
           </div>
 

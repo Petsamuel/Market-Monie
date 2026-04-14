@@ -9,19 +9,18 @@ import FinancialDetails from "./components/loan-form/financial-details";
 import ExistingLoans from "./components/loan-form/existing-loans";
 import ReviewApplication from "./components/loan-form/review-application";
 import ApplicationSuccess from "./components/loan-form/success-screen";
+import { selectedStateGlobal, selectedHubGlobal } from "../store/Data";
 
 const LoanApplication = () => {
   const location = useLocation();
   const navigate = useNavigate();
   
-  // Step management
-  const [step, setStep] = useState(0); // 0: Hub, 1: Personal, 2: Address, 3: Identification, 4: Business, 5: Financial, 6: Loans, 7: Review, 8: Success
-
+  
   // Form State
   const [formData, setFormData] = useState({
     // Step 0: Hub
-    hub: null,
-    selectedState: location.state?.state || "Lagos", // Default from previous step if available
+    hub: selectedHubGlobal || null,
+    selectedState: selectedStateGlobal || location.state?.state || "Lagos", 
 
     // Step 1: Personal (Pre-populated from mock BVN/Register data)
     firstname: "Samuel",
@@ -32,7 +31,7 @@ const LoanApplication = () => {
     dob: "2000-01-27",
 
     // Step 2: Address
-    state: location.state?.state || "Lagos",
+    state: selectedStateGlobal || location.state?.state || "Lagos",
     lga: "",
     area: "",
     houseAddress: "",
@@ -63,6 +62,9 @@ const LoanApplication = () => {
     hasExistingLoan: null,
     loans: []
   });
+
+  // Step management - Skip Hub Selection (Step 0) if already selected
+  const [step, setStep] = useState(formData.hub ? 1 : 0); 
 
   const updateFormData = (field, value) => {
     setFormData(prev => ({ ...prev, [field]: value }));

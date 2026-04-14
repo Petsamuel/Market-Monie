@@ -3,30 +3,30 @@ import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { forgotPasswordSchema, otpSchema, resetPasswordSchema } from "../../schemas/auth";
 import { Link, useNavigate } from "react-router-dom";
-import { FiEye, FiEyeOff, FiArrowLeft, FiMail, FiLock, FiCheckCircle } from "react-icons/fi";
+import { FiEye, FiEyeOff, FiArrowLeft, FiSmartphone, FiLock, FiCheckCircle } from "react-icons/fi";
 import { motion, AnimatePresence } from "framer-motion";
 import { InputOTP, InputOTPGroup, InputOTPSlot } from "../../components/ui/input-otp";
 import SuccessScreen from "../../components/ui/success-screen";
 import { toast } from "sonner";
 
 const STAGES = {
-  EMAIL: "EMAIL",
+  PHONE: "PHONE",
   OTP: "OTP",
   RESET: "RESET",
   SUCCESS: "SUCCESS",
 };
 
 const ForgotPassword = () => {
-  const [stage, setStage] = useState(STAGES.EMAIL);
-  const [email, setEmail] = useState("");
+  const [stage, setStage] = useState(STAGES.PHONE);
+  const [phone, setPhone] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-  // Email Form
+  // Phone Form
   const {
-    register: registerEmail,
-    handleSubmit: handleEmailSubmit,
-    formState: { errors: emailErrors, isSubmitting: isEmailSubmitting },
+    register: registerPhone,
+    handleSubmit: handlePhoneSubmit,
+    formState: { errors: phoneErrors, isSubmitting: isPhoneSubmitting },
   } = useForm({
     resolver: zodResolver(forgotPasswordSchema),
   });
@@ -50,11 +50,11 @@ const ForgotPassword = () => {
     resolver: zodResolver(resetPasswordSchema),
   });
 
-  const onEmailSubmit = async (data) => {
+  const onPhoneSubmit = async (data) => {
     // Simulate API call
-    console.log("Sending OTP to:", data.email);
-    setEmail(data.email);
-    toast.success("OTP sent to your email");
+    console.log("Sending OTP to:", data.phone);
+    setPhone(data.phone);
+    toast.success("OTP sent to your phone");
     setStage(STAGES.OTP);
   };
 
@@ -67,7 +67,7 @@ const ForgotPassword = () => {
 
   const onResetSubmit = async (data) => {
     // Simulate API call
-    console.log("Resetting password for:", email);
+    console.log("Resetting password for:", phone);
     toast.success("Password reset successful");
     setStage(STAGES.SUCCESS);
   };
@@ -92,9 +92,9 @@ const ForgotPassword = () => {
   return (
     <div className="w-full">
       <AnimatePresence mode="wait">
-        {stage === STAGES.EMAIL && (
+        {stage === STAGES.PHONE && (
           <motion.div
-            key="email-stage"
+            key="phone-stage"
             variants={containerVariants}
             initial="initial"
             animate="animate"
@@ -113,28 +113,28 @@ const ForgotPassword = () => {
                 Forgot password?
               </h2>
               <p className="mt-2 text-sm text-gray-600 font-poppins">
-                No worries, we'll send you reset instructions.
+                Enter your phone number to receive a reset code.
               </p>
             </div>
 
-            <form onSubmit={handleEmailSubmit(onEmailSubmit)} className="space-y-6">
+            <form onSubmit={handlePhoneSubmit(onPhoneSubmit)} className="space-y-6">
               <div>
                 <label className="block text-sm font-medium leading-6 text-gray-900">
-                  Email address
+                  Phone Number
                 </label>
                 <div className="mt-2 relative">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <FiMail className="h-5 w-5 text-gray-400" />
+                    <FiSmartphone className="h-5 w-5 text-gray-400" />
                   </div>
                   <input
-                    {...registerEmail("email")}
-                    type="email"
+                    {...registerPhone("phone")}
+                    type="tel"
                     className="block w-full rounded-lg border-0 py-3.5 pl-10 pr-4 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-emerald-600 sm:text-sm sm:leading-6 bg-gray-50/50 transition-all"
-                    placeholder="Enter your email"
+                    placeholder="e.g. 08123456789"
                   />
-                  {emailErrors.email && (
+                  {phoneErrors.phone && (
                     <p className="mt-2 text-xs text-red-500 font-medium">
-                      {emailErrors.email.message}
+                      {phoneErrors.phone.message}
                     </p>
                   )}
                 </div>
@@ -142,10 +142,10 @@ const ForgotPassword = () => {
 
               <button
                 type="submit"
-                disabled={isEmailSubmitting}
+                disabled={isPhoneSubmitting}
                 className="flex w-full justify-center rounded-md bg-emerald-600 px-3 py-3.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-emerald-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-600 disabled:opacity-50 transition-all font-poppins"
               >
-                {isEmailSubmitting ? "Sending..." : "Reset password"}
+                {isPhoneSubmitting ? "Sending..." : "Reset password"}
               </button>
             </form>
           </motion.div>
@@ -162,17 +162,17 @@ const ForgotPassword = () => {
           >
             <div>
               <button
-                onClick={() => setStage(STAGES.EMAIL)}
+                onClick={() => setStage(STAGES.PHONE)}
                 className="inline-flex items-center text-sm font-medium text-emerald-600 hover:text-emerald-500 mb-6 group transition-all"
               >
                 <FiArrowLeft className="mr-2 group-hover:-translate-x-1 transition-transform" />
-                Change email
+                Change phone
               </button>
               <h2 className="text-3xl font-bold tracking-tight text-gray-900 font-poppins">
                 Enter OTP
               </h2>
               <p className="mt-2 text-sm text-gray-600 font-poppins">
-                We've sent a 6-digit code to <span className="font-semibold text-gray-900">{email}</span>
+                We've sent a 6-digit code to <span className="font-semibold text-gray-900">{phone}</span>
               </p>
             </div>
 

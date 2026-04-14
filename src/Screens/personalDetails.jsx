@@ -12,7 +12,7 @@ const PersonalDetails = () => {
 
     const [error, setError] = useState(false);
     const { firstName, lastName, phoneNumber, email, dateOfBirth } = formData;
-    const isEmailValid = /\S+@\S+\.\S+/.test(email);
+    const isEmailValid = email.trim() === "" || /\S+@\S+\.\S+/.test(email);
     const isFormValid =
     firstName.trim().length > 0 &&
     lastName.trim().length > 0 &&

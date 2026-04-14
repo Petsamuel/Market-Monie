@@ -1,4 +1,4 @@
-import { FiEdit3, FiUser, FiHome, FiBriefcase, FiCreditCard } from "react-icons/fi";
+import { FiEdit3, FiUser, FiHome, FiBriefcase, FiCreditCard, FiFileText } from "react-icons/fi";
 
 const ReviewApplication = ({ data, onEdit, onSubmit, onCancel }) => {
   return (
