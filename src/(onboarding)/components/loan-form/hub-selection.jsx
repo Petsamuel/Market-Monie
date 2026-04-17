@@ -12,7 +12,7 @@ const HubSelection = ({ selectedState, selectedHub, onSelectState, onSelectHub, 
   // Map our states to handle the FCT (Abuja) case if necessary
   const displayState = selectedState === "Abuja" ? "FCT (Abuja)" : selectedState;
   const hubsRaw = branchAddresses[displayState] || [];
-  
+
   // Transform raw addresses into hub objects consistent with our components
   const hubs = hubsRaw.map((address, index) => ({
     name: address.split(',')[0], // Use the first part of address as a name
@@ -79,12 +79,12 @@ const HubSelection = ({ selectedState, selectedHub, onSelectState, onSelectHub, 
         <div className="inline-flex items-center justify-center p-3 bg-emerald-50 rounded-xl mb-6 text-emerald-600">
           <FiMapPin size={24} />
         </div>
-        
+
         <h2 className="text-3xl font-bold tracking-tight text-gray-900">
           Select Your Hub
         </h2>
         <p className="mt-3 text-gray-600 text-[15px] leading-relaxed">
-          Please select your current state and the nearest Market Monie hub to process your application.
+          Please select your current state and the nearest Market Monie office to process your application.
         </p>
       </div>
 
@@ -92,7 +92,8 @@ const HubSelection = ({ selectedState, selectedHub, onSelectState, onSelectHub, 
         {/* State Selection */}
         <div className="space-y-2">
           <label className="text-xs font-bold text-gray-400 uppercase tracking-widest ml-1">
-             Select State
+            Select
+            the state where your business operates
           </label>
           <div className="relative group" ref={stateDropdownRef}>
             <div className="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none text-gray-400 group-focus-within:text-emerald-600 transition-colors">
@@ -141,7 +142,7 @@ const HubSelection = ({ selectedState, selectedHub, onSelectState, onSelectHub, 
         {hasHubs ? (
           <div className="space-y-2 animate-in fade-in slide-in-from-top-2 duration-500">
             <label className="text-xs font-bold text-gray-400 uppercase tracking-widest ml-1">
-               Available Hubs in {selectedState}
+              Available Hubs in {selectedState}
             </label>
             <div className="relative group" ref={hubDropdownRef}>
               <div className="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none text-gray-400 group-focus-within:text-emerald-600 transition-colors">
@@ -175,25 +176,25 @@ const HubSelection = ({ selectedState, selectedHub, onSelectState, onSelectHub, 
                 </div>
               )}
             </div>
-            
+
             {selectedHub && (
               <div className="p-4 bg-emerald-50/50 rounded-xl border border-emerald-100 mt-4 animate-in fade-in slide-in-from-top-2 duration-300">
-                 <p className="text-xs font-bold text-emerald-700 uppercase tracking-wider mb-1">Hub Full Address</p>
-                 <p className="text-sm text-emerald-900 leading-relaxed font-sans font-medium italic">
-                    {selectedHub.address}
-                 </p>
+                <p className="text-xs font-bold text-emerald-700 uppercase tracking-wider mb-1">Hub Full Address</p>
+                <p className="text-sm text-emerald-900 leading-relaxed font-sans font-medium italic">
+                  {selectedHub.address}
+                </p>
               </div>
             )}
           </div>
         ) : selectedState && (
           <div className="p-8 text-center bg-amber-50 rounded-2xl border-2 border-amber-100 border-dashed animate-in fade-in zoom-in-95 duration-500">
-             <div className="inline-flex items-center justify-center h-16 w-16 bg-amber-100 rounded-full text-amber-600 mb-4 mx-auto">
-                <FiMapPin size={32} />
-             </div>
-             <p className="text-amber-900 font-semibold mb-2">No Hub Service in {selectedState} yet</p>
-             <p className="text-sm text-amber-700 leading-relaxed italic">
-                You can still proceed with your application. Our remote agents will reach out to you within 48-72 hours.
-             </p>
+            <div className="inline-flex items-center justify-center h-16 w-16 bg-amber-100 rounded-full text-amber-600 mb-4 mx-auto">
+              <FiMapPin size={32} />
+            </div>
+            <p className="text-amber-900 font-semibold mb-2">No Hub Service in {selectedState} yet</p>
+            <p className="text-sm text-amber-700 leading-relaxed italic">
+              You can still proceed with your application. Our remote agents will reach out to you within 5 working days.
+            </p>
           </div>
         )}
 

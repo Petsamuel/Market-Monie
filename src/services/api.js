@@ -4,7 +4,7 @@ export const apiClient = async (endpoint, { body, ...customConfig } = {}) => {
   const headers = { 'Content-Type': 'application/json' };
   
   // You can add logic here to get tokens from localStorage/cookies
-  // const token = localStorage.getItem('token');
+  const token = localStorage.getItem('token');
   if (token) headers.Authorization = `Bearer ${token}`;
 
   const config = {

@@ -30,7 +30,7 @@ const AccountChoice = ({ onCreateAccount, onContinueGuest }) => {
               <div>
                 <h3 className="font-semibold text-gray-900">Create an Account</h3>
                 <p className="mt-1 text-sm text-gray-500">
-                  Track your application, access updates, and manage future requests more easily.
+                  Track application, faster re-apply, repayment history.
                 </p>
               </div>
             </div>
@@ -39,7 +39,7 @@ const AccountChoice = ({ onCreateAccount, onContinueGuest }) => {
             </span>
           </div>
 
-          <div className="mt-4 flex flex-wrap gap-2">
+          {/* <div className="mt-4 flex flex-wrap gap-2">
             {["Track Application", "Repayment History", "Faster Re-apply"].map((item) => (
               <span
                 key={item}
@@ -48,7 +48,7 @@ const AccountChoice = ({ onCreateAccount, onContinueGuest }) => {
                 {item}
               </span>
             ))}
-          </div>
+          </div> */}
         </button>
 
         <button

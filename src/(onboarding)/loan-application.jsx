@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import HubSelection from "./components/loan-form/hub-selection";
-import AccountChoice from "./components/loan-form/account-choice";
+// import AccountChoice from "./components/loan-form/account-choice";
 import PersonalDetails from "./components/loan-form/personal-details";
 import AddressDetails from "./components/loan-form/address-details";
 import IdentificationDetails from "./components/loan-form/identification-details";
@@ -11,10 +11,9 @@ import ExistingLoans from "./components/loan-form/existing-loans";
 import ReviewApplication from "./components/loan-form/review-application";
 import ApplicationSuccess from "./components/loan-form/success-screen";
 import {
-  applicationModeGlobal,
+  isGuestGlobal,
   selectedStateGlobal,
   selectedHubGlobal,
-  setApplicationModeGlobal,
   setIsGuestGlobal,
 } from "../store/Data";
 import JourneyHeader from "../components/ui/journey-header";
@@ -22,15 +21,24 @@ import JourneyHeader from "../components/ui/journey-header";
 const LoanApplication = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  
-  
+
+  useEffect(() => {
+    // If we reach this page and guest status hasn't been explicitly set (e.g. direct navigation),
+    // we default to Guest mode to ensure the Success screen works correctly.
+    if (isGuestGlobal === undefined || isGuestGlobal === null || (isGuestGlobal === false && !selectedHubGlobal)) {
+      // Note: In a real app, check for auth token here.
+      setIsGuestGlobal(true);
+    }
+  }, []);
+
   // Form State
   const [formData, setFormData] = useState({
     // Step 0: Hub
     hub: selectedHubGlobal || null,
-    selectedState: selectedStateGlobal || location.state?.state || "Lagos", 
+    selectedState: selectedStateGlobal || location.state?.state || "", 
 
     // Step 1: Personal (Pre-populated from mock BVN/Register data)
+
     firstname: "Samuel",
     lastname: "Peter",
     middlename: "Blessing",
@@ -39,8 +47,9 @@ const LoanApplication = () => {
     dob: "2000-01-27",
 
     // Step 2: Address
-    state: selectedStateGlobal || location.state?.state || "Lagos",
+    state: selectedStateGlobal || location.state?.state || "",
     lga: "",
+
     area: "",
     houseAddress: "",
 
@@ -71,8 +80,9 @@ const LoanApplication = () => {
     loans: []
   });
 
-  // Always start from hub selection for the current flow
-  const [step, setStep] = useState(0);
+  // If a hub is already selected (from landing page), start at step 1 (PersonalDetails)
+  const [step, setStep] = useState(selectedHubGlobal ? 1 : 0);
+
 
   const updateFormData = (field, value) => {
     setFormData(prev => ({ ...prev, [field]: value }));
@@ -116,21 +126,6 @@ const LoanApplication = () => {
       );
     case 1:
       return withJourneyHeader(
-        <AccountChoice
-          onCreateAccount={() => {
-            setIsGuestGlobal(false);
-            setApplicationModeGlobal("account");
-            navigate("/register");
-          }}
-          onContinueGuest={() => {
-            setIsGuestGlobal(true);
-            setApplicationModeGlobal("guest");
-            nextStep();
-          }}
-        />
-      );
-    case 2:
-      return withJourneyHeader(
         <PersonalDetails 
           data={formData} 
           onChange={updateFormData}
@@ -138,7 +133,7 @@ const LoanApplication = () => {
           onBack={prevStep}
         />
       );
-    case 3:
+    case 2:
       return withJourneyHeader(
         <AddressDetails 
           data={formData} 
@@ -147,7 +142,7 @@ const LoanApplication = () => {
           onBack={prevStep}
         />
       );
-    case 4:
+    case 3:
       return withJourneyHeader(
         <IdentificationDetails 
           data={formData} 
@@ -156,7 +151,7 @@ const LoanApplication = () => {
           onBack={prevStep}
         />
       );
-    case 5:
+    case 4:
       return withJourneyHeader(
         <BusinessDetails 
           data={formData} 
@@ -165,7 +160,7 @@ const LoanApplication = () => {
           onBack={prevStep}
         />
       );
-    case 6:
+    case 5:
       return withJourneyHeader(
         <FinancialDetails 
           data={formData} 
@@ -174,7 +169,7 @@ const LoanApplication = () => {
           onBack={prevStep}
         />
       );
-    case 7:
+    case 6:
       return withJourneyHeader(
         <ExistingLoans 
           data={formData} 
@@ -183,17 +178,17 @@ const LoanApplication = () => {
           onBack={prevStep}
         />
       );
-    case 8:
+    case 7:
       return withJourneyHeader(
         <ReviewApplication 
           data={formData} 
-          onEdit={(s) => goToStep(s + 1)}
+          onEdit={(s) => goToStep(s)}
           onSubmit={handleSubmit}
           onCancel={handleCancel}
         />,
         "review"
       );
-    case 9:
+    case 8:
       return (
         <ApplicationSuccess referenceId="MM-94202" />
       );

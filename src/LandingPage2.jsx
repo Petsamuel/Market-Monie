@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -23,10 +23,18 @@ const LandingPage2 = () => {
     state.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  const availableHubs = selectedState ? branchAddresses[selectedState] || [] : [];
+  const availableHubs = useMemo(() => {
+    const raw = selectedState ? branchAddresses[selectedState] || [] : [];
+    return raw.map(address => ({
+      name: address.split(',')[0],
+      address: address
+    }));
+  }, [selectedState]);
+
   const filteredHubs = availableHubs.filter(hub =>
-    hub.toLowerCase().includes(searchQuery.toLowerCase())
+    hub.address.toLowerCase().includes(searchQuery.toLowerCase())
   );
+
 
   const handleStateSelect = (state) => {
     setSelectedState(state);
@@ -37,11 +45,12 @@ const LandingPage2 = () => {
   };
 
   const handleHubSelect = (hub) => {
-    setSelectedHub(hub);
-    setSelectedHubGlobal(hub);
+    setSelectedHub(hub.name);
+    setSelectedHubGlobal(hub); // Now passing the object {name, address}
     setNoHubStateGlobal(false);
     setStep(3);
   };
+
 
   const handleContinueNoHub = () => {
     setSelectedHub("No Hub (Remote)");
@@ -250,15 +259,16 @@ const LandingPage2 = () => {
                                   }}
                                   className="group flex items-center gap-4 p-4 rounded-2xl bg-white/[0.02] border border-white/5 text-left hover:border-emerald-500/30 hover:bg-emerald-500/10 transition-all"
                                 >
-                                  <div className={`p-2 rounded-xl transition-all ${selectedHub === hub ? 'bg-emerald-500 text-white' : 'bg-emerald-500/10 text-emerald-500 group-hover:bg-emerald-500 group-hover:text-white'}`}>
+                                  <div className={`p-2 rounded-xl transition-all ${selectedHub === hub.name ? 'bg-emerald-500 text-white' : 'bg-emerald-500/10 text-emerald-500 group-hover:bg-emerald-500 group-hover:text-white'}`}>
                                     <FiMapPin size={20} />
                                   </div>
                                   <div className="flex-1">
-                                    <p className={`font-medium leading-snug transition-colors ${selectedHub === hub ? 'text-emerald-400' : 'text-white/80'} group-hover:text-emerald-400`}>{hub}</p>
+                                    <p className={`font-medium leading-snug transition-colors ${selectedHub === hub.name ? 'text-emerald-400' : 'text-white/80'} group-hover:text-emerald-400`}>{hub.name}</p>
                                     <p className="text-white/30 text-[10px] font-bold uppercase tracking-wider">Business Center</p>
                                   </div>
-                                  <FiArrowRight className={`transition-all ${selectedHub === hub ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0'} text-emerald-500`} />
+                                  <FiArrowRight className={`transition-all ${selectedHub === hub.name ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0'} text-emerald-500`} />
                                 </button>
+
                               ))}
                             </div>
                           ) : (
