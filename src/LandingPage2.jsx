@@ -323,7 +323,7 @@ const LandingPage2 = () => {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <motion.button
-                    whileHover={{ y: -10 }}
+                    whileHover={{ y: -5 }}
                     onClick={() => {
                       setIsGuestGlobal(false);
                       navigate("/register");
@@ -338,7 +338,8 @@ const LandingPage2 = () => {
                         <FiUserPlus size={24} />
                       </div>
                       <h3 className="text-2xl font-bold">Create Account</h3>
-                      <p className="text-white/70 text-sm leading-relaxed">Join thousands of entrepreneurs and unlock full access to loans and tracking.</p>
+                      <p className="text-white/70 text-sm leading-relaxed">Track
+                        application, faster re-apply, repayment history.</p>
                       <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest pt-4">
                         Get Started <FiArrowRight />
                       </div>
@@ -346,7 +347,7 @@ const LandingPage2 = () => {
                   </motion.button>
 
                   <motion.button
-                    whileHover={{ y: -10 }}
+                    whileHover={{ y: -5 }}
                     onClick={() => {
                       setIsGuestGlobal(true);
                       navigate("/onboarding/bvn");
@@ -361,7 +362,8 @@ const LandingPage2 = () => {
                         <FiUser size={24} />
                       </div>
                       <h3 className="text-2xl font-bold">Continue as Guest</h3>
-                      <p className="text-white/40 text-sm leading-relaxed">Explore our platform first. You can always create an account later to apply.</p>
+                      <p className="text-white/40 text-sm leading-relaxed">Apply without
+                        creating an account.</p>
                       <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest pt-4 text-emerald-500">
                         Explore Now <FiArrowRight />
                       </div>
