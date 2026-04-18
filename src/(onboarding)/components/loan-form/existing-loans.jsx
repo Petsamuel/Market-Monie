@@ -97,23 +97,23 @@ const ExistingLoans = ({ data, onChange, onContinue, onBack }) => {
                   
                   <div className="grid grid-cols-2 gap-4">
                     <InputGroup 
-                      label="Original Loan Amount" 
+                      label="How much did you borrow?" 
                       value={loan.amount}
                       onChange={(e) => handleLoanChange(index, 'amount', e.target.value.replace(/\D/g, ''))}
                       icon={<FiCreditCard />} 
                       placeholder="e.g. 100,000"
                     />
                     <InputGroup 
-                      label="Current Balance Owed" 
+                      label="How much do you still owe?" 
                       value={loan.balance}
                       onChange={(e) => handleLoanChange(index, 'balance', e.target.value.replace(/\D/g, ''))}
                       icon={<FiCreditCard />} 
-                      placeholder="e.g. 40,000"
+                      placeholder="e.g. 10,000"
                     />
                   </div>
 
                   <InputGroup 
-                    label="Regular Repayment Amount (per week/month)" 
+                    label="What is your regular repayment amount?" 
                     value={loan.repayment}
                     onChange={(e) => handleLoanChange(index, 'repayment', e.target.value.replace(/\D/g, ''))}
                     icon={<FiCreditCard />} 
