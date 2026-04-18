@@ -66,8 +66,8 @@ const Register = () => {
     }
 
     console.log("Register Data:", data);
-    navigate("/verify-email", {
-      state: { email: data.email || "user@email.com" },
+    navigate("/verify-otp", {
+      state: { phone: data.phone },
     });
   };
 

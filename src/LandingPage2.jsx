@@ -331,7 +331,7 @@ const LandingPage2 = () => {
                   </p>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 ">
                   <motion.button
                     whileHover={{ y: -5 }}
                     onClick={() => {
@@ -350,7 +350,7 @@ const LandingPage2 = () => {
                       <h3 className="text-2xl font-bold">Create Account</h3>
                       <p className="text-white/70 text-sm leading-relaxed">Track
                         application, faster re-apply, repayment history.</p>
-                      <div className="flex items-center gap-2 text-xs font-bold tracking-widest pt-4">
+                      <div className="flex items-center gap-2 text-xs font-bold tracking-widest pt-4 hover:gap-4 transition-all duration-400">
                         Get Started <FiArrowRight />
                       </div>
                     </div>
@@ -374,7 +374,7 @@ const LandingPage2 = () => {
                       <h3 className="text-2xl font-bold">Continue as Guest</h3>
                       <p className="text-white/40 text-sm leading-relaxed">Apply without
                         creating an account.</p>
-                      <div className="flex items-center gap-2 text-xs font-bold tracking-widest pt-4 text-emerald-500">
+                      <div className="flex items-center gap-2 text-xs font-bold tracking-widest pt-4 text-emerald-500 hover:gap-4 transition-all duration-400">
                         Explore Now <FiArrowRight />
                       </div>
                     </div>
