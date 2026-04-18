@@ -128,10 +128,10 @@ const BusinessDetails = ({ data, onChange, onContinue, onBack }) => {
 
       <div className="mt-8 space-y-6">
         <InputGroup 
-          label="e.g Mama T store" 
+          label="Enter business name" 
+          placeholder="e.g. Mama T store"
           value={data.businessName} 
           onChange={(e) => onChange('businessName', e.target.value)}
-          placeholder="Enter business name"
           icon={<FiBriefcase />} 
         />
 
@@ -187,6 +187,7 @@ const BusinessDetails = ({ data, onChange, onContinue, onBack }) => {
           options={businessKinds}
           dropdownRef={businessTypeDropdownRef}
           icon={<FiBriefcase />} 
+          placeholder="e.g. Trading"
         />
 
         {data.businessType === "Other" && (
@@ -210,6 +211,7 @@ const BusinessDetails = ({ data, onChange, onContinue, onBack }) => {
             onSelect={handleBusinessYearsSelect}
             options={yearOptions}
             dropdownRef={businessYearsDropdownRef}
+            placeholder="Select years in business"
             icon={<FiClock />} 
           />
           <CustomSelectGroup 
@@ -219,6 +221,7 @@ const BusinessDetails = ({ data, onChange, onContinue, onBack }) => {
             onToggle={() => setIsDailySalesOpen((prev) => !prev)}
             onSelect={handleDailySalesSelect}
             options={saleOptions}
+            placeholder="Select daily sales range"
             dropdownRef={dailySalesDropdownRef}
             icon={<FiTrendingUp />} 
           />
@@ -338,7 +341,7 @@ const SearchableSelectGroup = ({
   </div>
 );
 
-const CustomSelectGroup = ({ label, value, isOpen, onToggle, onSelect, options, icon, disabled = false, dropdownRef }) => (
+const CustomSelectGroup = ({ label, value, isOpen, onToggle, onSelect, options, icon, disabled = false, dropdownRef, placeholder }) => (
   <div className="space-y-2">
     <label className="text-xs font-bold text-gray-400 tracking-widest ml-1">
       {label}
@@ -356,8 +359,10 @@ const CustomSelectGroup = ({ label, value, isOpen, onToggle, onSelect, options, 
         }`}
       >
         <span className={value ? "text-gray-900" : "text-gray-400"}>
-          {disabled && !value ? "Loading..." : value || `Select ${label}`}
-        </span>
+        {disabled && !value 
+          ? "Loading..." 
+          : value || placeholder || `Select ${label}`}
+      </span>
       </button>
       <div className="absolute inset-y-0 right-0 flex items-center pr-4 pointer-events-none text-gray-400">
         {isOpen ? <FiChevronUp size={20} /> : <FiChevronDown size={20} />}
