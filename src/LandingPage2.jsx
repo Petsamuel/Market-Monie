@@ -360,7 +360,7 @@ const LandingPage2 = () => {
                     whileHover={{ y: -5 }}
                     onClick={() => {
                       setIsGuestGlobal(true);
-                      navigate("/onboarding/bvn");
+                      navigate("/apply/hub");
                     }}
                     className="group relative overflow-hidden p-8 rounded-[2rem] bg-white/5 border border-white/10 text-white text-left hover:bg-white/10 transition-colors"
                   >

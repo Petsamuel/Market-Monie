@@ -6,7 +6,7 @@ import { getDaysInMonth, eachMonthOfInterval, startOfYear, endOfYear, format } f
 import { useQuery } from "@tanstack/react-query";
 import { locationService } from "../../../services/locationService";
 
-const PersonalDetails = ({ data, onChange, onContinue, onBack }) => {
+const PersonalDetails = ({ data, onChange, onContinue, onBack, isGuest }) => {
   // Split DOB YYYY-MM-DD
   const dobParts = data.dob ? data.dob.split('-') : ['', '', ''];
   const currentYear = dobParts[0] || "";
@@ -103,14 +103,16 @@ const PersonalDetails = ({ data, onChange, onContinue, onBack }) => {
           <InputGroup 
             label="First Name" 
             value={data.firstname} 
+            onChange={(e) => onChange('firstname', e.target.value)}
             icon={<FiUser />} 
-            readOnly
+            readOnly={!isGuest}
           />
           <InputGroup 
             label="Last Name" 
             value={data.lastname} 
+            onChange={(e) => onChange('lastname', e.target.value)}
             icon={<FiUser />} 
-            readOnly
+            readOnly={!isGuest}
           />
         </div>
 

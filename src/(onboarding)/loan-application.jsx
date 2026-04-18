@@ -25,6 +25,18 @@ const LoanApplication = () => {
       // Note: In a real app, check for auth token here.
       setIsGuestGlobal(true);
     }
+    
+    // If Guest, clear the mock BVN data so they can enter their own
+    if (isGuestGlobal) {
+      setFormData(prev => ({
+        ...prev,
+        firstname: "",
+        lastname: "",
+        middlename: "",
+        phone: "",
+        dob: ""
+      }));
+    }
   }, []);
 
   // Form State
@@ -118,6 +130,7 @@ const LoanApplication = () => {
           onChange={updateFormData}
           onContinue={nextStep}
           onBack={() => navigate('/')}
+          isGuest={isGuestGlobal}
         />
       );
     case 1:
@@ -154,6 +167,7 @@ const LoanApplication = () => {
           onEdit={(s) => goToStep(s)}
           onSubmit={handleSubmit}
           onCancel={handleCancel}
+          isGuest={isGuestGlobal}
         />,
         "review"
       );

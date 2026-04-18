@@ -1,9 +1,32 @@
 import { FiEdit3, FiUser, FiHome, FiBriefcase, FiCreditCard, FiFileText } from "react-icons/fi";
 
-const ReviewApplication = ({ data, onEdit, onSubmit, onCancel }) => {
+const ReviewApplication = ({ data, onEdit, onSubmit, onCancel, isGuest }) => {
   return (
     <div className="animate-in fade-in slide-in-from-bottom-4 duration-700 pb-20">
       <div className="text-left font-poppins">
+        {isGuest && (
+          <div className="mb-6 p-4 bg-amber-50 rounded-2xl border border-amber-100 flex items-center justify-between gap-4 animate-in slide-in-from-top-4 duration-500">
+            <div className="flex items-center gap-3">
+              <div className="p-2 bg-amber-100 rounded-lg text-amber-600">
+                <FiUser />
+              </div>
+              <div>
+                <p className="text-sm font-bold text-amber-900">Guest Mode</p>
+                <p className="text-[11px] text-amber-700">You are applying without an account.</p>
+              </div>
+            </div>
+            <button 
+              onClick={() => {
+                if (window.confirm("Switching to registration will lose your current application progress. Continue?")) {
+                  window.location.href = "/register";
+                }
+              }}
+              className="text-[10px] font-bold text-amber-600 hover:text-amber-700 underline tracking-widest"
+            >
+              CREATE ACCOUNT
+            </button>
+          </div>
+        )}
         <h2 className="text-3xl font-bold tracking-tight text-gray-900">
            Review Details
         </h2>
