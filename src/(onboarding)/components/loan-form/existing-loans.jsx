@@ -29,38 +29,54 @@ const ExistingLoans = ({ data, onChange, onContinue, onBack }) => {
 
   return (
     <div className="animate-in fade-in slide-in-from-right-4 duration-500">
-      <div className="text-left font-poppins">
-        <h2 className="text-2xl font-bold tracking-tight text-gray-900">
-           Existing Loans
-        </h2>
-        <p className="mt-2 text-gray-500 text-sm">
-          Are you currently paying back any loan to another bank or lender?
-        </p>
-      </div>
+      {!data.hasExistingLoan ? (
+        <>
+          <div className="text-left font-poppins">
+            <h2 className="text-2xl font-bold tracking-tight text-gray-900">
+               Existing Loans
+            </h2>
+            <p className="mt-2 text-gray-500 text-sm">
+              Are you currently paying back any loan to another bank or lender?
+            </p>
+          </div>
 
-      <div className="mt-8 space-y-8">
-        <div className="flex gap-4">
-          <button
-            onClick={() => handleToggle(true)}
-            className={`flex-1 py-4 rounded-xl border-2 transition-all font-bold ${
-              data.hasExistingLoan === true 
-                ? "border-emerald-600 bg-emerald-50/50 text-emerald-700 shadow-lg shadow-emerald-100" 
-                : "border-gray-100 text-gray-400 hover:border-emerald-200"
-            }`}
+          <div className="mt-8 flex gap-4">
+            <button
+              onClick={() => handleToggle(true)}
+              className={`flex-1 py-4 rounded-xl border-2 transition-all font-bold ${
+                data.hasExistingLoan === true 
+                  ? "border-emerald-600 bg-emerald-50/50 text-emerald-700 shadow-lg shadow-emerald-100" 
+                  : "border-gray-100 text-gray-400 hover:border-emerald-200"
+              }`}
+            >
+              Yes
+            </button>
+            <button
+              onClick={() => handleToggle(false)}
+              className={`flex-1 py-4 rounded-xl border-2 transition-all font-bold ${
+                data.hasExistingLoan === false 
+                  ? "border-emerald-600 bg-emerald-50/50 text-emerald-700 shadow-lg shadow-emerald-100" 
+                  : "border-gray-100 text-gray-400 hover:border-emerald-200"
+              }`}
+            >
+              No
+            </button>
+          </div>
+        </>
+      ) : (
+        <div className="flex justify-between items-center bg-gray-50 p-4 rounded-xl border border-gray-100 mb-6">
+          <div>
+            <h3 className="text-sm font-bold text-gray-900">Current Loan List</h3>
+            <p className="text-xs text-gray-500">You are adding details for your existing loans</p>
+          </div>
+          <button 
+            onClick={() => onChange('hasExistingLoan', null)}
+            className="text-xs font-bold text-emerald-600 hover:text-emerald-700 underline"
           >
-            Yes
-          </button>
-          <button
-            onClick={() => handleToggle(false)}
-            className={`flex-1 py-4 rounded-xl border-2 transition-all font-bold ${
-              data.hasExistingLoan === false 
-                ? "border-emerald-600 bg-emerald-50/50 text-emerald-700 shadow-lg shadow-emerald-100" 
-                : "border-gray-100 text-gray-400 hover:border-emerald-200"
-            }`}
-          >
-            No
+            Change Choice
           </button>
         </div>
+      )}
 
         {data.hasExistingLoan && (
           <div className="space-y-6">

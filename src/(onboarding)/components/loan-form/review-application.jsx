@@ -13,31 +13,30 @@ const ReviewApplication = ({ data, onEdit, onSubmit, onCancel }) => {
       </div>
 
       <div className="mt-10 space-y-8">
-        <ReviewSection title="Personal Info" icon={<FiUser />} onEdit={() => onEdit(1)}>
+        <ReviewSection title="Personal Info" icon={<FiUser />} onEdit={() => onEdit(0)}>
           <InfoItem label="Full Name" value={`${data.firstname} ${data.middlename || ''} ${data.lastname}`} />
           <InfoItem label="Phone Number" value={data.phone} />
           <InfoItem label="Date of Birth" value={data.dob} />
         </ReviewSection>
 
-        <ReviewSection title="Residential Address" icon={<FiHome />} onEdit={() => onEdit(2)}>
+        <ReviewSection title="Residential Address" icon={<FiHome />} onEdit={() => onEdit(0)}>
           <InfoItem label="Address" value={`${data.houseAddress || ''} ${data.area || ''}, ${data.lga}, ${data.state}`} />
         </ReviewSection>
 
-        <ReviewSection title="Identification & Docs" icon={<FiFileText />} onEdit={() => onEdit(3)}>
-          <InfoItem label="ID Details" value={`${data.idType} (${data.idNumber})`} />
-          <InfoItem label="Proof of Res." value={data.proofType} />
-        </ReviewSection>
 
-        <ReviewSection title="Business Info" icon={<FiBriefcase />} onEdit={() => onEdit(4)}>
+        <ReviewSection title="Business Info" icon={<FiBriefcase />} onEdit={() => onEdit(1)}>
           <InfoItem label="Business Name" value={data.businessName} />
           <InfoItem label="Business Type" value={data.businessType === "Other" ? data.otherBusiness : data.businessType} />
           <InfoItem label="Daily Sales" value={`₦${data.dailySales}`} />
           <InfoItem label="Location" value={`${data.businessArea || ''}, ${data.businessLga}, ${data.businessState}`} />
         </ReviewSection>
 
-        <ReviewSection title="Loan Details" icon={<FiCreditCard />} onEdit={() => onEdit(5)}>
+        <ReviewSection title="Loan Details" icon={<FiCreditCard />} onEdit={() => onEdit(2)}>
           <InfoItem label="Loan Amount" value={`₦${Number(data.loanAmount).toLocaleString()}`} />
           <InfoItem label="Bank Account" value={`${data.bankName} - ${data.accountNumber}`} />
+        </ReviewSection>
+
+        <ReviewSection title="Financial History" icon={<FiCreditCard />} onEdit={() => onEdit(3)}>
           <InfoItem label="Existing Loans" value={data.hasExistingLoan ? `${data.loans.length} Loan(s)` : "None"} />
         </ReviewSection>
 

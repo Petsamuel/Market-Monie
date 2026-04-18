@@ -1,10 +1,6 @@
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import HubSelection from "./components/loan-form/hub-selection";
-// import AccountChoice from "./components/loan-form/account-choice";
 import PersonalDetails from "./components/loan-form/personal-details";
-import AddressDetails from "./components/loan-form/address-details";
-import IdentificationDetails from "./components/loan-form/identification-details";
 import BusinessDetails from "./components/loan-form/business-details";
 import FinancialDetails from "./components/loan-form/financial-details";
 import ExistingLoans from "./components/loan-form/existing-loans";
@@ -80,8 +76,9 @@ const LoanApplication = () => {
     loans: []
   });
 
-  // If a hub is already selected (from landing page), start at step 1 (PersonalDetails)
-  const [step, setStep] = useState(selectedHubGlobal ? 1 : 0);
+  // Simplified step management for 3-screen flow
+  // 0: Personal, 1: Business, 2: Financial, 3: Review, 4: Success
+  const [step, setStep] = useState(0);
 
 
   const updateFormData = (field, value) => {
@@ -116,42 +113,14 @@ const LoanApplication = () => {
   switch (step) {
     case 0:
       return withJourneyHeader(
-        <HubSelection 
-          selectedState={formData.selectedState} 
-          selectedHub={formData.hub}
-          onSelectState={(s) => updateFormData('selectedState', s)}
-          onSelectHub={(h) => updateFormData('hub', h)}
-          onContinue={nextStep}
-        />
-      );
-    case 1:
-      return withJourneyHeader(
         <PersonalDetails 
           data={formData} 
           onChange={updateFormData}
           onContinue={nextStep}
-          onBack={prevStep}
+          onBack={() => navigate('/')}
         />
       );
-    case 2:
-      return withJourneyHeader(
-        <AddressDetails 
-          data={formData} 
-          onChange={updateFormData}
-          onContinue={nextStep}
-          onBack={prevStep}
-        />
-      );
-    case 3:
-      return withJourneyHeader(
-        <IdentificationDetails 
-          data={formData} 
-          onChange={updateFormData}
-          onContinue={nextStep}
-          onBack={prevStep}
-        />
-      );
-    case 4:
+    case 1:
       return withJourneyHeader(
         <BusinessDetails 
           data={formData} 
@@ -160,7 +129,7 @@ const LoanApplication = () => {
           onBack={prevStep}
         />
       );
-    case 5:
+    case 2:
       return withJourneyHeader(
         <FinancialDetails 
           data={formData} 
@@ -169,7 +138,7 @@ const LoanApplication = () => {
           onBack={prevStep}
         />
       );
-    case 6:
+    case 3:
       return withJourneyHeader(
         <ExistingLoans 
           data={formData} 
@@ -178,7 +147,7 @@ const LoanApplication = () => {
           onBack={prevStep}
         />
       );
-    case 7:
+    case 4:
       return withJourneyHeader(
         <ReviewApplication 
           data={formData} 
@@ -188,7 +157,7 @@ const LoanApplication = () => {
         />,
         "review"
       );
-    case 8:
+    case 5:
       return (
         <ApplicationSuccess referenceId="MM-94202" />
       );
