@@ -94,7 +94,7 @@ const Register = () => {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
             <div className="md:col-span-1">
               <label className="block text-sm font-medium leading-6 text-gray-900">
-                Title
+                Title <span className="text-gray-400 font-normal">(Optional)</span>
               </label>
               <input type="hidden" {...register("title")} />
               <div className="relative mt-2" ref={titleDropdownRef}>

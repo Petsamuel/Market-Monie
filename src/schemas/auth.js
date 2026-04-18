@@ -6,9 +6,7 @@ export const loginSchema = z.object({
 });
 
 export const registerSchema = z.object({
-  title: z.enum(["Mr", "Mrs", "Ms", "Miss", "Dr"], {
-    errorMap: () => ({ message: "Please Select A Title" }),
-  }),
+  title: z.enum(["Mr", "Mrs", "Ms", "Miss", "Dr"]).optional().or(z.literal("")),
   firstName: z.string().min(2, "First Name Is Too Short"),
   lastName: z.string().min(2, "Last Name Is Too Short"),
   phone: z.string().min(10, "Phone Number Is Too Short").max(15, "Phone Number Is Too Long"),
