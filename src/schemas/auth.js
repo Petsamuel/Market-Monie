@@ -15,12 +15,12 @@ export const registerSchema = z.object({
   email: z.string().email("Invalid Email Address").optional().or(z.literal("")),
   password: z
     .string()
-    .length(6, "Pin Must Be Exactly 6 Digits")
-    .regex(/^\d+$/, "Pin Must Contain Only Numbers"),
+    .length(6, "PIN Must Be Exactly 6 Digits")
+    .regex(/^\d+$/, "PIN Must Contain Only Numbers"),
   confirmPassword: z.string(),
   agreeTerms: z.boolean().refine((val) => val === true, "You Must Accept The Terms And Conditions"),
 }).refine((data) => data.password === data.confirmPassword, {
-  message: "Pins Don't Match",
+  message: "PINs Don't Match",
   path: ["confirmPassword"],
 });
 
@@ -29,7 +29,7 @@ export const forgotPasswordSchema = z.object({
 });
 
 export const otpSchema = z.object({
-  otp: z.string().length(6, "Otp Must Be 6 Digits"),
+  otp: z.string().length(6, "OTP Must Be 6 Digits"),
 });
 
 export const resetPasswordSchema = z

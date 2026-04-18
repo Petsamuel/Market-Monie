@@ -3,7 +3,7 @@ import { FiEdit3, FiFileText, FiMail, FiShield, FiUserPlus } from "react-icons/f
 const steps = [
   { key: "account", label: "Account", icon: <FiUserPlus /> },
   { key: "email", label: "Email", icon: <FiMail /> },
-  { key: "bvn", label: "Bvn", icon: <FiShield /> },
+  { key: "bvn", label: "BVN", icon: <FiShield /> },
   { key: "application", label: "Application", icon: <FiFileText /> },
   { key: "review", label: "Review", icon: <FiEdit3 /> },
 ];
