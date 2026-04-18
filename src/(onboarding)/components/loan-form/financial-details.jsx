@@ -44,8 +44,8 @@ const FinancialDetails = ({ data, onChange, onContinue, onBack }) => {
 
       <div className="mt-8 space-y-6">
         <div className="space-y-2">
-          <label className="text-xs font-bold text-gray-400 uppercase tracking-widest ml-1">
-             How much do you want to borrow?
+          <label className="text-xs font-bold text-gray-400 tracking-widest ml-1">
+             How Much Do You Want To Borrow?
           </label>
           <div className="relative group">
             <div className="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none text-emerald-600 font-bold">
@@ -113,7 +113,7 @@ const FinancialDetails = ({ data, onChange, onContinue, onBack }) => {
 
 const InputGroup = ({ label, value, onChange, icon, placeholder }) => (
   <div className="space-y-2">
-    <label className="text-xs font-bold text-gray-400 uppercase tracking-widest ml-1">
+    <label className="text-xs font-bold text-gray-400 tracking-widest ml-1">
       {label}
     </label>
     <div className="relative group">
@@ -133,7 +133,7 @@ const InputGroup = ({ label, value, onChange, icon, placeholder }) => (
 
 const CustomSelectGroup = ({ label, value, query, isOpen, onToggle, onInputChange, onSelect, options, icon, disabled = false, dropdownRef }) => (
   <div className="space-y-2">
-    <label className="text-xs font-bold text-gray-400 uppercase tracking-widest ml-1">
+    <label className="text-xs font-bold text-gray-400 tracking-widest ml-1">
       {label}
     </label>
     <div className="relative group" ref={dropdownRef}>

@@ -25,14 +25,14 @@ const ExistingLoans = ({ data, onChange, onContinue, onBack }) => {
               className="flex-1 py-6 rounded-2xl border-2 border-gray-100 text-gray-400 hover:border-emerald-200 hover:text-emerald-700 hover:bg-emerald-50/30 transition-all font-bold group"
             >
               <span className="block text-lg mb-1 group-hover:scale-110 transition-transform">Yes</span>
-              <span className="block text-[10px] font-medium opacity-50 uppercase tracking-widest">I have other loans</span>
+              <span className="block text-[10px] font-medium opacity-50 tracking-widest">I Have Other Loans</span>
             </button>
             <button
               onClick={() => handleToggle(false)}
               className="flex-1 py-6 rounded-2xl border-2 border-gray-100 text-gray-400 hover:border-emerald-200 hover:text-emerald-700 hover:bg-emerald-50/30 transition-all font-bold group"
             >
               <span className="block text-lg mb-1 group-hover:scale-110 transition-transform">No</span>
-              <span className="block text-[10px] font-medium opacity-50 uppercase tracking-widest">No active loans</span>
+              <span className="block text-[10px] font-medium opacity-50 tracking-widest">No Active Loans</span>
             </button>
           </div>
         </>

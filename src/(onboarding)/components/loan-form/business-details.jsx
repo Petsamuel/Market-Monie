@@ -136,7 +136,7 @@ const BusinessDetails = ({ data, onChange, onContinue, onBack }) => {
         />
 
         <div className="space-y-4 pt-2 pb-2">
-          <label className="text-xs font-bold text-emerald-600 uppercase tracking-widest ml-1">
+          <label className="text-xs font-bold text-emerald-600 tracking-widest ml-1">
              Business Location
           </label>
           <div className="grid grid-cols-2 gap-4">
@@ -253,7 +253,7 @@ const BusinessDetails = ({ data, onChange, onContinue, onBack }) => {
 
 const InputGroup = ({ label, value, onChange, icon, placeholder }) => (
   <div className="space-y-2">
-    <label className="text-xs font-bold text-gray-400 uppercase tracking-widest ml-1">
+    <label className="text-xs font-bold text-gray-400 tracking-widest ml-1">
       {label}
     </label>
     <div className="relative group">
@@ -286,7 +286,7 @@ const SearchableSelectGroup = ({
   dropdownRef,
 }) => (
   <div className="space-y-2">
-    <label className="text-xs font-bold text-gray-400 uppercase tracking-widest ml-1">
+    <label className="text-xs font-bold text-gray-400 tracking-widest ml-1">
       {label}
     </label>
     <div className="relative group" ref={dropdownRef}>
@@ -340,7 +340,7 @@ const SearchableSelectGroup = ({
 
 const CustomSelectGroup = ({ label, value, isOpen, onToggle, onSelect, options, icon, disabled = false, dropdownRef }) => (
   <div className="space-y-2">
-    <label className="text-xs font-bold text-gray-400 uppercase tracking-widest ml-1">
+    <label className="text-xs font-bold text-gray-400 tracking-widest ml-1">
       {label}
     </label>
     <div className="relative group" ref={dropdownRef}>
