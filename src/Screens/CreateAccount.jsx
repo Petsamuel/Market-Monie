@@ -39,7 +39,7 @@ const CreateAccount = () => {
 
                     {/* Create Account */}
                     <button
-                        onClick={() => navigate("/account-creation")}
+                        onClick={() => navigate("/register")}
                         className='w-full text-left rounded-2xl border border-green-800 p-4 gap-3 hover:bg-green-100 transition'
                     >
                         <div className='flex items-center justify-between'>
@@ -77,7 +77,7 @@ const CreateAccount = () => {
                     {/* Guest */}
                     <button
                         className='w-full text-left rounded-2xl border border-gray-400 p-4 hover:bg-gray-100 transition'
-                        onClick={() => navigate("/personal-details")}
+                        onClick={() => navigate("/apply/hub")}
                     >
                         <div className='flex items-center gap-3'>
                             <div className='rounded-2xl bg-gray-300 p-3 flex items-center justify-center'>
