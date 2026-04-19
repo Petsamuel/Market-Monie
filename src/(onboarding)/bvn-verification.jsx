@@ -45,21 +45,13 @@ const BvnVerification = () => {
       setIsVerifying(false);
       
       if (bvn === "12345678901") {
-        // Mock BVN Details
-        const bvnFirstName = "Samuel";
-        const bvnLastName = "Peter";
-        
-        const inputFirst = localStorage.getItem("firstName") || "John";
-        const inputLast = localStorage.getItem("lastName") || "Doe";
-
-        if (inputFirst.toLowerCase() === bvnFirstName.toLowerCase() && inputLast.toLowerCase() === bvnLastName.toLowerCase()) {
-           toast.success("BVN Verified Successfully!");
-           setIsConfirmed(true);
-        } else {
-           toast.error("Name mismatch: The name on this BVN does not match the name you registered with.");
-        }
+         // Mock BVN Details retrieval
+         toast.success("BVN Verified Successfully!");
+         localStorage.setItem("firstName", "Samuel");
+         localStorage.setItem("lastName", "Peter");
+         setIsConfirmed(true);
       } else {
-        toast.error("Invalid BVN. Please check and try again.");
+         toast.error("Invalid BVN. Please check and try again.");
       }
     }, 2000);
   };
