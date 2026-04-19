@@ -242,7 +242,6 @@ const PersonalDetails = ({ data, onChange, onContinue, onBack, isGuest }) => {
 
   const validate = () => {
     const newErrors = {};
-    if (!data.title) newErrors.title = "Required";
     if (!data.firstname) newErrors.firstname = "Required";
     if (!data.lastname) newErrors.lastname = "Required";
     if (!currentDay || !currentMonth || !currentYear) newErrors.dob = "Required";

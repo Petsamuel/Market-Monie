@@ -4,7 +4,6 @@ import { isGuestGlobal } from "../../store/Data";
 const allSteps = [
   { key: "account", label: "Account", icon: <FiUserPlus /> },
   { key: "email", label: "Email", icon: <FiMail /> },
-  { key: "bvn", label: "BVN", icon: <FiShield /> },
   { key: "application", label: "Application", icon: <FiFileText /> },
   { key: "review", label: "Review", icon: <FiEdit3 /> },
 ];
@@ -75,7 +74,7 @@ const JourneyHeader = ({ activeStep, orientation = "horizontal" }) => {
       </div>
 
       <div className="rounded-2xl bg-gray-50/80 p-1.5">
-        <div className={`grid ${isGuest ? 'grid-cols-2' : 'grid-cols-5'} gap-1.5`}>
+        <div className={`grid ${isGuest ? 'grid-cols-2' : 'grid-cols-4'} gap-1.5`}>
           {steps.map((step, index) => {
             const isActive = index === activeIndex;
             const isCompleted = activeIndex > index;
