@@ -29,7 +29,7 @@ const PhoneVerification = () => {
     setTimeout(() => {
       setIsLoading(false);
       toast.success("Phone number saved!");
-      navigate("/onboarding/bvn"); // Next step
+      navigate("/apply/hub"); // Proceed directly to loan application
     }, 1500);
   };
 

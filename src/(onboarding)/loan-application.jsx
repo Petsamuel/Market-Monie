@@ -51,6 +51,7 @@ const LoanApplication = () => {
     lastname: "Peter",
     middlename: "Blessing",
     phone: "+234 812 345 6789",
+    bvn: "",
     email: "",
     dob: "2000-01-27",
 
@@ -110,7 +111,7 @@ const LoanApplication = () => {
 
   const handleCancel = () => {
     if (window.confirm("Are you sure you want to cancel your application? All progress will be lost.")) {
-      navigate('/onboarding/bvn'); // Go back to start of KYC
+      navigate('/onboarding/phone'); // Go back to start of KYC
     }
   };
 

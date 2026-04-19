@@ -72,7 +72,6 @@ function AnimatedRoutes() {
         {/* Onboarding & Application Routes */}
         <Route element={<OnboardingLayout />}>
           <Route path="/onboarding/phone" element={<PhoneVerification />} />
-          <Route path="/onboarding/bvn" element={<BvnVerification />} />
           <Route path="/apply/hub" element={<LoanApplication />} />
         </Route>
         
@@ -81,7 +80,7 @@ function AnimatedRoutes() {
           <SuccessScreen 
             title="Account Created!" 
             description="Your account has been successfully verified. You are being redirected to complete your profile."
-            redirectPath="/onboarding/bvn"
+            redirectPath="/apply/hub"
             countdownSeconds={5}
           />
         } />

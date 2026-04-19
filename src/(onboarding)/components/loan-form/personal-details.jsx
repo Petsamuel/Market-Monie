@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { FiUser, FiMail, FiCalendar, FiHome, FiMapPin, FiMap, FiType, FiLoader, FiHash, FiChevronUp, FiChevronDown } from "react-icons/fi";
+import { FiUser, FiMail, FiCalendar, FiHome, FiMapPin, FiMap, FiType, FiLoader, FiHash, FiChevronUp, FiChevronDown, FiAlertCircle } from "react-icons/fi";
 
 import { getDaysInMonth, eachMonthOfInterval, startOfYear, endOfYear, format } from 'date-fns';
 import { useQuery } from "@tanstack/react-query";
@@ -235,6 +235,7 @@ const PersonalDetails = ({ data, onChange, onContinue, onBack, isGuest }) => {
       if (data.houseAddress && updated.houseAddress) delete updated.houseAddress;
       if (data.idType && updated.idType) delete updated.idType;
       if (data.idNumber && updated.idNumber) delete updated.idNumber;
+      if (data.bvn && updated.bvn) delete updated.bvn;
       return updated;
     });
   }, [data]);
@@ -245,6 +246,8 @@ const PersonalDetails = ({ data, onChange, onContinue, onBack, isGuest }) => {
     if (!data.firstname) newErrors.firstname = "Required";
     if (!data.lastname) newErrors.lastname = "Required";
     if (!currentDay || !currentMonth || !currentYear) newErrors.dob = "Required";
+    if (!data.bvn) newErrors.bvn = "Required";
+    else if (data.bvn.length !== 11) newErrors.bvn = "BVN must be 11 digits";
     if (!data.phone) newErrors.phone = "Required";
     if (!data.state) newErrors.state = "Required";
     if (!data.lga) newErrors.lga = "Required";
@@ -429,6 +432,50 @@ const PersonalDetails = ({ data, onChange, onContinue, onBack, isGuest }) => {
             />
           </div>
           {errors.dob && <p className="mt-1 text-xs text-red-500 animate-in fade-in slide-in-from-top-1 ml-1 font-medium">{errors.dob}</p>}
+        </div>
+
+        {/* BVN Field (Moved from separate screen) */}
+        <div className="space-y-4 pt-2">
+          <div className="space-y-2">
+            <label className={`text-xs font-bold tracking-widest ml-1 transition-colors ${errors.bvn ? 'text-red-500' : (data.bvn ? 'text-emerald-600' : 'text-black')}`}>
+              BVN
+            </label>
+            <div className="relative group">
+              <input
+                type="text"
+                inputMode="numeric"
+                value={data.bvn || ""}
+                onChange={(e) => {
+                  const val = e.target.value.replace(/\D/g, "");
+                  if (val.length <= 11) {
+                    onChange('bvn', val);
+                    if (errors.bvn) setErrors(prev => ({ ...prev, bvn: null }));
+                  }
+                }}
+                placeholder="Enter your 11-digit BVN"
+                className={`block w-full rounded-xl border-2 bg-gray-50/30 px-4 py-4 text-gray-900 shadow-sm transition-all outline-none font-medium text-sm ${
+                  errors.bvn 
+                    ? "border-red-300 focus:border-red-500 focus:ring-4 focus:ring-red-500/10"
+                    : (data.bvn?.length === 11)
+                      ? "border-emerald-500 focus:border-emerald-600 focus:ring-4 focus:ring-emerald-500/10"
+                      : "border-gray-200 focus:border-emerald-600 focus:ring-4 focus:ring-emerald-500/10"
+                }`}
+              />
+              <div className="absolute inset-y-0 right-0 flex items-center pr-4">
+                <span className={`text-[10px] font-bold transition-colors ${(data.bvn?.length || 0) === 11 ? "text-emerald-500" : "text-gray-300"}`}>
+                  {(data.bvn?.length || 0)}/11
+                </span>
+              </div>
+            </div>
+            {errors.bvn && <p className="mt-1 text-xs text-red-500 animate-in fade-in slide-in-from-top-1 ml-1 font-medium">{errors.bvn}</p>}
+          </div>
+
+          <div className="p-3 bg-amber-50 rounded-xl border border-amber-100 flex gap-3">
+            <FiAlertCircle className="text-amber-500 shrink-0 mt-0.5" size={14} />
+            <p className="text-[10px] text-amber-800 leading-relaxed italic">
+              Don&apos;t know your BVN?. Dial <span className="font-bold">*565*0#</span> on your registered mobile number to retrieve your BVN.
+            </p>
+          </div>
         </div>
 
         {/* New ID Section */}
