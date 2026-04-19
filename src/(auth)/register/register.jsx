@@ -75,8 +75,8 @@ const Register = () => {
         </aside>
 
         {/* Main Form Content - Expanded and centered in remaining space */}
-        <div className="flex-1 flex justify-center w-full">
-          <div className="w-full max-w-3xl px-4 sm:px-0">
+        <div className="flex-1 w-full flex justify-center">
+          <div className="w-full max-w-4xl px-4 sm:px-0">
             <div className="text-left">
               <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-gray-900">
                 Create account
@@ -293,7 +293,7 @@ const Register = () => {
               disabled={isSubmitting}
               className="flex w-full justify-center rounded-lg bg-emerald-600 px-3 py-4 text-sm font-bold leading-6 text-white shadow-sm hover:bg-emerald-500 focus-visible:outline focus-visible:outline-offset-2 focus-visible:outline-emerald-600 disabled:opacity-50 transition-all font-poppins tracking-widest"
             >
-              {isSubmitting ? "Creating Account..." : "Complete Registration"}
+              {isSubmitting ? "Creating Account..." : "Create Account"}
             </button>
           </div>
         </form>

@@ -88,8 +88,8 @@ const LandingPage2 = () => {
     <div className="relative min-h-screen w-full bg-white text-gray-900 font-poppins overflow-hidden">
       {/* Background Elements */}
       <div className="absolute inset-0 z-0">
-        <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-emerald-50 blur-[120px] rounded-full" />
-        <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-gray-50 blur-[120px] rounded-full" />
+        <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-emerald-50 blur-[120px] rounded-full hidden md:block" />
+        <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-gray-50 blur-[120px] rounded-full hidden md:block" />
         <div
           className="absolute inset-0 opacity-[0.05] pointer-events-none"
           style={{
@@ -125,7 +125,7 @@ const LandingPage2 = () => {
         </header>
 
         {/* Main Content */}
-        <main className="flex-1 flex flex-col items-center justify-start pt-2 md:pt-4 max-w-4xl mx-auto w-full">
+        <main className="flex-1 flex flex-col items-center justify-start pt-0 md:pt-0 max-w-4xl mx-auto w-full">
           <AnimatePresence mode="wait">
             {step === 1 && (
               <motion.div
@@ -133,9 +133,9 @@ const LandingPage2 = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
-                className="w-full space-y-6"
+                className="w-full space-y-4"
               >
-                <div className="text-center space-y-3">
+                <div className="text-center space-y-2">
                   <h1 className="text-2xl md:text-4xl font-bold tracking-tight text-gray-900">Select
                     the state where your <span className="text-emerald-500">business</span> operates</h1>
                   <p className="text-gray-500 text-xs md:text-sm max-w-sm mx-auto">This helps us send an agent closest to you.</p>
@@ -196,23 +196,22 @@ const LandingPage2 = () => {
 
               </motion.div>
             )}
-
             {step === 2 && (
               <motion.div
                 key="step2"
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -20 }}
-                className="w-full space-y-6"
+                className="w-full space-y-3"
               >
-                <div className="relative flex flex-col items-center border-b border-gray-50 pb-4 mb-2">
-                  <button onClick={handleBack} className="absolute left-0 top-1/2 -translate-y-1/2 p-3 rounded-full bg-gray-50 hover:bg-gray-100 transition-colors border border-gray-50 shadow-sm text-gray-500">
-                    <FiArrowLeft size={18} />
+                <div className="relative flex flex-col items-center border-b border-gray-50 pb-2 mb-1">
+                  <button onClick={handleBack} className="absolute left-0 top-1/2 -translate-y-1/2 p-2.5 rounded-full bg-gray-50 hover:bg-gray-100 transition-colors border border-gray-50 shadow-sm text-gray-500">
+                    <FiArrowLeft size={16} />
                   </button>
-                  <div className="text-center space-y-1">
+                  <div className="text-center space-y-0.5">
                     <h2 className="text-emerald-600 text-[9px] font-bold tracking-[0.3em] uppercase">{selectedState} State</h2>
                     <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-gray-900">Choose a <span className="text-emerald-500">Hub</span></h1>
-                    <p className="text-gray-400 text-center text-xs max-w-xs mx-auto pt-1">Select the Market Monie office closest to your business.</p>
+                    <p className="text-gray-400 text-center text-[10px] sm:text-xs max-w-xs mx-auto pt-0.5">Select the Market Monie office closest to your business.</p>
                   </div>
                 </div>
 

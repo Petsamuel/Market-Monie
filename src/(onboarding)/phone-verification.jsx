@@ -42,8 +42,8 @@ const PhoneVerification = () => {
         </aside>
 
         {/* Main Form Content - Expanded and centered in remaining space */}
-        <div className="flex-1 flex justify-center w-full">
-          <div className="w-full max-w-3xl px-4 sm:px-0">
+        <div className="flex-1 w-full flex justify-center">
+          <div className="w-full max-w-xl px-4 sm:px-0">
             <div className="animate-in fade-in slide-in-from-bottom-4 duration-700">
               <div className="text-left">
                 <div className="inline-flex items-center justify-center p-3 bg-emerald-50 rounded-xl mb-6 text-emerald-600">

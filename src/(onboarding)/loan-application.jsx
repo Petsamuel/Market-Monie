@@ -123,8 +123,8 @@ const LoanApplication = () => {
         </aside>
 
         {/* Main Form Content - Expanded and centered in remaining space */}
-        <div className="flex-1 flex justify-center w-full">
-          <div className="w-full max-w-3xl px-4 sm:px-0">
+        <div className="flex-1 w-full flex justify-center">
+          <div className="w-full max-w-4xl px-4 sm:px-0">
             {content}
           </div>
         </div>
