@@ -1,9 +1,10 @@
 import { FiEdit3, FiFileText, FiMail, FiShield, FiUserPlus } from "react-icons/fi";
+import { FaPhone } from "react-icons/fa6";
 import { isGuestGlobal } from "../../store/Data";
 
 const allSteps = [
   { key: "account", label: "Account", icon: <FiUserPlus /> },
-  { key: "email", label: "Email", icon: <FiMail /> },
+  { key: "phone", label: "Phone", icon: <FaPhone /> },
   { key: "application", label: "Application", icon: <FiFileText /> },
   { key: "review", label: "Review", icon: <FiEdit3 /> },
 ];
@@ -45,7 +46,7 @@ const JourneyHeader = ({ activeStep, orientation = "horizontal" }) => {
                   {step.label}
                 </span>
                 {isActive && (
-                   <div className="mt-2 w-6 h-1 bg-emerald-500 rounded-full animate-pulse" />
+                  <div className="mt-2 w-6 h-1 bg-emerald-500 rounded-full animate-pulse" />
                 )}
               </div>
             );

@@ -74,7 +74,7 @@ const PhoneVerification = () => {
       <div className="flex flex-col lg:flex-row gap-4 items-start">
         {/* Progress Sidebar */}
         <aside className="shrink-0 lg:sticky lg:top-4 pl-0">
-          <JourneyHeader activeStep="email" orientation="vertical" />
+          <JourneyHeader activeStep="phone" orientation="vertical" />
         </aside>
 
         {/* Main Form Content */}
