@@ -40,14 +40,13 @@ const LandingPage2 = () => {
   const handleStateSelect = (state) => {
     setSelectedState(state);
     setSelectedStateGlobal(state);
+    setSelectedHub(""); // Reset hub selection when state changes
     const hubs = branchAddresses[state] || [];
     
     if (hubs.length > 0) {
-      setStep(2);
       setNoHubAlert(false);
       setNoHubStateGlobal(false);
     } else {
-      setStep(1); // Stay on step 1
       setNoHubAlert(true);
       setNoHubStateGlobal(true);
       setSelectedHub("No Hub (Remote)");
@@ -58,9 +57,9 @@ const LandingPage2 = () => {
 
   const handleHubSelect = (hub) => {
     setSelectedHub(hub.name);
-    setSelectedHubGlobal(hub); // Now passing the object {name, address}
+    setSelectedHubGlobal(hub);
     setNoHubStateGlobal(false);
-    setStep(3);
+    // Stay on step 1, options will show below
   };
 
 
@@ -68,7 +67,7 @@ const LandingPage2 = () => {
     setSelectedHub("No Hub (Remote)");
     setSelectedHubGlobal("No Hub (Remote)");
     setNoHubStateGlobal(true);
-    setStep(3);
+    // Stay on step 1, options will show below
   };
 
   useEffect(() => {
@@ -86,13 +85,10 @@ const LandingPage2 = () => {
 
 
   const handleBack = () => {
-
-    if (step === 2) {
-      setStep(1);
-      setSelectedState("");
-    } else if (step === 3) {
-      setStep(2);
+    if (selectedHub) {
       setSelectedHub("");
+    } else if (selectedState) {
+      setSelectedState("");
     }
   };
 
@@ -125,19 +121,19 @@ const LandingPage2 = () => {
 
           <div className="flex items-center gap-4">
             <div className="hidden md:flex gap-1">
-              {[1, 2, 3].map((s) => (
+              {[1].map((s) => (
                 <div
                   key={s}
                   className={`h-1 w-8 rounded-full transition-all duration-500 ${step >= s ? 'bg-emerald-500' : 'bg-gray-100'}`}
                 />
               ))}
             </div>
-            <span className="text-[10px] tracking-widest font-bold text-gray-400">Step 0{step} / 03</span>
+            <span className="text-[10px] tracking-widest font-bold text-gray-400">Step 01 / 01</span>
           </div>
         </header>
 
         {/* Main Content */}
-        <main className="flex-1 flex flex-col items-center justify-start pt-0 md:pt-0 max-w-4xl mx-auto w-full">
+        <main className="flex-1 flex flex-col items-center justify-center pt-0 md:pt-0 max-w-4xl mx-auto w-full">
           <AnimatePresence mode="wait">
             {step === 1 && (
               <motion.div
@@ -203,16 +199,92 @@ const LandingPage2 = () => {
                     )}
                   </AnimatePresence>
                 </div>
-                <AnimatePresence>
+
+                <AnimatePresence mode="wait">
+                  {selectedState && availableHubs.length > 0 && !noHubAlert && (
+                    <motion.div
+                      key="hub-selection"
+                      initial={{ opacity: 0, height: 0, y: 10 }}
+                      animate={{ opacity: 1, height: 'auto', y: 0 }}
+                      exit={{ opacity: 0, height: 0, y: 10 }}
+                      className="space-y-4 pt-4 w-full"
+                    >
+                      <div className="text-center space-y-1">
+                        <h2 className="text-xl md:text-2xl font-bold tracking-tight text-gray-900">Choose a <span className="text-emerald-500">Hub</span></h2>
+                        <p className="text-gray-400 text-center text-[10px] sm:text-xs max-w-xs mx-auto">Select the Market Monie office closest to your business in {selectedState}.</p>
+                      </div>
+
+                      <div className="relative max-w-md mx-auto z-40" ref={hubDropdownRef}>
+                        <div className="relative">
+                          <FiSearch className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
+                          <input
+                            type="text"
+                            placeholder="Search or Select Hub..."
+                            value={searchQuery || (selectedHub && !isHubDropdownOpen ? selectedHub : "")}
+                            onFocus={() => setIsHubDropdownOpen(true)}
+                            onChange={(e) => {
+                              setSearchQuery(e.target.value);
+                              if (!isHubDropdownOpen) setIsHubDropdownOpen(true);
+                              if (selectedHub) setSelectedHub("");
+                            }}
+                            className="w-full bg-gray-50 border border-gray-100 rounded-2xl py-4 pl-12 pr-4 focus:outline-none focus:border-emerald-500/50 transition-colors placeholder:text-gray-400 text-gray-900 font-medium shadow-sm"
+                          />
+                        </div>
+
+                        <AnimatePresence>
+                          {isHubDropdownOpen && (
+                            <motion.div
+                              initial={{ opacity: 0, y: 10, scale: 0.98 }}
+                              animate={{ opacity: 1, y: 0, scale: 1 }}
+                              exit={{ opacity: 0, y: 10, scale: 0.98 }}
+                              className="absolute mt-1 w-full bg-white border border-gray-100 rounded-[2rem] shadow-[0_20px_50px_rgba(0,0,0,0.1)] overflow-hidden max-h-[300px] overflow-y-auto custom-scrollbar z-[100]"
+                            >
+                              {filteredHubs.length > 0 ? (
+                                <div className="p-3 grid grid-cols-1 gap-2">
+                                  {filteredHubs.map((hub, i) => (
+                                    <button
+                                      key={i}
+                                      onMouseDown={(e) => {
+                                        e.preventDefault();
+                                        handleHubSelect(hub);
+                                        setIsHubDropdownOpen(false);
+                                      }}
+                                      className="group flex items-center gap-4 p-4 rounded-2xl bg-gray-50/50 border border-gray-100 text-left hover:border-emerald-500/30 hover:bg-emerald-50 transition-all"
+                                    >
+                                      <div className={`p-2 rounded-xl transition-all ${selectedHub === hub.name ? 'bg-emerald-500 text-white' : 'bg-emerald-500/10 text-emerald-500 group-hover:bg-emerald-500 group-hover:text-white'}`}>
+                                        <FiMapPin size={20} />
+                                      </div>
+                                      <div className="flex-1">
+                                        <p className={`font-medium leading-snug transition-colors ${selectedHub === hub.name ? 'text-emerald-500' : 'text-gray-700'} group-hover:text-emerald-500`}>{hub.name}</p>
+                                        <p className="text-gray-400 text-[10px] font-bold tracking-wider uppercase">Business Center</p>
+                                      </div>
+                                      <FiArrowRight className={`transition-all ${selectedHub === hub.name ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0'} text-emerald-500`} />
+                                    </button>
+                                  ))}
+                                </div>
+                              ) : (
+                                <div className="p-10 text-center space-y-2">
+                                  <div className="text-gray-200 flex justify-center"><FiSearch size={32} /></div>
+                                  <p className="text-gray-400 italic text-sm">No hubs found matching "{searchQuery}"</p>
+                                </div>
+                              )}
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
+                      </div>
+                    </motion.div>
+                  )}
+
                   {noHubAlert && (
                     <motion.div 
+                      key="no-hub-alert"
                       initial={{ opacity: 0, height: 0 }}
                       animate={{ opacity: 1, height: 'auto' }}
                       exit={{ opacity: 0, height: 0 }}
-                      className="space-y-6 pt-4"
+                      className="space-y-6 pt-4 w-full"
                     >
                       {/* No Hub Alert */}
-                      <div className="flex gap-3 bg-amber-50 border border-amber-100 rounded-2xl p-4 text-left">
+                      <div className="flex gap-3 bg-amber-50 border border-amber-100 rounded-2xl p-4 text-left max-w-md mx-auto">
                         <div className="shrink-0 p-2 rounded-lg bg-amber-100 text-amber-600 h-fit">
                           <FiAlertCircle size={20} />
                         </div>
@@ -224,242 +296,96 @@ const LandingPage2 = () => {
                           </p>
                         </div>
                       </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
 
-                      {/* Options */}
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                        <button
+                {/* Options Section (Premium Cards) */}
+                <AnimatePresence>
+                  {(selectedHub || noHubAlert) && (
+                    <motion.div
+                      key="options-section"
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: 20 }}
+                      className="w-full space-y-6 pt-4"
+                    >
+                      <div className="text-center space-y-2">
+                        <div className="flex items-center justify-center gap-2 mb-2">
+                          <div className="h-[1px] w-8 bg-gray-100" />
+                          <p className="text-gray-400 text-[9px] font-bold tracking-[0.2em] uppercase">
+                            Final Step
+                          </p>
+                          <div className="h-[1px] w-8 bg-gray-100" />
+                        </div>
+                        <h2 className="text-lg md:text-xl font-bold text-gray-900">How would you like to proceed?</h2>
+                      </div>
+
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-2xl mx-auto w-full px-2">
+                        <motion.button
+                          whileHover={{ y: -4, scale: 1.02 }}
+                          whileTap={{ scale: 0.98 }}
                           onClick={() => {
                             setIsGuestGlobal(false);
                             navigate("/register");
                           }}
-                          className="group flex flex-col p-5 rounded-2xl bg-emerald-600 text-white shadow-xl shadow-emerald-900/20 text-left transition-all hover:translate-y-[-2px]"
+                          className="group relative overflow-hidden p-6 rounded-[2rem] bg-emerald-600 text-white text-left shadow-2xl shadow-emerald-900/20 h-45 md:h-60"
                         >
-                          <div className="flex items-center gap-3 mb-3">
-                            <div className="p-2 rounded-lg bg-white/20">
-                              <FiUserPlus size={18} />
+                          <div className="absolute top-0 right-0 p-6 opacity-10 group-hover:opacity-20 transition-opacity">
+                            <FiUserPlus size={48} />
+                          </div>
+                          <div className="relative z-10 space-y-4">
+                            <div className="p-3 w-fit rounded-2xl bg-white/20 backdrop-blur-md">
+                              <FiUserPlus size={24} />
                             </div>
-                            <h3 className="text-sm font-bold uppercase tracking-wider">Create Account</h3>
+                            <div>
+                              <h3 className="text-lg font-bold leading-tight">Create Account</h3>
+                              <p className="text-white/70 text-xs mt-1 leading-relaxed">Track your application and repayment history easily.</p>
+                            </div>
+                            <div className="flex items-center gap-2 text-[10px] font-bold tracking-widest -mt-1 md:pt-2 group-hover:gap-3 transition-all duration-400">
+                              GET STARTED <FiArrowRight />
+                            </div>
                           </div>
-                          <p className="text-[10px] text-white/70 leading-relaxed mb-4">
-                            Track application, repayment history.
-                          </p>
-                          <div className="mt-auto flex items-center gap-2 text-[10px] font-bold tracking-widest pt-2 group-hover:gap-3 transition-all duration-300">
-                            Get Started <FiArrowRight />
-                          </div>
-                        </button>
+                        </motion.button>
 
-                        <button
+                        <motion.button
+                          whileHover={{ y: -4, scale: 1.02 }}
+                          whileTap={{ scale: 0.98 }}
                           onClick={() => {
                             setIsGuestGlobal(true);
                             navigate("/apply/hub");
                           }}
-                          className="group flex flex-col p-5 rounded-2xl bg-white border border-gray-200 text-gray-900 hover:bg-gray-50 transition-all hover:translate-y-[-2px] text-left shadow-sm"
+                          className="group relative overflow-hidden p-6 rounded-[2rem] bg-white border border-gray-100 text-gray-900 text-left hover:bg-gray-50/50 h-45 md:h-60 transition-all shadow-xl shadow-gray-200/50"
                         >
-                          <div className="flex items-center gap-3 mb-3">
-                            <div className="p-2 rounded-lg bg-emerald-100 text-emerald-600">
-                              <FiUser size={18} />
+                          <div className="absolute top-0 right-0 p-6 opacity-[0.03]">
+                            <FiUser size={48} />
+                          </div>
+                          <div className="relative z-10 space-y-4">
+                            <div className="p-3 w-fit rounded-2xl bg-emerald-50 text-emerald-600">
+                              <FiUser size={24} />
                             </div>
-                            <h3 className="text-sm font-bold uppercase tracking-wider">Continue as Guest</h3>
+                            <div>
+                              <h3 className="text-lg font-bold leading-tight">Continue as Guest</h3>
+                              <p className="text-gray-500 text-xs mt-1 leading-relaxed">Apply quickly without creating a permanent account.</p>
+                            </div>
+                            <div className="flex items-center gap-2 text-[10px] font-bold tracking-widest -mt-1 md:pt-2 text-emerald-600 group-hover:gap-3 transition-all duration-400">
+                              EXPLORE NOW <FiArrowRight />
+                            </div>
                           </div>
-                          <p className="text-[10px] text-gray-500 leading-relaxed mb-4">
-                            Apply without creating an account.
-                          </p>
-                          <div className="mt-auto flex items-center gap-2 text-[10px] font-bold tracking-widest pt-2 text-emerald-600 group-hover:gap-3 transition-all duration-300">
-                            Explore Now <FiArrowRight />
-                          </div>
+                        </motion.button>
+                      </div>
+
+                      <div className="text-center pt-4">
+                        <button
+                          onClick={handleBack}
+                          className="text-gray-400 text-[10px] font-bold tracking-widest hover:text-emerald-600 transition-colors uppercase"
+                        >
+                          Change Location
                         </button>
                       </div>
                     </motion.div>
                   )}
                 </AnimatePresence>
-
-
-              </motion.div>
-            )}
-            {step === 2 && (
-              <motion.div
-                key="step2"
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -20 }}
-                className="w-full space-y-3"
-              >
-                <div className="relative flex flex-col items-center border-b border-gray-50 pb-2 mb-1">
-                  <button onClick={handleBack} className="absolute left-0 top-1/2 -translate-y-1/2 p-2.5 rounded-full bg-gray-50 hover:bg-gray-100 transition-colors border border-gray-50 shadow-sm text-gray-500">
-                    <FiArrowLeft size={16} />
-                  </button>
-                  <div className="text-center space-y-0.5">
-                    <h2 className="text-emerald-600 text-[9px] font-bold tracking-[0.3em] uppercase">{selectedState} State</h2>
-                    <h1 className="text-xl md:text-2xl font-bold tracking-tight text-gray-900">Choose a <span className="text-emerald-500">Hub</span></h1>
-                    <p className="text-gray-400 text-center text-[10px] sm:text-xs max-w-xs mx-auto pt-0.5">Select the Market Monie office closest to your business.</p>
-                  </div>
-                </div>
-
-
-                {availableHubs.length > 0 ? (
-                  <div className="relative max-w-md mx-auto z-40" ref={hubDropdownRef}>
-                    <div className="relative">
-                      <FiSearch className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
-                      <input
-                        type="text"
-                        placeholder="Search or Select Hub..."
-                        value={searchQuery || (selectedHub && !isHubDropdownOpen ? selectedHub : "")}
-                        onFocus={() => {
-                          setIsHubDropdownOpen(true);
-                        }}
-                        onChange={(e) => {
-                          setSearchQuery(e.target.value);
-                          if (!isHubDropdownOpen) setIsHubDropdownOpen(true);
-                          if (selectedHub) setSelectedHub(""); // Clear selection when typing
-                        }}
-                        className="w-full bg-gray-50 border border-gray-100 rounded-2xl py-4 pl-12 pr-4 focus:outline-none focus:border-emerald-500/50 transition-colors placeholder:text-gray-400 text-gray-900 font-medium shadow-sm"
-                      />
-                    </div>
-
-                    <AnimatePresence>
-                      {isHubDropdownOpen && (
-                        <motion.div
-                          initial={{ opacity: 0, y: 10, scale: 0.98 }}
-                          animate={{ opacity: 1, y: 0, scale: 1 }}
-                          exit={{ opacity: 0, y: 10, scale: 0.98 }}
-                          className="absolute mt-1 w-full bg-white border border-gray-100 rounded-[2rem] shadow-[0_20px_50px_rgba(0,0,0,0.1)] overflow-hidden max-h-[360px] overflow-y-auto custom-scrollbar z-[100]"
-                        >
-                          {filteredHubs.length > 0 ? (
-                            <div className="p-3 grid grid-cols-1 gap-2">
-                              {filteredHubs.map((hub, i) => (
-                                <button
-                                  key={i}
-                                  onMouseDown={(e) => {
-                                    e.preventDefault();
-                                    handleHubSelect(hub);
-                                    setIsHubDropdownOpen(false);
-                                  }}
-                                  className="group flex items-center gap-4 p-4 rounded-2xl bg-gray-50/50 border border-gray-100 text-left hover:border-emerald-500/30 hover:bg-emerald-50 transition-all"
-                                >
-                                  <div className={`p-2 rounded-xl transition-all ${selectedHub === hub.name ? 'bg-emerald-500 text-white' : 'bg-emerald-500/10 text-emerald-500 group-hover:bg-emerald-500 group-hover:text-white'}`}>
-                                    <FiMapPin size={20} />
-                                  </div>
-                                  <div className="flex-1">
-                                    <p className={`font-medium leading-snug transition-colors ${selectedHub === hub.name ? 'text-emerald-500' : 'text-gray-700'} group-hover:text-emerald-500`}>{hub.name}</p>
-                                    <p className="text-gray-400 text-[10px] font-bold tracking-wider uppercase">Business Center</p>
-                                  </div>
-                                  <FiArrowRight className={`transition-all ${selectedHub === hub.name ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0'} text-emerald-500`} />
-                                </button>
-
-                              ))}
-                            </div>
-                          ) : (
-                            <div className="p-10 text-center space-y-2">
-                              <div className="text-gray-200 flex justify-center"><FiSearch size={32} /></div>
-                              <p className="text-gray-400 italic text-sm">No hubs found matching "{searchQuery}"</p>
-                            </div>
-                          )}
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
-                  </div>
-                ) : (
-
-                  <div className="col-span-full py-12 px-6 mb-4 text-center bg-gray-50 border border-gray-200 rounded-[2.5rem] flex flex-col items-center gap-6 shadow-sm">
-                    <div className="p-4 rounded-full bg-emerald-100 text-emerald-600">
-                      <FiAlertCircle size={32} />
-                    </div>
-                    <div className="space-y-2 max-w-lg">
-                      <p className="text-gray-800 font-medium text-lg leading-relaxed">
-                        We currently do not have a MarketMonie office in your selected state.
-                      </p>
-                      <p className="text-gray-500 text-sm leading-relaxed italic">
-                        You can still proceed with your application, and an agent will reach out to you within 5 working days.
-                      </p>
-                    </div>
-                    <motion.button
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      onClick={handleContinueNoHub}
-                      className="px-10 py-4 rounded-full bg-emerald-600 text-white font-bold tracking-widest text-xs hover:bg-emerald-500 transition-colors shadow-lg shadow-emerald-500/20"
-                    >
-                      Continue Application
-                    </motion.button>
-                  </div>
-                )}
-              </motion.div>
-            )}
-
-            {step === 3 && (
-              <motion.div
-                key="step3"
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 1.05 }}
-                className="w-full max-w-2xl space-y-8"
-              >
-                <div className="text-center space-y-4">
-                  <p className="text-gray-500 text-lg md:text-xl font-medium">
-                    You've selected <span className="text-emerald-600 font-bold">{selectedState}</span> - <span className="text-emerald-600 font-bold">{selectedHub}</span>.
-                  </p>
-                  <p className="text-gray-400 text-sm tracking-widest font-bold uppercase">
-                    How would you like to proceed?
-                  </p>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 ">
-                  <motion.button
-                    whileHover={{ y: -3 }}
-                    onClick={() => {
-                      setIsGuestGlobal(false);
-                      navigate("/register");
-                    }}
-                    className="group relative overflow-hidden p-5 rounded-2xl bg-emerald-600 text-white text-left shadow-xl shadow-emerald-900/20"
-                  >
-                    <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
-                      <FiUserPlus size={48} />
-                    </div>
-                    <div className="relative z-10 space-y-3">
-                      <div className="p-2 w-fit rounded-lg bg-white/20">
-                        <FiUserPlus size={20} />
-                      </div>
-                      <h3 className="text-lg font-bold">Create Account</h3>
-                      <p className="text-white/70 text-xs leading-relaxed">Track
-                        application, repayment history.</p>
-                      <div className="flex items-center gap-2 text-[10px] font-bold tracking-widest pt-2 hover:gap-3 transition-all duration-400">
-                        Get Started <FiArrowRight />
-                      </div>
-                    </div>
-                  </motion.button>
-
-                  <motion.button
-                    whileHover={{ y: -3 }}
-                    onClick={() => {
-                      setIsGuestGlobal(true);
-                      navigate("/apply/hub");
-                    }}
-                    className="group relative overflow-hidden p-5 rounded-2xl bg-gray-50 border border-gray-200 text-gray-900 text-left hover:bg-gray-100 transition-colors shadow-sm"
-                  >
-                    <div className="absolute top-0 right-0 p-4 opacity-[0.03]">
-                      <FiUser size={48} />
-                    </div>
-                    <div className="relative z-10 space-y-3">
-                      <div className="p-2 w-fit rounded-lg bg-white border border-gray-200 text-emerald-500 shadow-sm">
-                        <FiUser size={20} />
-                      </div>
-                      <h3 className="text-lg font-bold">Continue as Guest</h3>
-                      <p className="text-gray-500 text-xs leading-relaxed">Apply without
-                        creating an account.</p>
-                      <div className="flex items-center gap-2 text-[10px] font-bold tracking-widest pt-2 text-emerald-600 hover:gap-3 transition-all duration-400">
-                        Explore Now <FiArrowRight />
-                      </div>
-                    </div>
-                  </motion.button>
-                </div>
-
-                <div className="text-center">
-                  <button
-                    onClick={handleBack}
-                    className="text-gray-400 text-xs font-bold tracking-widest hover:text-emerald-600 transition-colors uppercase"
-                  >
-                    Change location
-                  </button>
-                </div>
               </motion.div>
             )}
           </AnimatePresence>

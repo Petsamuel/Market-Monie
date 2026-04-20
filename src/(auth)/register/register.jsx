@@ -69,7 +69,7 @@ const Register = () => {
   };
 
   return (
-    <div className="w-full pr-4 sm:pr-6 lg:pr-8 pt-2 pb-10 font-poppins">
+    <div className="w-full pr-2 sm:pr-4 lg:pr-6 xl:pr-8 pt-2 pb-10 font-poppins">
       <div className="flex flex-col lg:flex-row gap-4 items-start">
         {/* Progress Sidebar - Placed at the very edge */}
         <aside className="shrink-0 lg:sticky lg:top-4 pl-0">
@@ -78,7 +78,7 @@ const Register = () => {
 
         {/* Main Form Content - Expanded and centered in remaining space */}
         <div className="flex-1 w-full flex justify-center">
-          <div className="w-full max-w-2xl px-4 sm:px-0">
+          <div className="w-full max-w-2xl lg:px-4 px-0">
             <div className="text-left">
               <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-gray-900">
                 Create account
@@ -182,13 +182,13 @@ const Register = () => {
                 Phone Number
               </label>
               <div className="mt-2 relative">
-                <div className={`absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none font-medium sm:text-sm z-10 transition-colors ${errors.phone ? 'text-red-400' : (watchedFields.phone ? 'text-emerald-500' : 'text-gray-500')}`}>
+                <div className={`absolute inset-y-0 bg-slate-200 rounded-l-md flex items-center px-2 pointer-events-none font-medium sm:text-sm z-10 transition-colors ${errors.phone ? 'text-red-400' : (watchedFields.phone ? 'text-emerald-500' : 'text-gray-500')}`}>
                   +234 (0)
                 </div>
                 <input
                   {...register("phone")}
                   type="tel"
-                  placeholder="812 345 6789"
+                  placeholder=""
                   className={getInputClassName("phone", true)}
                 />
               </div>
