@@ -351,7 +351,7 @@ const LandingPage2 = () => {
                     whileHover={{ y: -3 }}
                     onClick={() => {
                       setIsGuestGlobal(true);
-                      navigate("/onboarding/phone");
+                      navigate("/apply/hub");
                     }}
                     className="group relative overflow-hidden p-5 rounded-2xl bg-gray-50 border border-gray-200 text-gray-900 text-left hover:bg-gray-100 transition-colors shadow-sm"
                   >

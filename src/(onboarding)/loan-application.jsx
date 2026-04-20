@@ -100,7 +100,7 @@ const LoanApplication = () => {
 
   // Simplified step management for 3-screen flow
   // 0: Personal, 1: Business, 2: Financial, 3: Review, 4: Success
-  const [step, setStep] = useState(0);
+  const [step, setStep] = useState(location.state?.startAtStep || 0);
 
 
   const updateFormData = (field, value) => {
@@ -110,6 +110,20 @@ const LoanApplication = () => {
   const nextStep = () => setStep(prev => prev + 1);
   const prevStep = () => setStep(prev => prev - 1);
   const goToStep = (s) => setStep(s);
+
+  const handlePersonalDetailsContinue = () => {
+    if (isGuestGlobal) {
+      // For Guests, redirect to phone verification before proceeding to Business Details
+      navigate("/onboarding/phone", { 
+        state: { 
+          phone: formData.phone,
+          isGuestFlow: true 
+        } 
+      });
+    } else {
+      nextStep();
+    }
+  };
 
   const handleSubmit = () => {
     // Simulate API call
@@ -149,7 +163,7 @@ const LoanApplication = () => {
         <PersonalDetails 
           data={formData} 
           onChange={updateFormData}
-          onContinue={nextStep}
+          onContinue={handlePersonalDetailsContinue}
           onBack={() => navigate('/')}
           isGuest={isGuestGlobal}
         />
