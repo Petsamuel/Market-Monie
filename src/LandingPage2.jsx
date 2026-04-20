@@ -220,7 +220,7 @@ const LandingPage2 = () => {
                           <h4 className="text-sm font-bold text-amber-900">No hub in {selectedState} yet</h4>
                           <p className="text-xs text-amber-800/80 leading-relaxed">
                             We don't have a physical hub in this state, but you can still apply! 
-                            An agent will contact you within 72 hours for remote verification.
+                            An agent will contact you within 5 working days.
                           </p>
                         </div>
                       </div>
