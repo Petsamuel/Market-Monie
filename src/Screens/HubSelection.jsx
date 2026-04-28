@@ -107,7 +107,7 @@ const HubSelection = () => {
                     No hub in this state yet
                   </div>
                   <div className="text-sm max-w-md">
-                    <p>We Currently do not have a MarketMonie hub in your state, but we are working on it. You can still proceed with your application, and an agent will reach out to you within <span className="font-bold">72 hours to 1 week</span></p>
+                    <p>We Currently do not have a MarketMonie hub in your state, but we are working on it. You can still proceed with your application, and an agent will reach out to you within <span className="font-bold">5 working days</span></p>
                   </div>
                 </div>
               </div>

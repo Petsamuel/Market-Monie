@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { IoLocationOutline } from "react-icons/io5";
 import { FaChevronDown, FaChevronUp, FaArrowLeft } from "react-icons/fa";
-import { locations } from '..//store/Data';
+import { locations } from '../store/Data';
 import { useNavigate } from "react-router-dom";
 import { setSelectedStateGlobal } from "../store/Data";
 import ProgressBar from './ProgressBar.jsx';
