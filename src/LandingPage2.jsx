@@ -5,7 +5,10 @@ import {
   FiArrowRight, FiArrowLeft, FiMapPin, FiHome, FiUser, FiUserPlus,
   FiSearch, FiCheckCircle, FiAlertCircle
 } from "react-icons/fi";
-import { locations, branchAddresses, setSelectedStateGlobal, setSelectedHubGlobal, setNoHubStateGlobal, setIsGuestGlobal } from "./store/Data";
+import {
+  locations, branchAddresses, setSelectedStateGlobal, setSelectedHubGlobal,
+  setNoHubStateGlobal, setIsGuestGlobal
+} from "./store/Data";
 
 const LandingPage2 = () => {
   const navigate = useNavigate();
@@ -42,7 +45,7 @@ const LandingPage2 = () => {
     setSelectedStateGlobal(state);
     setSelectedHub(""); // Reset hub selection when state changes
     const hubs = branchAddresses[state] || [];
-    
+
     if (hubs.length > 0) {
       setNoHubAlert(false);
       setNoHubStateGlobal(false);
