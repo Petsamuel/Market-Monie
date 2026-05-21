@@ -27,11 +27,11 @@ const TopBar = ({ user, loanStage, toggleMobile }) => {
         <div className="flex flex-col">
           <div className="flex items-center gap-2 mb-0.5">
             <h1 className="text-sm md:text-xl font-bold text-gray-900 font-poppins line-clamp-1">
-              {loanStage ==='NO_LOAN' ? (
+              {loanStage === 'User' ? (
                 <>Hello {user.firstname}, you can borrow up to <span className="text-emerald-600">₦10,000,000</span></>
-              ) : (
+              ) : loanStage === 'Guest' ? (
                 <>Hello {user.firstname}</>
-              )}
+              ) : 'hey'}
             </h1>
           </div>
           <p className="text-[9px] md:text-[10px] text-emerald-600 font-bold tracking-[0.2em]">
@@ -42,16 +42,6 @@ const TopBar = ({ user, loanStage, toggleMobile }) => {
 
       {/* Right: Actions */}
       <div className="flex items-center gap-6">
-        {/* Search Bar (Static for now) */}
-        <div className="hidden md:flex items-center bg-gray-50 border border-gray-100 rounded-xl px-4 py-2 w-64 focus-within:ring-2 focus-within:ring-emerald-500/20 transition-all">
-          <FiSearch className="text-gray-400" />
-          <input 
-            type="text" 
-            placeholder="Search anything..." 
-            className="bg-transparent border-none outline-none ml-3 text-sm font-medium w-full"
-          />
-        </div>
-
         <div className="flex items-center gap-3 border-l border-gray-100 pl-6">
           <button className="h-10 w-10 flex items-center justify-center rounded-xl bg-gray-50 text-gray-500 hover:bg-emerald-50 hover:text-emerald-600 transition-all relative group">
             <FiBell size={20} />

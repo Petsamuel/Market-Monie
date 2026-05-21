@@ -1,3 +1,4 @@
+import react, {useState} from 'react'
 import { useOutletContext, useNavigate } from"react-router-dom";
 import { 
   FiPlus, 
@@ -8,79 +9,48 @@ import {
   FiClock 
 } from"react-icons/fi";
 import { WelcomeCard, ApplicationStatusCard, LoanSummaryCard } from"./components/LoanCards";
-import QuickStats from"./components/QuickStats";
+import FirstContainer from"./components/FirstContainer";
+import LoanStatus from"./components/LoanStatus";
+import Shortcuts from"./components/Shortcuts";
 
 const Dashboard = () => {
-  const { user, loanStage } = useOutletContext();
+  const { user } = useOutletContext();
+
+  const [loanStage, setLoanStage] = useState('Guest');
   const navigate = useNavigate();
 
+
   return (
-    <div className="space-y-8 animate-in fade-in duration-700">
-      {/* 1. Analytics / Quick Stats overview */}
-      <section>
-        <QuickStats />
+    <div className="space-y-8 animate-in fade-in duration-700 font-poppins">
+      <section className="flex flex-col gap-6">
+        <FirstContainer loanStage={loanStage}/>
+        <LoanStatus loanStage={loanStage}/>
+        <Shortcuts loanStage={loanStage}/>
       </section>
 
-      {/* 2. Primary Status/Summary Card */}
-      <section>
-        {loanStage ==='ACTIVE_APPLICATION' && <ApplicationStatusCard />}
-        {loanStage ==='DISBURSED' && <LoanSummaryCard />}
-        {loanStage ==='NO_LOAN' && <WelcomeCard user={user} />}
-      </section>
+     {/* DEV CONTROLS */}
+      <div className="flex gap-3 mt-6">
+        <button
+          onClick={() => setLoanStage('User')}
+          className="px-3 py-1 bg-green-500 text-white rounded"
+        >
+          Active
+        </button>
 
-      {/* 2. Shortcut Actions */}
-      <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        <ShortcutButton 
-          icon={<FiPlus />} 
-          title="Apply for Loan" 
-          description="Get business funding"
-          onClick={() => navigate('/apply/hub')}
-          disabled={loanStage !=='NO_LOAN' && loanStage !=='FULLY_REPAID'}
-        />
-        <ShortcutButton 
-          icon={<FiEye />} 
-          title="View My Loans" 
-          description="Check your history"
-          onClick={() => navigate('/dashboard/loan-requests/history')}
-        />
-        <ShortcutButton 
-          icon={<FiCreditCard />} 
-          title="Make Payment" 
-          description="Pay your active loan"
-          onClick={() => navigate('/dashboard/make-payment')}
-          disabled={loanStage !=='DISBURSED'}
-        />
-        <ShortcutButton 
-          icon={<FiMessageCircle />} 
-          title="Contact Support" 
-          description="We are here to help"
-          onClick={() => navigate('/dashboard/support')}
-          isSecondary
-        />
-      </section>
+        <button
+          onClick={() => setLoanStage('Guest')}
+          className="px-3 py-1 bg-gray-500 text-white rounded"
+        >
+          Inactive
+        </button>
 
-      {/* 3. Recent Activity / Quick Stats */}
-      <section className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        <div className="lg:col-span-2 bg-white p-6 rounded-2xl border border-gray-100">
-          <h3 className="text-sm font-bold text-gray-900 uppercase tracking-widest mb-6">Recent Activity</h3>
-          <div className="text-center py-12">
-            <div className="h-16 w-16 bg-gray-50 rounded-full flex items-center justify-center mx-auto mb-4">
-              <FiClock className="text-gray-300" size={24} />
-            </div>
-            <p className="text-sm text-gray-400 font-medium">No recent activity to show.</p>
-          </div>
-        </div>
-        <div className="bg-emerald-900 p-6 rounded-2xl text-white relative overflow-hidden group">
-          <div className="relative z-10">
-            <h3 className="text-sm font-bold uppercase tracking-widest opacity-60 mb-6 font-poppins">Tips for Growth</h3>
-            <p className="text-lg font-bold mb-4 font-poppins leading-snug">Keep your repayment records clean to increase your limit.</p>
-            <button className="flex items-center gap-2 text-emerald-400 text-sm font-bold hover:gap-3 transition-all">
-              Learn more <FiArrowRight />
-            </button>
-          </div>
-          <div className="absolute -bottom-10 -right-10 h-32 w-32 bg-emerald-500/10 rounded-full blur-2xl group-hover:bg-emerald-500/20 transition-all duration-700" />
-        </div>
-      </section>
+        <button
+          onClick={() => setLoanStage('Restricted')}
+          className="px-3 py-1 bg-red-500 text-white rounded"
+        >
+          Restricted
+        </button>
+      </div>
     </div>
   );
 };

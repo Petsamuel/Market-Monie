@@ -6,6 +6,7 @@ import TopBar from"./components/TopBar";
 const DashboardLayout = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
+  const [loanStage, setLoanStage] = useState('Guest');
 
   // Close mobile sidebar on larger screens
   useEffect(() => {
@@ -22,8 +23,6 @@ const DashboardLayout = () => {
     firstname:"Samuel",
     lastname:"Peter"
   };
-  
-  const loanStage ='ACTIVE_APPLICATION'; 
 
   return (
     <div className="flex min-h-screen bg-gray-50/50 relative">
