@@ -34,6 +34,11 @@ const LoanHistory = () => {
 
       {/* Full Transaction list */}
       <div className="w-full">
+        <div className='flex gap-5 justify-between'>
+          <button>All transactions</button>
+          <button>All inflow</button>
+          <button>All outflow</button>
+        </div>
         <TransactionHistory limit={null} isFullPage={true} />
       </div>
     </div>
