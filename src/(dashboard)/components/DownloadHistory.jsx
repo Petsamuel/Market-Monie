@@ -50,7 +50,7 @@ const DownloadHistory = () => {
     const [openDropdown, setOpenDropdown] = useState(null);
     const [startDate, setStartDate] = useState(null);
     const [endDate, setEndDate] = useState(new Date());
-    const [email, setEmail] = useState('');
+    const [phoneNumber, setPhoneNumber] = useState('');
     const [selectedFileType, setSelectedFileType] = useState('PDF Document (.pdf)');
     const [fileTypeDropdownOpen, setFileTypeDropdownOpen] = useState(false);
     
@@ -249,17 +249,17 @@ const DownloadHistory = () => {
                         </div>
                     </div>
 
-                    {/* Email input block */}
+                    {/* Phone Number input block */}
                     <div className='flex flex-col gap-2 bg-white rounded-xl p-5 border border-gray-100 shadow-xs'>
                         <div>
-                            <h2 className='text-sm font-semibold leading-tight text-gray-900 mb-0.5'>Email</h2>
-                            <p className='text-gray-500 text-xs'>Your account statement will be sent to your email.</p>
+                            <h2 className='text-sm font-semibold leading-tight text-gray-900 mb-0.5'>Phone Number</h2>
+                            <p className='text-gray-500 text-xs'>Your account statement will be sent to your phone number.</p>
                         </div>
                         <input 
-                            type="email" 
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            placeholder='Enter your email' 
+                            type="tel" 
+                            value={phoneNumber}
+                            onChange={(e) => setPhoneNumber(e.target.value)}
+                            placeholder='Enter your phone number' 
                             className='w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-sm outline-none focus:border-emerald-500 transition-all text-gray-700' 
                         />
                     </div>

@@ -73,6 +73,21 @@ const TransactionHistory = ({ limit = 3, isFullPage = false, filter = 'all' }) =
     navigate('/dashboard/loan-requests/history');
   };
 
+  const handleTransactionClick = (id) => {
+    navigate('/dashboard/loan-requests/receipt');
+  };
+
+  // Group transactions by month
+  const groupedTransactions = displayedTransactions.reduce((acc, tx) => {
+    const dateParts = tx.date.split(' ');
+    const monthYear = dateParts.length > 1 ? `${dateParts[1]} ${dateParts[2]}` : 'Other';
+    if (!acc[monthYear]) {
+      acc[monthYear] = [];
+    }
+    acc[monthYear].push(tx);
+    return acc;
+  }, {});
+
   return (
     <div className={`w-full bg-white rounded-3xl border border-gray-100 p-6 md:p-8 ${isFullPage ? '' : 'shadow-sm'}`}>
       {/* Header */}
@@ -91,41 +106,62 @@ const TransactionHistory = ({ limit = 3, isFullPage = false, filter = 'all' }) =
       </div>
 
       {/* Transaction List */}
-      <div className="flex flex-col gap-5">
-        {displayedTransactions.map((tx) => (
-          <div key={tx.id} className="flex items-center justify-between animate-in fade-in slide-in-from-bottom-1 duration-200">
-            {/* Left side: Icon & Info */}
-            <div className="flex items-center gap-4">
-              {/* Custom SVG Double Arrows for Transfer */}
-              <div className="h-11 w-11 md:h-12 md:w-12 text-2xl rounded-full bg-teal-50/60 flex items-center justify-center shrink-0">
-                {tx.state === 'inflow' ? 
-                <BsSendFill className='text-green-900 rotate-175' /> : tx.status === 'declined' ? <IoMdCloseCircleOutline className='text-red-900' /> : <BsSendFill className='text-green-900' />
-                }
-              </div>
-              <div className="text-left">
-                <h4 className={`text-xs md:text-sm font-bold text-gray-800 font-poppins line-clamp-1 max-w-[160px] sm:max-w-xs ${tx.status === 'declined' && 'text-red-900'}`}>
-                  {tx.title}
-                </h4>
-                <p className="text-[10px] md:text-[11px] text-gray-400 font-semibold tracking-wide mt-0.5">
-                  {tx.date}
-                </p>
-              </div>
-            </div>
-
-            {/* Right side: Amount & Status */}
-            <div className="text-right">
-              <span className={`text-xs md:text-sm font-bold ${
-                tx.type === 'debit' ? 'text-red-800/90' : 'text-gray-900'
-              }`}>
-                {tx.amount}
-              </span>
-              <p className="text-[10px] md:text-[11px] text-gray-400 font-semibold tracking-wide mt-0.5">
-                {tx.status}
-              </p>
-            </div>
+      {displayedTransactions.length === 0 ? (
+        <div className="flex flex-col items-center justify-center py-10 text-center">
+          <div className="w-20 h-20 bg-gray-50 rounded-full flex items-center justify-center mb-4">
+            <IoMdCloseCircleOutline size={32} className="text-gray-300" />
           </div>
-        ))}
-      </div>
+          <h3 className="text-sm font-bold text-gray-800">No transactions yet</h3>
+          <p className="text-xs text-gray-400 mt-1 max-w-[200px]">You don't have any transactions matching this filter.</p>
+        </div>
+      ) : (
+        <div className="flex flex-col gap-6">
+          {Object.keys(groupedTransactions).map((month) => (
+            <div key={month} className="space-y-4">
+              {isFullPage && <h3 className="text-xs font-bold text-gray-400 uppercase tracking-widest">{month}</h3>}
+              <div className="flex flex-col gap-5">
+                {groupedTransactions[month].map((tx) => (
+                  <div 
+                    key={tx.id} 
+                    onClick={() => handleTransactionClick(tx.id)}
+                    className="flex items-center justify-between animate-in fade-in slide-in-from-bottom-1 duration-200 cursor-pointer hover:bg-gray-50 p-2 -mx-2 rounded-xl transition-colors"
+                  >
+                    {/* Left side: Icon & Info */}
+                    <div className="flex items-center gap-4">
+                      {/* Custom SVG Double Arrows for Transfer */}
+                      <div className="h-11 w-11 md:h-12 md:w-12 text-2xl rounded-full bg-teal-50/60 flex items-center justify-center shrink-0">
+                        {tx.state === 'inflow' ? 
+                        <BsSendFill className='text-green-900 rotate-175' /> : tx.status === 'declined' ? <IoMdCloseCircleOutline className='text-red-900' /> : <BsSendFill className='text-green-900' />
+                        }
+                      </div>
+                      <div className="text-left">
+                        <h4 className={`text-xs md:text-sm font-bold text-gray-800 font-poppins line-clamp-1 max-w-[160px] sm:max-w-xs ${tx.status === 'declined' && 'text-red-900'}`}>
+                          {tx.title}
+                        </h4>
+                        <p className="text-[10px] md:text-[11px] text-gray-400 font-semibold tracking-wide mt-0.5">
+                          {tx.date}
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Right side: Amount & Status */}
+                    <div className="text-right">
+                      <span className={`text-xs md:text-sm font-bold ${
+                        tx.type === 'debit' ? 'text-red-800/90' : 'text-gray-900'
+                      }`}>
+                        {tx.amount}
+                      </span>
+                      <p className="text-[10px] md:text-[11px] text-gray-400 font-semibold tracking-wide mt-0.5">
+                        {tx.status}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };
