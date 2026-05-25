@@ -50,9 +50,14 @@ export const transactionsData = [
   }
 ];
 
-const TransactionHistory = ({ limit = 3, isFullPage = false }) => {
+const TransactionHistory = ({ limit = 3, isFullPage = false, filter = 'all' }) => {
   const navigate = useNavigate();
-  const displayedTransactions = limit ? transactionsData.slice(0, limit) : transactionsData;
+  
+  const filteredData = filter === 'all' 
+    ? transactionsData 
+    : transactionsData.filter(tx => tx.state === filter);
+    
+  const displayedTransactions = limit ? filteredData.slice(0, limit) : filteredData;
 
   const handleSeeAll = () => {
     navigate('/dashboard/loan-requests/history');

@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FiArrowLeft } from 'react-icons/fi';
 import TransactionHistory from './components/TransactionHistory';
 
 const LoanHistory = () => {
   const navigate = useNavigate();
+  const [filter, setFilter] = useState('all');
 
   const handleDownload = () => {
     navigate('/dashboard/loan-requests/history/download');
@@ -34,12 +35,27 @@ const LoanHistory = () => {
 
       {/* Full Transaction list */}
       <div className="w-full">
-        <div className='flex gap-5 justify-between'>
-          <button>All transactions</button>
-          <button>All inflow</button>
-          <button>All outflow</button>
+        <div className='flex gap-5 border-b border-gray-100 mb-6'>
+          <button 
+            onClick={() => setFilter('all')} 
+            className={`pb-3 text-sm font-bold transition-all ${filter === 'all' ? 'text-emerald-600 border-b-2 border-emerald-600' : 'text-gray-400 hover:text-emerald-600 cursor-pointer'}`}
+          >
+            All transactions
+          </button>
+          <button 
+            onClick={() => setFilter('inflow')} 
+            className={`pb-3 text-sm font-bold transition-all ${filter === 'inflow' ? 'text-emerald-600 border-b-2 border-emerald-600' : 'text-gray-400 hover:text-emerald-600 cursor-pointer'}`}
+          >
+            All inflow
+          </button>
+          <button 
+            onClick={() => setFilter('outflow')} 
+            className={`pb-3 text-sm font-bold transition-all ${filter === 'outflow' ? 'text-emerald-600 border-b-2 border-emerald-600' : 'text-gray-400 hover:text-emerald-600 cursor-pointer'}`}
+          >
+            All outflow
+          </button>
         </div>
-        <TransactionHistory limit={null} isFullPage={true} />
+        <TransactionHistory limit={null} isFullPage={true} filter={filter} />
       </div>
     </div>
   );
