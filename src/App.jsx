@@ -73,7 +73,6 @@ function AnimatedRoutes() {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/dashboard/loan-requests" element={<ComingSoon title="My Loan Request" />} />
           <Route path="/dashboard/loan-requests/history" element={<LoanHistory />} />
-          <Route path="/dashboard/loan-requests/history/download" element={<DownloadHistory />} />
           <Route path="/dashboard/loan-requests/tracker" element={<ComingSoon title="Status Tracker" />} />
           <Route path="/dashboard/loan-requests/details" element={<ComingSoon title="Loan Details" />} />
           <Route path="/dashboard/analytics" element={<Analytics />} />
@@ -82,6 +81,7 @@ function AnimatedRoutes() {
           <Route path="/dashboard/make-payment" element={<ComingSoon title="Make Payment" />} />
           <Route path="/dashboard/profile" element={<ComingSoon title="Profile" />} />
         </Route>
+          <Route path="/dashboard/loan-requests/history/download" element={<DownloadHistory />} />
 
         {/* Fallback */}
         <Route path="*" element={<Navigate to="/" replace />} />
