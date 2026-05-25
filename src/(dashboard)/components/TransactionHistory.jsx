@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { BsSendFill } from "react-icons/bs";
+import { IoMdCloseCircleOutline } from "react-icons/io";
 
 export const transactionsData = [
   {
@@ -47,7 +48,16 @@ export const transactionsData = [
     state: 'outflow',
     type: "debit",
     status: "Successful"
-  }
+  },
+  {
+    id: 6,
+    title: "Repayment Direct Debit",
+    date: "25th Apr. 2026 12:00PM",
+    amount: "- ₦15,000.00",
+    state: 'outflow',
+    type: "debit",
+    status: "declined"
+  },
 ];
 
 const TransactionHistory = ({ limit = 3, isFullPage = false, filter = 'all' }) => {
@@ -89,11 +99,11 @@ const TransactionHistory = ({ limit = 3, isFullPage = false, filter = 'all' }) =
               {/* Custom SVG Double Arrows for Transfer */}
               <div className="h-11 w-11 md:h-12 md:w-12 text-2xl rounded-full bg-teal-50/60 flex items-center justify-center shrink-0">
                 {tx.state === 'inflow' ? 
-                <BsSendFill className='text-green-900 rotate-175' /> : <BsSendFill className='text-red-600' />
+                <BsSendFill className='text-green-900 rotate-175' /> : tx.status === 'declined' ? <IoMdCloseCircleOutline className='text-red-900' /> : <BsSendFill className='text-green-900' />
                 }
               </div>
               <div className="text-left">
-                <h4 className="text-xs md:text-sm font-bold text-gray-800 font-poppins line-clamp-1 max-w-[160px] sm:max-w-xs">
+                <h4 className={`text-xs md:text-sm font-bold text-gray-800 font-poppins line-clamp-1 max-w-[160px] sm:max-w-xs ${tx.status === 'declined' && 'text-red-900'}`}>
                   {tx.title}
                 </h4>
                 <p className="text-[10px] md:text-[11px] text-gray-400 font-semibold tracking-wide mt-0.5">
