@@ -28,7 +28,7 @@ const Dashboard = () => {
         <LoanStatus loanStage={loanStage} appStatus={appStatus}/>
         
         {/* Shortcuts / Active Actions (only for Active Users) */}
-        {loanStage === 'User' && <Shortcuts />}
+        {loanStage === 'User' && <Shortcuts loanStage={loanStage} />}
         
         {/* Transaction History (only for Active Users or Disbursed status) */}
         {(loanStage === 'User' || (loanStage === 'Submitted' && appStatus === 'Disbursed')) && (
