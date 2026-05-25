@@ -15,7 +15,7 @@ const TopBar = ({ user, loanStage, toggleMobile }) => {
 
   return (
     <header className="h-20 bg-white border-b border-gray-100 px-4 md:px-8 flex items-center justify-between sticky top-0 z-30 shrink-0">
-      {/* Left: Mobile Toggle & Greeting */}
+      {/* Left: Mobile Toggle & Marketmonie Logo */}
       <div className="flex items-center gap-4">
         <button 
           onClick={toggleMobile}
@@ -23,26 +23,33 @@ const TopBar = ({ user, loanStage, toggleMobile }) => {
         >
           <FiMenu size={20} />
         </button>
-        
-        <div className="flex flex-col">
-          <div className="flex items-center gap-2 mb-0.5">
-            <h1 className="text-sm md:text-xl font-bold text-gray-900 font-poppins line-clamp-1">
-              {loanStage === 'User' ? (
-                <>Hello {user.firstname}, you can borrow up to <span className="text-emerald-600">₦10,000,000</span></>
-              ) : loanStage === 'Guest' ? (
-                <>Hello {user.firstname}</>
-              ) : 'hey'}
-            </h1>
-          </div>
-          <p className="text-[9px] md:text-[10px] text-emerald-600 font-bold tracking-[0.2em]">
-            {getTitle()}
-          </p>
+        <div className="flex items-center gap-2">
+          <img 
+            src="/market-monie.png" 
+            alt="Market Monie" 
+            className="h-7 md:h-9 w-auto transition-transform hover:scale-102"
+          />
         </div>
       </div>
 
+      {/* Center: Greeting */}
+      <div className="hidden md:flex flex-col items-center text-center">
+        <h1 className="text-sm md:text-base font-bold text-gray-800 font-poppins">
+          Welcome to Marketmonie, Hello <span className="text-emerald-600 font-semibold">{user.firstname}</span>
+        </h1>
+        <p className="text-[9px] text-emerald-600 font-bold tracking-[0.2em] uppercase mt-0.5">
+          {getTitle()}
+        </p>
+      </div>
+
       {/* Right: Actions */}
-      <div className="flex items-center gap-6">
-        <div className="flex items-center gap-3 border-l border-gray-100 pl-6">
+      <div className="flex items-center gap-4">
+        {/* Mobile greeting (only visible when center greeting is hidden) */}
+        <div className="md:hidden flex flex-col items-end">
+          <span className="text-[10px] font-medium text-gray-400">Welcome, {user.firstname}</span>
+        </div>
+
+        <div className="flex items-center gap-3 border-l border-gray-100 pl-4 md:pl-6">
           <button className="h-10 w-10 flex items-center justify-center rounded-xl bg-gray-50 text-gray-500 hover:bg-emerald-50 hover:text-emerald-600 transition-all relative group">
             <FiBell size={20} />
             <span className="absolute top-2 right-2 h-2 w-2 bg-red-500 rounded-full border-2 border-white group-hover:animate-ping" />

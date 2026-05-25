@@ -50,7 +50,7 @@ const DashboardLayout = () => {
           toggleMobile={() => setIsMobileOpen(true)}
         />
         <main className="flex-1 overflow-y-auto p-4 md:p-8 custom-scrollbar">
-          <Outlet context={{ user, loanStage }} />
+          <Outlet context={{ user, loanStage, setLoanStage }} />
         </main>
       </div>
     </div>

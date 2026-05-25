@@ -9,7 +9,8 @@ import {
   FiPieChart,
   FiChevronLeft,
   FiMenu,
-  FiX
+  FiX,
+  FiUser
 } from"react-icons/fi";
 import { useState } from"react";
 
@@ -19,7 +20,7 @@ const Sidebar = ({ isCollapsed, setIsCollapsed, isMobileOpen, setIsMobileOpen })
   const menuItems = [
     { name:"Dashboard", icon: <FiHome />, path:"/dashboard" },
     { 
-      name:"Loan Requests", 
+      name:"My Loan Request", 
       icon: <FiFileText />, 
       path:"/dashboard/loan-requests",
       hasSubmenu: true,
@@ -29,6 +30,7 @@ const Sidebar = ({ isCollapsed, setIsCollapsed, isMobileOpen, setIsMobileOpen })
         { name:"Loan Details", path:"/dashboard/loan-requests/details" },
       ]
     },
+    { name:"Profile", icon: <FiUser />, path:"/dashboard/profile" },
     { name:"Analytics", icon: <FiPieChart />, path:"/dashboard/analytics" },
   ];
 

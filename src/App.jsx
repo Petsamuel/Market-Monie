@@ -24,6 +24,7 @@ import DashboardLayout from"./(dashboard)/layout";
 import Dashboard from"./(dashboard)/Dashboard";
 import Analytics from"./(dashboard)/Analytics";
 import ComingSoon from"./(dashboard)/ComingSoon";
+import LoanHistory from "./(dashboard)/LoanHistory";
 
 import LandingPage from"./LandingPage";
 
@@ -79,13 +80,14 @@ function AnimatedRoutes() {
         <Route element={<DashboardLayout />}>
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/dashboard/loan-requests" element={<ComingSoon title="My Loan Request" />} />
-          <Route path="/dashboard/loan-requests/history" element={<ComingSoon title="Loan History" />} />
+          <Route path="/dashboard/loan-requests/history" element={<LoanHistory />} />
           <Route path="/dashboard/loan-requests/tracker" element={<ComingSoon title="Status Tracker" />} />
           <Route path="/dashboard/loan-requests/details" element={<ComingSoon title="Loan Details" />} />
           <Route path="/dashboard/analytics" element={<Analytics />} />
           <Route path="/dashboard/settings" element={<ComingSoon title="Settings" />} />
           <Route path="/dashboard/support" element={<ComingSoon title="Support Center" />} />
           <Route path="/dashboard/make-payment" element={<ComingSoon title="Make Payment" />} />
+          <Route path="/dashboard/profile" element={<ComingSoon title="Profile" />} />
         </Route>
 
         {/* Fallback */}
