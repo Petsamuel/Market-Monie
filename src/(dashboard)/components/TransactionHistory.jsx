@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 export const transactionsData = [
   {
     id: 1,
-    title: "FIP:ADETOYI AYOMIDE ...",
+    title: "FIP:John Doe ...",
     date: "12th May. 2026 04:43PM",
     amount: "- ₦10.75",
     type: "debit",
@@ -12,7 +12,7 @@ export const transactionsData = [
   },
   {
     id: 2,
-    title: "FIP:ADETOYI AYOMIDE ...",
+    title: "FIP:Jane Doe ...",
     date: "12th May. 2026 04:43PM",
     amount: "- ₦4,000.00",
     type: "debit",
