@@ -25,6 +25,7 @@ import Dashboard from"./(dashboard)/Dashboard";
 import Analytics from"./(dashboard)/Analytics";
 import ComingSoon from"./(dashboard)/ComingSoon";
 import LoanHistory from "./(dashboard)/LoanHistory";
+import DownloadHistory from "./(dashboard)/components/DownloadHistory";
 
 import LandingPage from"./LandingPage";
 
@@ -39,15 +40,6 @@ function AnimatedRoutes() {
         {/* Entry Point */}
         <Route path="/" element={<LandingPage />} />
         <Route path="/location-select" element={<LandingPage2 />} />
-        {/* <Route path="/select-state" element={<SelectState />} /> */}
-        {/* <Route path="/hub-selection" element={<LegacyHubSelection />} /> */}
-        {/* <Route path="/create-account" element={<LegacyCreateAccount />} /> */}
-        {/* <Route path="/account-creation" element={<LegacyAccountCreation />} /> */}
-        {/* <Route path="/personal-details" element={<LegacyPersonalDetails />} /> */}
-        {/* <Route path="/address" element={<LegacyAddress />} /> */}
-        {/* <Route path="/business" element={<LegacyBusiness />} /> */}
-        {/* <Route path="/loan" element={<LegacyLoan />} /> */}
-        {/* <Route path="/preview" element={<LegacyPreviewPage />} /> */}
 
         <Route path="/legacy-login" element={<LegacyLogin />} />
         
@@ -81,6 +73,7 @@ function AnimatedRoutes() {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/dashboard/loan-requests" element={<ComingSoon title="My Loan Request" />} />
           <Route path="/dashboard/loan-requests/history" element={<LoanHistory />} />
+          <Route path="/dashboard/loan-requests/history/download" element={<DownloadHistory />} />
           <Route path="/dashboard/loan-requests/tracker" element={<ComingSoon title="Status Tracker" />} />
           <Route path="/dashboard/loan-requests/details" element={<ComingSoon title="Loan Details" />} />
           <Route path="/dashboard/analytics" element={<Analytics />} />
