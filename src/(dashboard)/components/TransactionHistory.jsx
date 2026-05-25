@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { BsSendFill } from "react-icons/bs";
 
 export const transactionsData = [
   {
@@ -7,6 +8,7 @@ export const transactionsData = [
     title: "FIP:John Doe ...",
     date: "12th May. 2026 04:43PM",
     amount: "- ₦10.75",
+    state: 'outflow',
     type: "debit",
     status: "Successful"
   },
@@ -15,6 +17,7 @@ export const transactionsData = [
     title: "FIP:Jane Doe ...",
     date: "12th May. 2026 04:43PM",
     amount: "- ₦4,000.00",
+    state: 'outflow',
     type: "debit",
     status: "Successful"
   },
@@ -23,6 +26,7 @@ export const transactionsData = [
     title: "Intrabank- Transfer",
     date: "8th May. 2026 08:41AM",
     amount: "+ ₦4,000.00",
+    state: 'inflow',
     type: "credit",
     status: "Successful"
   },
@@ -31,6 +35,7 @@ export const transactionsData = [
     title: "Loan Disbursement",
     date: "1st May. 2026 10:15AM",
     amount: "+ ₦200,000.00",
+    state: 'inflow',
     type: "credit",
     status: "Successful"
   },
@@ -39,6 +44,7 @@ export const transactionsData = [
     title: "Repayment Direct Debit",
     date: "25th Apr. 2026 12:00PM",
     amount: "- ₦15,000.00",
+    state: 'outflow',
     type: "debit",
     status: "Successful"
   }
@@ -76,13 +82,10 @@ const TransactionHistory = ({ limit = 3, isFullPage = false }) => {
             {/* Left side: Icon & Info */}
             <div className="flex items-center gap-4">
               {/* Custom SVG Double Arrows for Transfer */}
-              <div className="h-11 w-11 md:h-12 md:w-12 rounded-full bg-teal-50/60 flex items-center justify-center shrink-0">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="text-teal-600">
-                  <path d="M4 9h16" />
-                  <path d="m16 5 4 4-4 4" />
-                  <path d="M20 15H4" />
-                  <path d="m8 11-4 4 4 4" />
-                </svg>
+              <div className="h-11 w-11 md:h-12 md:w-12 text-2xl rounded-full bg-teal-50/60 flex items-center justify-center shrink-0">
+                {tx.state === 'inflow' ? 
+                <BsSendFill className='text-green-900 rotate-175' /> : <BsSendFill className='text-red-600' />
+                }
               </div>
               <div className="text-left">
                 <h4 className="text-xs md:text-sm font-bold text-gray-800 font-poppins line-clamp-1 max-w-[160px] sm:max-w-xs">
