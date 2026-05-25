@@ -26,6 +26,7 @@ import Analytics from"./(dashboard)/Analytics";
 import ComingSoon from"./(dashboard)/ComingSoon";
 import LoanHistory from "./(dashboard)/LoanHistory";
 import DownloadHistory from "./(dashboard)/components/DownloadHistory";
+import TransactionDetails from "./(dashboard)/components/TransactionDetails";
 
 import LandingPage from"./LandingPage";
 
@@ -82,6 +83,7 @@ function AnimatedRoutes() {
           <Route path="/dashboard/profile" element={<ComingSoon title="Profile" />} />
         </Route>
           <Route path="/dashboard/loan-requests/history/download" element={<DownloadHistory />} />
+          <Route path="/dashboard/loan-requests/receipt" element={<TransactionDetails/>}/>
 
         {/* Fallback */}
         <Route path="*" element={<Navigate to="/" replace />} />
