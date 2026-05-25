@@ -172,7 +172,7 @@ const DownloadHistory = () => {
                 <div className='flex flex-col gap-6 bg-white rounded-xl p-4 border border-gray-100 shadow-xs'>
                     
                     {/* The Three Dropdowns Row */}
-                    <div className='grid grid-cols-1 md:grid-cols-3 gap-4 w-full'>
+                    <div className='grid grid-cols-3 gap-4 w-full'>
                         {TimeFrames.map((group) => {
                             const hasActiveSelection = isCategoryActive(group, selectedTimeFrame);
                             const isOpen = openDropdown === group.category;
