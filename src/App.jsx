@@ -1,8 +1,6 @@
 import { BrowserRouter, Routes, Route, Navigate, useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import { AnimatePresence } from "framer-motion";
-import LegacyPreviewPage from "./Screens/PreviewPage";
-import LegacyLogin from "./Screens/Login";
 import LandingPage2 from "./LandingPage2";
 
 // New Auth Components
@@ -17,7 +15,6 @@ import SuccessScreen from "./components/ui/success-screen";
 // New Onboarding Components
 import OnboardingLayout from "./(onboarding)/layout";
 import PhoneVerification from "./(onboarding)/phone-verification";
-import BvnVerification from "./(onboarding)/bvn-verification";
 import LoanApplication from "./(onboarding)/loan-application";
 
 // Dashboard Components
@@ -66,7 +63,6 @@ function AnimatedRoutes() {
         <Route path="/" element={<LandingPage />} />
         <Route path="/location-select" element={<LandingPage2 />} />
 
-        <Route path="/legacy-login" element={<LegacyLogin />} />
 
         {/* Onboarding & Application Routes */}
         <Route element={<OnboardingLayout />}>

@@ -21,21 +21,15 @@ const Dashboard = () => {
   return (
     <div className="space-y-8 animate-in fade-in duration-700 font-poppins pb-16">
       <section className="flex flex-col gap-6">
-        {/* Loan Balance & Core Action Cards */}
         <FirstContainer loanStage={loanStage} />
 
-        {/* Pre-disbursement Status Stepper (only for Submitted Application status) */}
         <LoanStatus loanStage={loanStage} appStatus={appStatus} />
 
-        {/* Shortcuts / Active Actions (only for Active Users) */}
         {loanStage === 'User' && <Shortcuts loanStage={loanStage} />}
 
-        {/* Transaction History (only for Active Users or Disbursed status) */}
         {(loanStage === 'User' || (loanStage === 'Submitted' && appStatus === 'Disbursed')) && (
           <TransactionHistory limit={3} />
         )}
-
-        {/* Contact Support CTA Card (for New Users in Guest/Submitted status) */}
         {(loanStage === 'Guest' || loanStage === 'Submitted') && (
           <div className="bg-white dark:bg-gray-800 border border-gray-100/80 dark:border-gray-700 rounded-3xl p-6 flex flex-col sm:flex-row items-center justify-between gap-4 hover:shadow-lg hover:shadow-emerald-950/2 transition-all duration-300">
             <div className="flex items-center gap-4">
@@ -57,7 +51,6 @@ const Dashboard = () => {
         )}
       </section>
 
-      {/* DEVELOPER PLAYGROUND CONTROLS */}
       <div className="border border-dashed border-gray-200 dark:border-gray-700 rounded-3xl p-6 mt-8 bg-gray-50/50 dark:bg-gray-800/40 transition-colors duration-300">
         <div className="flex items-center gap-2 mb-4">
           <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
@@ -105,15 +98,17 @@ const Dashboard = () => {
             Restricted
           </button>
 
-          <button
-            onClick={() => setLoanStage('Closed')}
-            className={`px-4 py-2.5 text-xs font-bold rounded-xl transition-all cursor-pointer ${loanStage === 'Closed'
-              ? 'bg-emerald-600 text-white shadow-md shadow-emerald-600/10'
-              : 'bg-white border border-gray-200 text-gray-600 hover:bg-gray-50'
-              }`}
-          >
-            Closed Loan
-          </button>
+          {loanStage === 'User' && (
+            <button
+              onClick={() => setLoanStage('Closed')}
+              className={`px-4 py-2.5 text-xs font-bold rounded-xl transition-all cursor-pointer ${loanStage === 'Closed'
+                ? 'bg-emerald-600 text-white shadow-md shadow-emerald-600/10'
+                : 'bg-white border border-gray-200 text-gray-600 hover:bg-gray-50'
+                }`}
+            >
+              Closed Loan
+            </button>
+          )}
         </div>
 
         {loanStage === 'Submitted' && (

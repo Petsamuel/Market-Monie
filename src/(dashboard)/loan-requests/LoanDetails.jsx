@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FiArrowLeft, FiChevronLeft, FiChevronRight, FiDownload, FiShare2 } from 'react-icons/fi';
+import { globalUserData } from '../../store/Data';
 
 const LoanDetails = () => {
   const navigate = useNavigate();
-  
+
   // Carousel state
   const [currentLoanIndex, setCurrentLoanIndex] = useState(0);
 
@@ -13,7 +14,7 @@ const LoanDetails = () => {
     {
       id: 'LN-2026-9842',
       date: '26 May, 2026 04:00 PM',
-      accountName: 'Adetoyi Ayomide',
+      accountName: `${globalUserData.firstName} ${globalUserData.lastName}`,
       accountNumber: '0123456789',
       disbursedAmount: 425000,
       interestAmount: 21250,
@@ -31,7 +32,7 @@ const LoanDetails = () => {
     {
       id: 'LN-2025-1102',
       date: '10 Jan, 2025 11:15 AM',
-      accountName: 'Adetoyi Ayomide',
+      accountName: `${globalUserData.firstName} ${globalUserData.lastName}`,
       accountNumber: '0123456789',
       disbursedAmount: 200000,
       interestAmount: 10000,
@@ -56,7 +57,7 @@ const LoanDetails = () => {
     <div className="space-y-6 animate-in fade-in duration-500 font-poppins pb-10">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <button 
+          <button
             onClick={() => navigate(-1)}
             className="h-10 w-10 flex items-center justify-center rounded-xl bg-white border border-gray-100 text-gray-600 hover:text-emerald-600 hover:border-emerald-100 transition-all shadow-xs cursor-pointer"
           >
@@ -67,7 +68,7 @@ const LoanDetails = () => {
             <p className="text-[11px] text-gray-400 font-medium">Summary of your loan information</p>
           </div>
         </div>
-        
+
         <div className="flex gap-2">
           <button className="h-10 w-10 flex items-center justify-center rounded-xl bg-white border border-gray-100 text-gray-600 hover:text-emerald-600 hover:bg-emerald-50 transition-all shadow-xs cursor-pointer">
             <FiShare2 size={16} />
@@ -81,7 +82,7 @@ const LoanDetails = () => {
       {/* Carousel Navigation */}
       {(hasPrevious || hasNext) && (
         <div className="flex items-center justify-between bg-white rounded-2xl p-2 shadow-sm border border-gray-100 max-w-4xl mx-auto">
-          <button 
+          <button
             disabled={!hasNext}
             onClick={() => setCurrentLoanIndex(prev => prev - 1)}
             className="flex items-center gap-2 px-4 py-2 text-xs font-bold text-gray-600 disabled:opacity-30 disabled:cursor-not-allowed hover:bg-gray-50 rounded-lg transition-colors cursor-pointer"
@@ -91,7 +92,7 @@ const LoanDetails = () => {
           <span className="text-[11px] font-bold text-gray-400 uppercase tracking-wider bg-gray-50 px-3 py-1 rounded-full">
             {loan.status === 'Active' ? 'Present Loan' : `Loan History (${currentLoanIndex})`}
           </span>
-          <button 
+          <button
             disabled={!hasPrevious}
             onClick={() => setCurrentLoanIndex(prev => prev + 1)}
             className="flex items-center gap-2 px-4 py-2 text-xs font-bold text-gray-600 disabled:opacity-30 disabled:cursor-not-allowed hover:bg-gray-50 rounded-lg transition-colors cursor-pointer"
@@ -102,7 +103,7 @@ const LoanDetails = () => {
       )}
 
       <div className="bg-white rounded-3xl border border-gray-100 p-6 md:p-8 shadow-sm max-w-4xl mx-auto space-y-8">
-        
+
         {/* Account & Transaction Information */}
         <section>
           <h3 className="text-sm font-bold text-emerald-800 uppercase tracking-wider mb-4 flex items-center gap-2">

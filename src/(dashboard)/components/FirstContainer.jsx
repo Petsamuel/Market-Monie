@@ -13,7 +13,6 @@ const FirstContainer = ({ loanStage, appStatus }) => {
   const [hideAmount, setHideAmount] = useState(false);
   const navigate = useNavigate();
 
-  // Sample static details modeling active payment structures 
   const currentLoanDetails = {
     outstandingBalance: 425000.00,
     nextPayableAmount: 35000.00,
@@ -39,7 +38,6 @@ const FirstContainer = ({ loanStage, appStatus }) => {
       );
     }
 
-    // Handles layout conditions for active status changes
     if (loanStage === 'User' || (loanStage === 'Submitted' && appStatus === 'Disbursed')) {
       return (
         <>
@@ -61,7 +59,6 @@ const FirstContainer = ({ loanStage, appStatus }) => {
       );
     }
 
-    // Handles Closed state
     if (loanStage === 'Closed') {
       return (
         <>
@@ -75,7 +72,6 @@ const FirstContainer = ({ loanStage, appStatus }) => {
       );
     }
 
-    // Default configuration template for fallback scenarios
     return (
       <>
         <h2 className='text-[10px] md:text-[12px] text-emerald-200/80 font-bold tracking-[1.5px] uppercase'>
@@ -97,7 +93,6 @@ const FirstContainer = ({ loanStage, appStatus }) => {
   return (
     <div className='flex flex-col gap-4 w-full'>
 
-      {/* Primary Loan Overview Metric Panel wrapper layout */}
       <div
         className='relative rounded-3xl shadow-xs border border-gray-100 bg-center bg-no-repeat bg-cover h-32 md:h-40 w-full overflow-hidden'
         style={{ backgroundImage: `url('${Background}')` }}
@@ -109,7 +104,6 @@ const FirstContainer = ({ loanStage, appStatus }) => {
         </div>
       </div>
 
-      {/* MISSED OVERDUE PAYMENTS WARNING RISK PANEL */}
       {loanStage === 'User' && currentLoanDetails.missedOverdueSum > 0 && (
         <div className="bg-red-50 border border-red-100 rounded-2xl p-4 flex items-center justify-between gap-4 animate-in slide-in-from-top-2 duration-300">
           <div className="flex items-center gap-3">
@@ -132,7 +126,6 @@ const FirstContainer = ({ loanStage, appStatus }) => {
         </div>
       )}
 
-      {/* REPAY A LOAN INTERACTIVE CALLOUT BLOCK (For Disbursed Active Users) */}
       {(loanStage === 'User' || (loanStage === 'Submitted' && appStatus === 'Disbursed')) && (
         <div className="bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 rounded-2xl p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-xs transition-colors duration-300">
           <div className="text-left space-y-0.5">
@@ -149,10 +142,8 @@ const FirstContainer = ({ loanStage, appStatus }) => {
         </div>
       )}
 
-      {/* NEW GUEST USER WITHOUT APPLICATION CONTAINER ONBOARDING CHANNELS */}
       {loanStage === 'Guest' && (
         <div className='flex flex-col gap-4 w-full'>
-          {/* Get a Loan Card + CTA */}
           <div className='relative rounded-3xl shadow-md border border-emerald-800/10 w-full p-6 md:p-8 flex flex-col md:flex-row gap-4 items-start md:items-center justify-between bg-gradient-to-r from-emerald-900 to-emerald-800 text-white overflow-hidden group'>
             <div className="absolute inset-0 opacity-[0.05] bg-repeat pointer-events-none" style={{ backgroundImage: 'url("/Pattern.svg")', backgroundSize: '150px' }} />
             <div className="relative z-10 space-y-1.5 max-w-xl">
@@ -167,7 +158,6 @@ const FirstContainer = ({ loanStage, appStatus }) => {
             </button>
           </div>
 
-          {/* Promotional Advert grid structure */}
           <div className='grid grid-cols-1 md:grid-cols-3 gap-4 w-full'>
             {advertCard.map(advert => (
               <div

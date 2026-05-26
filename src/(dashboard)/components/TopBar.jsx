@@ -15,7 +15,6 @@ const TopBar = ({ user, loanStage, toggleMobile }) => {
 
   return (
     <header className="h-20 bg-white dark:bg-gray-900 border-b border-gray-100 dark:border-gray-800 px-4 md:px-8 flex items-center justify-between sticky top-0 z-30 shrink-0 transition-colors duration-300">
-      {/* Left: Mobile Toggle & Marketmonie Logo */}
       <div className="flex items-center gap-4">
         <button
           onClick={toggleMobile}
@@ -32,7 +31,6 @@ const TopBar = ({ user, loanStage, toggleMobile }) => {
         </div>
       </div>
 
-      {/* Center: Greeting */}
       <div className="hidden md:flex flex-col items-center text-center">
         <h1 className="text-sm md:text-base font-bold text-gray-800 dark:text-gray-100 font-poppins">
           Welcome to Marketmonie, Hello <span className="text-emerald-600 font-semibold">{user.firstname}</span>
@@ -42,9 +40,7 @@ const TopBar = ({ user, loanStage, toggleMobile }) => {
         </p>
       </div>
 
-      {/* Right: Actions */}
       <div className="flex items-center gap-4">
-        {/* Mobile greeting (only visible when center greeting is hidden) */}
         <div className="md:hidden flex flex-col items-end">
           <span className="text-[10px] font-medium text-gray-400">Welcome, {user.firstname}</span>
         </div>

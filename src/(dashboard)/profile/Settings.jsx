@@ -14,7 +14,6 @@ const Settings = () => {
 
   const [isSaving, setIsSaving] = useState(false);
 
-  // Handle Dark Mode side effects reactively
   useEffect(() => {
     if (settings.darkMode) {
       document.documentElement.classList.add('dark');
@@ -33,7 +32,6 @@ const Settings = () => {
     setIsSaving(true);
     setTimeout(() => {
       setIsSaving(false);
-      alert('Settings updated successfully!');
       navigate(-1);
     }, 1500);
   };
@@ -55,7 +53,6 @@ const Settings = () => {
 
       <div className="bg-white dark:bg-gray-800 rounded-3xl border border-gray-100 dark:border-gray-700 p-6 md:p-8 shadow-sm max-w-3xl mx-auto space-y-8 transition-colors">
 
-        {/* Notifications Section */}
         <section className="space-y-4">
           <h3 className="text-sm font-bold text-emerald-800 uppercase tracking-wider mb-4 flex items-center gap-2">
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
@@ -119,7 +116,6 @@ const Settings = () => {
           </div>
         </section>
 
-        {/* Display Section */}
         <section className="space-y-4">
           <h3 className="text-sm font-bold text-emerald-800 uppercase tracking-wider mb-4 flex items-center gap-2">
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>

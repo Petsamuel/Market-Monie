@@ -6,7 +6,6 @@ const Shortcuts = ({ loanStage, appStatus }) => {
   const navigate = useNavigate();
   const [showOptions, setShowOptions] = useState(false);
 
-  // Validation Rules mapping
   const hasActiveLoan = loanStage === 'User' || (loanStage === 'Submitted' && appStatus === 'Disbursed');
   const canApply = !hasActiveLoan;
   const canPay = hasActiveLoan;
@@ -23,8 +22,6 @@ const Shortcuts = ({ loanStage, appStatus }) => {
       <h3 className="text-xs font-bold text-gray-400 uppercase tracking-wider text-left">Quick Action Shortcuts</h3>
 
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 w-full">
-
-        {/* APPLY FOR LOAN SHORTCUT */}
         <button
           disabled={!canApply}
           onClick={() => navigate('/dashboard/loans/apply')}
@@ -40,7 +37,6 @@ const Shortcuts = ({ loanStage, appStatus }) => {
           </div>
         </button>
 
-        {/* MAKE REPAYMENT DIALOG DROPDOWN MULTI-FLOW CONTAINER */}
         <div className="relative w-full">
           <button
             disabled={!canPay}
@@ -60,7 +56,6 @@ const Shortcuts = ({ loanStage, appStatus }) => {
             {canPay && <FiChevronDown size={16} className={`text-gray-400 transition-transform ${showOptions ? 'rotate-180' : ''}`} />}
           </button>
 
-          {/* Dynamic Payment Option Dropdown Menu Selection block */}
           {showOptions && canPay && (
             <div className="absolute z-30 left-0 right-0 mt-1.5 bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 rounded-xl shadow-lg p-1.5 space-y-1 animate-in fade-in slide-in-from-top-1 duration-150">
               <div className="text-[9px] font-bold text-gray-400 uppercase px-2.5 py-1">Choose Repayment Flow</div>
@@ -86,7 +81,6 @@ const Shortcuts = ({ loanStage, appStatus }) => {
           )}
         </div>
 
-        {/* ALWAYS ENABLED CONTACT SUPPORT ACTION */}
         <button
           onClick={() => navigate('/dashboard/support')}
           className="p-4 bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 hover:border-emerald-200 dark:hover:border-emerald-900/50 hover:shadow-xs rounded-xl text-left flex items-center gap-3 transition-all duration-300 text-gray-800 dark:text-gray-100 cursor-pointer"

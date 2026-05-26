@@ -13,9 +13,17 @@ import {
   FiUser
 } from "react-icons/fi";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Sidebar = ({ isCollapsed, setIsCollapsed, isMobileOpen, setIsMobileOpen }) => {
   const [isLoanMenuOpen, setIsLoanMenuOpen] = useState(false);
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.clear();
+    sessionStorage.clear();
+    navigate('/', { replace: true });
+  };
 
   const menuItems = [
     { name: "Dashboard", icon: <FiHome />, path: "/dashboard" },
@@ -111,8 +119,8 @@ const Sidebar = ({ isCollapsed, setIsCollapsed, isMobileOpen, setIsMobileOpen })
                 end={item.path === "/dashboard"}
                 title={isCollapsed ? item.name : ""}
                 className={({ isActive }) => `flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 group ${isActive
-                    ? "bg-emerald-600 text-white shadow-xl shadow-emerald-950/20"
-                    : "text-emerald-100/70 hover:bg-white/10 hover:text-white"
+                  ? "bg-emerald-600 text-white shadow-xl shadow-emerald-950/20"
+                  : "text-emerald-100/70 hover:bg-white/10 hover:text-white"
                   } ${isCollapsed ? "justify-center px-0" : ""}`
                 }
               >
@@ -140,7 +148,10 @@ const Sidebar = ({ isCollapsed, setIsCollapsed, isMobileOpen, setIsMobileOpen })
           </NavLink>
         ))}
 
-        <button className={`flex items-center gap-3 px-4 py-3 rounded-xl w-full text-red-400/60 hover:text-red-400 hover:bg-red-400/5 transition-all duration-300 mt-2 ${isCollapsed ? "justify-center px-0" : ""}`}>
+        <button
+          onClick={handleLogout}
+          className={`flex items-center gap-3 px-4 py-3 rounded-xl w-full text-red-400/60 hover:text-red-400 hover:bg-red-400/5 transition-all duration-300 mt-2 cursor-pointer ${isCollapsed ? "justify-center px-0" : ""}`}
+        >
           <FiLogOut className="text-lg" />
           {!isCollapsed && <span className="text-xs font-semibold tracking-wide">Logout</span>}
         </button>

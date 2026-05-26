@@ -2,24 +2,13 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { BsSendFill } from "react-icons/bs";
 import { IoMdCloseCircleOutline } from "react-icons/io";
-
-// Shared data pool structured inside a clean, standard export array
-const transactionsData = [
-  { id: 1, title: "FIP:John Doe ...", date: "2026-05-12T16:43:00", displayDate: "12th May. 2026 04:43PM", amount: "- ₦10.75", state: 'outflow', type: "debit", status: "Successful" },
-  { id: 2, title: "FIP:Jane Doe ...", date: "2026-05-12T16:43:00", displayDate: "12th May. 2026 04:43PM", amount: "- ₦4,000.00", state: 'outflow', type: "debit", status: "Successful" },
-  { id: 3, title: "Intrabank- Transfer", date: "2026-05-08T08:41:00", displayDate: "8th May. 2026 08:41AM", amount: "+ ₦4,000.00", state: 'inflow', type: "credit", status: "Successful" },
-  { id: 4, title: "Loan Disbursement", date: "2026-05-01T10:15:00", displayDate: "1st May. 2026 10:15AM", amount: "+ ₦200,000.00", state: 'inflow', type: "credit", status: "Successful" },
-  { id: 5, title: "Repayment Direct Debit", date: "2026-04-25T12:00:00", displayDate: "25th Apr. 2026 12:00PM", amount: "- ₦15,000.00", state: 'outflow', type: "debit", status: "Successful" },
-  { id: 6, title: "Repayment Direct Debit", date: "2026-04-25T12:00:00", displayDate: "25th Apr. 2026 12:00PM", amount: "- ₦15,000.00", state: 'outflow', type: "debit", status: "declined" }
-];
+import { transactionsData } from '../../store/Data';
 
 const TransactionHistory = ({ limit = 3, isFullPage = false, filter = 'all' }) => {
   const navigate = useNavigate();
 
-  // Enforce chronological sorting (Latest timestamp strings render first)
   const sortedData = [...transactionsData].sort((a, b) => new Date(b.date) - new Date(a.date));
 
-  // Handle dynamic filtering conditions
   const filteredData = filter === 'all'
     ? sortedData
     : sortedData.filter(tx => tx.state === filter);
@@ -34,7 +23,6 @@ const TransactionHistory = ({ limit = 3, isFullPage = false, filter = 'all' }) =
     navigate(`/dashboard/loan-requests/history/details/${txId}`);
   };
 
-  // Group transactions by month for cleaner display on history page
   const groupedTransactions = displayedTransactions.reduce((acc, tx) => {
     const date = new Date(tx.date);
     const monthYear = date.toLocaleString('default', { month: 'long', year: 'numeric' });
@@ -43,7 +31,6 @@ const TransactionHistory = ({ limit = 3, isFullPage = false, filter = 'all' }) =
     return acc;
   }, {});
 
-  // Render an empty state view if no matching transactions exist
   if (displayedTransactions.length === 0) {
     return (
       <div className="w-full bg-white dark:bg-gray-800 rounded-3xl border border-gray-100 dark:border-gray-700 p-8 text-center flex flex-col items-center justify-center min-h-[260px] transition-colors">
@@ -64,7 +51,6 @@ const TransactionHistory = ({ limit = 3, isFullPage = false, filter = 'all' }) =
 
   return (
     <div className={`w-full bg-white dark:bg-gray-800 rounded-3xl border border-gray-100 dark:border-gray-700 p-6 md:p-8 transition-colors ${isFullPage ? '' : 'shadow-sm'}`}>
-      {/* Header section control layout */}
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-base md:text-lg font-bold text-gray-800 dark:text-gray-100 font-poppins">
           {isFullPage ? "Transaction History" : "Transactions"}
@@ -79,7 +65,6 @@ const TransactionHistory = ({ limit = 3, isFullPage = false, filter = 'all' }) =
         )}
       </div>
 
-      {/* Structured Chronological Monthly Groups Mapping */}
       <div className="flex flex-col gap-6">
         {Object.keys(groupedTransactions).map((month) => (
           <div key={month} className="space-y-4">
@@ -95,7 +80,6 @@ const TransactionHistory = ({ limit = 3, isFullPage = false, filter = 'all' }) =
                   onClick={() => handleRowClick(tx.id)}
                   className="flex items-center justify-between p-2 -mx-2 rounded-2xl hover:bg-gray-50/70 dark:hover:bg-gray-900/50 transition-all cursor-pointer group animate-in fade-in slide-in-from-bottom-1 duration-200"
                 >
-                  {/* Left side: Icon & Info */}
                   <div className="flex items-center gap-4">
                     <div className="h-11 w-11 md:h-12 md:w-12 text-lg rounded-full bg-teal-50/50 dark:bg-teal-900/20 flex items-center justify-center shrink-0 group-hover:scale-105 transition-all">
                       {tx.state === 'inflow' ? (
@@ -116,12 +100,11 @@ const TransactionHistory = ({ limit = 3, isFullPage = false, filter = 'all' }) =
                     </div>
                   </div>
 
-                  {/* Right side: Amount & Status Summary */}
                   <div className="text-right">
                     <span className={`text-xs md:text-sm font-bold ${tx.type === 'debit' ? 'text-red-600' : 'text-emerald-600'}`}>
                       {tx.amount}
                     </span>
-                    <p className={`text-[10px] md:text-[11px] font-bold uppercase tracking-wider text-[9px] mt-0.5 ${tx.status === 'declined' ? 'text-red-500' : 'text-gray-400'}`}>
+                    <p className={`text-[10px] md:text-[11px] font-bold uppercase tracking-wider mt-0.5 ${tx.status === 'declined' ? 'text-red-500' : 'text-gray-400'}`}>
                       {tx.status}
                     </p>
                   </div>
