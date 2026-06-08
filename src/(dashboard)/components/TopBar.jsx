@@ -1,8 +1,9 @@
 import { FiBell, FiUser, FiSearch, FiMenu } from "react-icons/fi";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const TopBar = ({ user, loanStage, toggleMobile }) => {
   const location = useLocation();
+  const navigate = useNavigate();
 
   const getTitle = () => {
     if (location.pathname.includes('/loan-requests')) return "Loan Requests";
@@ -51,7 +52,10 @@ const TopBar = ({ user, loanStage, toggleMobile }) => {
             <span className="absolute top-2 right-2 h-2 w-2 bg-red-500 rounded-full border-2 border-white dark:border-gray-900 group-hover:animate-ping" />
           </button>
 
-          <button className="flex items-center gap-3 pl-2 pr-1 py-1 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800 transition-all">
+          <button
+            onClick={() => navigate('/dashboard/profile')}
+            className="flex items-center gap-3 pl-2 pr-1 py-1 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800 transition-all cursor-pointer"
+          >
             <div className="hidden sm:flex flex-col items-end">
               <span className="text-sm font-bold text-gray-900 dark:text-gray-100 leading-none">{user.firstname} {user.lastname}</span>
               <span className="text-[10px] text-gray-400 font-medium">Verified Merchant</span>

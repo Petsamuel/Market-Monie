@@ -38,7 +38,6 @@ const HelpSupport = () => {
     setTimeout(() => {
       setIsSending(false);
       setContactForm({ subject: '', message: '' });
-      alert('Message sent! Our support team will get back to you shortly.');
     }, 1500);
   };
 
@@ -47,12 +46,12 @@ const HelpSupport = () => {
       <div className="flex items-center gap-3">
         <button 
           onClick={() => navigate(-1)}
-          className="h-10 w-10 flex items-center justify-center rounded-xl bg-white border border-gray-100 text-gray-600 hover:text-emerald-600 hover:border-emerald-100 transition-all shadow-xs cursor-pointer"
+          className="h-10 w-10 flex items-center justify-center rounded-xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 text-gray-600 dark:text-gray-300 hover:text-emerald-600 hover:border-emerald-100 transition-all shadow-xs cursor-pointer"
         >
           <FiArrowLeft size={18} />
         </button>
         <div>
-          <h2 className="text-xl font-bold text-gray-900 leading-tight">Help & Support</h2>
+          <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100 leading-tight">Help & Support</h2>
           <p className="text-[11px] text-gray-400 font-medium">We're here to help you</p>
         </div>
       </div>
@@ -60,7 +59,7 @@ const HelpSupport = () => {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 max-w-5xl mx-auto">
         
         {/* Contact Form */}
-        <div className="bg-white rounded-3xl border border-gray-100 p-6 md:p-8 shadow-sm space-y-6 h-fit">
+        <div className="bg-white dark:bg-gray-800 rounded-3xl border border-gray-100 dark:border-gray-700 p-6 md:p-8 shadow-sm space-y-6 h-fit transition-colors">
           <h3 className="text-sm font-bold text-emerald-800 uppercase tracking-wider flex items-center gap-2">
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
             Send us a message
@@ -68,25 +67,25 @@ const HelpSupport = () => {
           
           <form onSubmit={handleSendMessage} className="space-y-4">
             <div className="space-y-1.5">
-              <label className="text-xs font-bold text-gray-700">Subject</label>
+              <label className="text-xs font-bold text-gray-700 dark:text-gray-300">Subject</label>
               <input 
                 type="text" 
                 required
                 value={contactForm.subject}
                 onChange={(e) => setContactForm({...contactForm, subject: e.target.value})}
-                className="w-full bg-gray-50 border border-gray-200 text-gray-900 text-sm font-medium rounded-xl px-4 py-3.5 outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 transition-all"
+                className="w-full bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 text-gray-900 dark:text-gray-100 text-sm font-medium rounded-xl px-4 py-3.5 outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 transition-all"
                 placeholder="How can we help?"
               />
             </div>
 
             <div className="space-y-1.5">
-              <label className="text-xs font-bold text-gray-700">Message</label>
+              <label className="text-xs font-bold text-gray-700 dark:text-gray-300">Message</label>
               <textarea 
                 required
                 rows="4"
                 value={contactForm.message}
                 onChange={(e) => setContactForm({...contactForm, message: e.target.value})}
-                className="w-full bg-gray-50 border border-gray-200 text-gray-900 text-sm font-medium rounded-xl px-4 py-3.5 outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 transition-all resize-none"
+                className="w-full bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 text-gray-900 dark:text-gray-100 text-sm font-medium rounded-xl px-4 py-3.5 outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 transition-all resize-none"
                 placeholder="Describe your issue..."
               ></textarea>
             </div>
@@ -103,20 +102,20 @@ const HelpSupport = () => {
             </div>
           </form>
 
-          <div className="grid grid-cols-2 gap-4 pt-6 border-t border-gray-100">
-            <a href="tel:+2348000000000" className="flex flex-col items-center justify-center p-4 rounded-2xl bg-gray-50 border border-gray-100 hover:border-emerald-200 hover:bg-emerald-50/30 transition-colors cursor-pointer group">
-              <FiPhoneCall className="text-gray-400 group-hover:text-emerald-600 mb-2" size={24} />
-              <span className="text-xs font-bold text-gray-700">Call Us</span>
+          <div className="grid grid-cols-2 gap-4 pt-6 border-t border-gray-100 dark:border-gray-700 transition-colors">
+            <a href="tel:+2348000000000" className="flex flex-col items-center justify-center p-4 rounded-2xl bg-gray-50 dark:bg-gray-900/50 border border-gray-100 dark:border-gray-700 hover:border-emerald-200 hover:bg-emerald-50/30 dark:hover:bg-emerald-900/20 transition-colors cursor-pointer group">
+              <FiPhoneCall className="text-gray-400 dark:text-gray-500 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 mb-2" size={24} />
+              <span className="text-xs font-bold text-gray-700 dark:text-gray-300">Call Us</span>
             </a>
-            <a href="mailto:support@marketmonie.com" className="flex flex-col items-center justify-center p-4 rounded-2xl bg-gray-50 border border-gray-100 hover:border-emerald-200 hover:bg-emerald-50/30 transition-colors cursor-pointer group">
-              <FiMail className="text-gray-400 group-hover:text-emerald-600 mb-2" size={24} />
-              <span className="text-xs font-bold text-gray-700">Email Us</span>
+            <a href="mailto:support@marketmonie.com" className="flex flex-col items-center justify-center p-4 rounded-2xl bg-gray-50 dark:bg-gray-900/50 border border-gray-100 dark:border-gray-700 hover:border-emerald-200 hover:bg-emerald-50/30 dark:hover:bg-emerald-900/20 transition-colors cursor-pointer group">
+              <FiMail className="text-gray-400 dark:text-gray-500 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 mb-2" size={24} />
+              <span className="text-xs font-bold text-gray-700 dark:text-gray-300">Email Us</span>
             </a>
           </div>
         </div>
 
         {/* FAQs */}
-        <div className="bg-white rounded-3xl border border-gray-100 p-6 md:p-8 shadow-sm h-fit">
+        <div className="bg-white dark:bg-gray-800 rounded-3xl border border-gray-100 dark:border-gray-700 p-6 md:p-8 shadow-sm h-fit transition-colors">
           <h3 className="text-sm font-bold text-emerald-800 uppercase tracking-wider mb-6 flex items-center gap-2">
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
             Frequently Asked Questions
@@ -124,16 +123,16 @@ const HelpSupport = () => {
 
           <div className="space-y-3">
             {faqs.map(faq => (
-              <div key={faq.id} className="border border-gray-100 rounded-2xl overflow-hidden bg-gray-50/50">
+              <div key={faq.id} className="border border-gray-100 dark:border-gray-700 rounded-2xl overflow-hidden bg-gray-50/50 dark:bg-gray-900/30 transition-colors">
                 <button 
                   onClick={() => setOpenFaq(openFaq === faq.id ? null : faq.id)}
-                  className="w-full flex items-center justify-between p-4 text-left hover:bg-gray-50 transition-colors cursor-pointer"
+                  className="w-full flex items-center justify-between p-4 text-left hover:bg-gray-50 dark:hover:bg-gray-900/50 transition-colors cursor-pointer"
                 >
-                  <span className="text-sm font-bold text-gray-800">{faq.question}</span>
-                  {openFaq === faq.id ? <FiChevronUp className="text-emerald-600" /> : <FiChevronDown className="text-gray-400" />}
+                  <span className="text-sm font-bold text-gray-800 dark:text-gray-200">{faq.question}</span>
+                  {openFaq === faq.id ? <FiChevronUp className="text-emerald-600 dark:text-emerald-400" /> : <FiChevronDown className="text-gray-400 dark:text-gray-500" />}
                 </button>
                 {openFaq === faq.id && (
-                  <div className="p-4 pt-0 text-xs text-gray-600 font-medium leading-relaxed bg-gray-50/50">
+                  <div className="p-4 pt-0 text-xs text-gray-600 dark:text-gray-400 font-medium leading-relaxed bg-gray-50/50 dark:bg-transparent transition-colors">
                     {faq.answer}
                   </div>
                 )}

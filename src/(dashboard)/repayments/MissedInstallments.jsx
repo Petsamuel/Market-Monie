@@ -64,7 +64,6 @@ const MissedInstallments = () => {
     // Simulate processing
     setTimeout(() => {
       setIsProcessing(false);
-      alert('Missed payment processed successfully.');
       navigate('/dashboard');
     }, 2000);
   };

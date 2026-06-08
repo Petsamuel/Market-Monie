@@ -84,7 +84,7 @@ const TransactionDetails = () => {
                     </div>
 
                     <div className="mt-4 space-y-2">
-                        <p className="text-sm font-medium text-gray-600">
+                        <p className="text-sm font-medium text-gray-600 dark:text-gray-400">
                             Transfer from {receiptData.senderName}
                         </p>
                         <h1 className="text-3xl font-black text-gray-900 dark:text-gray-100 tracking-tight">

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { FiArrowLeft, FiBell, FiSmartphone, FiMoon } from 'react-icons/fi';
+import { FiArrowLeft, FiBell, FiSmartphone, FiMoon, FiLock } from 'react-icons/fi';
 
 const Settings = () => {
   const navigate = useNavigate();
@@ -8,21 +8,10 @@ const Settings = () => {
   const [settings, setSettings] = useState({
     emailNotifications: true,
     smsNotifications: true,
-    darkMode: document.documentElement.classList.contains('dark'),
     marketingEmails: false
   });
 
   const [isSaving, setIsSaving] = useState(false);
-
-  useEffect(() => {
-    if (settings.darkMode) {
-      document.documentElement.classList.add('dark');
-      localStorage.setItem('theme', 'dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-      localStorage.setItem('theme', 'light');
-    }
-  }, [settings.darkMode]);
 
   const handleToggle = (key) => {
     setSettings(prev => ({ ...prev, [key]: !prev[key] }));
@@ -72,7 +61,7 @@ const Settings = () => {
               </div>
               <button
                 onClick={() => handleToggle('emailNotifications')}
-                className={`w-11 h-6 rounded-full transition-colors relative cursor-pointer ${settings.emailNotifications ? 'bg-emerald-600' : 'bg-gray-300'}`}
+                className={`w-11 h-6 rounded-full transition-colors relative cursor-pointer ${settings.emailNotifications ? 'bg-emerald-600' : 'bg-gray-300 dark:bg-gray-700'}`}
               >
                 <div className={`absolute top-1 w-4 h-4 rounded-full bg-white transition-transform ${settings.emailNotifications ? 'translate-x-6' : 'translate-x-1'}`} />
               </button>
@@ -90,7 +79,7 @@ const Settings = () => {
               </div>
               <button
                 onClick={() => handleToggle('smsNotifications')}
-                className={`w-11 h-6 rounded-full transition-colors relative cursor-pointer ${settings.smsNotifications ? 'bg-emerald-600' : 'bg-gray-300'}`}
+                className={`w-11 h-6 rounded-full transition-colors relative cursor-pointer ${settings.smsNotifications ? 'bg-emerald-600' : 'bg-gray-300 dark:bg-gray-700'}`}
               >
                 <div className={`absolute top-1 w-4 h-4 rounded-full bg-white transition-transform ${settings.smsNotifications ? 'translate-x-6' : 'translate-x-1'}`} />
               </button>
@@ -108,11 +97,36 @@ const Settings = () => {
               </div>
               <button
                 onClick={() => handleToggle('marketingEmails')}
-                className={`w-11 h-6 rounded-full transition-colors relative cursor-pointer ${settings.marketingEmails ? 'bg-emerald-600' : 'bg-gray-300'}`}
+                className={`w-11 h-6 rounded-full transition-colors relative cursor-pointer ${settings.marketingEmails ? 'bg-emerald-600' : 'bg-gray-300 dark:bg-gray-700'}`}
               >
                 <div className={`absolute top-1 w-4 h-4 rounded-full bg-white transition-transform ${settings.marketingEmails ? 'translate-x-6' : 'translate-x-1'}`} />
               </button>
             </div>
+          </div>
+        </section>
+
+        <section className="space-y-4">
+          <h3 className="text-sm font-bold text-emerald-800 uppercase tracking-wider mb-4 flex items-center gap-2">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+            Security
+          </h3>
+
+          <div className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-900/50 rounded-2xl transition-colors">
+            <div className="flex items-center gap-4">
+              <div className="h-10 w-10 rounded-xl bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 flex items-center justify-center shadow-xs transition-colors">
+                <FiLock size={18} />
+              </div>
+              <div>
+                <h4 className="text-sm font-bold text-gray-900 dark:text-gray-100">Account Security</h4>
+                <p className="text-[11px] text-gray-500 font-medium mt-0.5">Manage password and 2FA settings</p>
+              </div>
+            </div>
+            <button
+              onClick={() => navigate('/dashboard/settings/security')}
+              className="px-4 py-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 text-xs font-bold rounded-xl hover:bg-gray-50 dark:hover:bg-gray-700 transition-all cursor-pointer"
+            >
+              Configure
+            </button>
           </div>
         </section>
 
@@ -128,15 +142,15 @@ const Settings = () => {
                 <FiMoon size={18} />
               </div>
               <div>
-                <h4 className="text-sm font-bold text-gray-900 dark:text-gray-100">Dark Mode</h4>
-                <p className="text-[11px] text-gray-500 font-medium mt-0.5">Switch to dark theme</p>
+                <h4 className="text-sm font-bold text-gray-900 dark:text-gray-100">Theme</h4>
+                <p className="text-[11px] text-gray-500 font-medium mt-0.5">Manage your app's theme</p>
               </div>
             </div>
             <button
-              onClick={() => handleToggle('darkMode')}
-              className={`w-11 h-6 rounded-full transition-colors relative cursor-pointer ${settings.darkMode ? 'bg-emerald-600' : 'bg-gray-300'}`}
+              onClick={() => navigate('/dashboard/settings/theme')}
+              className="px-4 py-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 text-xs font-bold rounded-xl hover:bg-gray-50 dark:hover:bg-gray-700 transition-all cursor-pointer"
             >
-              <div className={`absolute top-1 w-4 h-4 rounded-full bg-white transition-transform ${settings.darkMode ? 'translate-x-6' : 'translate-x-1'}`} />
+              Configure
             </button>
           </div>
         </section>

@@ -38,6 +38,10 @@ import DeclinedDetails from "./(dashboard)/pre-disbursement/DeclinedDetails";
 import DisbursedDetails from "./(dashboard)/pre-disbursement/DisbursedDetails";
 import Settings from "./(dashboard)/profile/Settings";
 import EditProfile from "./(dashboard)/profile/EditProfile";
+import Profile from "./(dashboard)/profile/Profile";
+import Security from "./(dashboard)/profile/Security";
+import HelpSupport from "./(dashboard)/profile/HelpSupport";
+import ThemeSettings from "./(dashboard)/profile/ThemeSettings";
 
 
 import LandingPage from "./LandingPage";
@@ -48,8 +52,12 @@ function AnimatedRoutes() {
   const location = useLocation();
 
   useEffect(() => {
-    const savedTheme = localStorage.getItem('theme');
+    const savedTheme = localStorage.getItem('theme') || 'system';
     if (savedTheme === 'dark') {
+      document.documentElement.classList.add('dark');
+    } else if (savedTheme === 'light') {
+      document.documentElement.classList.remove('dark');
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
       document.documentElement.classList.add('dark');
     } else {
       document.documentElement.classList.remove('dark');
@@ -106,9 +114,12 @@ function AnimatedRoutes() {
 
           <Route path="/dashboard/analytics" element={<Analytics />} />
           <Route path="/dashboard/settings" element={<Settings />} />
-          <Route path="/dashboard/support" element={<ComingSoon title="Support Center" />} />
+          <Route path="/dashboard/settings/security" element={<Security />} />
+          <Route path="/dashboard/settings/theme" element={<ThemeSettings />} />
+          <Route path="/dashboard/support" element={<HelpSupport />} />
           <Route path="/dashboard/make-payment" element={<MakePaymentOption />} />
-          <Route path="/dashboard/profile" element={<EditProfile />} />
+          <Route path="/dashboard/profile" element={<Profile />} />
+          <Route path="/dashboard/profile/edit" element={<EditProfile />} />
 
           {/* Repayments Flow */}
           <Route path="/dashboard/repayments/pay-now" element={<RepaymentDetails />} />

@@ -52,7 +52,7 @@ const LoanStatus = ({ loanStage, appStatus = 'Submitted' }) => {
             </div>
             <div>
               <h4 className="text-xs md:text-sm font-bold text-gray-800 dark:text-gray-100 font-poppins">Application Submitted</h4>
-              <p className="text-[11px] md:text-xs text-gray-500 font-medium mt-1 leading-relaxed">
+              <p className="text-[11px] md:text-xs text-gray-500 dark:text-gray-400 font-medium mt-1 leading-relaxed">
                 Your loan application has been received successfully! Our system is currently conducting a preliminary document review. A field verification agent will be assigned to visit your merchant location shortly.
               </p>
             </div>
@@ -66,7 +66,7 @@ const LoanStatus = ({ loanStage, appStatus = 'Submitted' }) => {
             </div>
             <div className="flex-1">
               <h4 className="text-xs md:text-sm font-bold text-gray-800 dark:text-gray-100 font-poppins">Agent Assigned</h4>
-              <p className="text-[11px] md:text-xs text-gray-500 font-medium mt-1 leading-relaxed">
+              <p className="text-[11px] md:text-xs text-gray-500 dark:text-gray-400 font-medium mt-1 leading-relaxed">
                 An agent has been assigned to your application and will contact you shortly.
               </p>
             </div>
@@ -88,7 +88,7 @@ const LoanStatus = ({ loanStage, appStatus = 'Submitted' }) => {
               <div className="flex items-center justify-between gap-2 flex-wrap">
                 <h4 className="text-xs md:text-sm font-bold text-gray-800 dark:text-gray-100 font-poppins">Verification In Progress</h4>
               </div>
-              <p className="text-[11px] md:text-xs text-gray-500 font-medium mt-1 leading-relaxed">
+              <p className="text-[11px] md:text-xs text-gray-500 dark:text-gray-400 font-medium mt-1 leading-relaxed">
                 Your application is currently being verified. We’ll notify you once the review is complete.
               </p>
             </div>
@@ -102,13 +102,13 @@ const LoanStatus = ({ loanStage, appStatus = 'Submitted' }) => {
         );
       case 'Approved':
         return (
-          <div className="bg-emerald-50 border border-emerald-100 rounded-2xl p-5 flex flex-col md:flex-row items-start md:items-center gap-4 animate-in fade-in slide-in-from-bottom-2 duration-300">
+          <div className="bg-emerald-50 dark:bg-emerald-900/10 border border-emerald-100 dark:border-emerald-800/30 rounded-2xl p-5 flex flex-col md:flex-row items-start md:items-center gap-4 animate-in fade-in slide-in-from-bottom-2 duration-300">
             <div className="h-10 w-10 bg-emerald-600 text-white rounded-xl flex items-center justify-center shrink-0 shadow-lg shadow-emerald-600/10">
               <FiCheckCircle size={20} />
             </div>
             <div className="flex-1">
-              <h4 className="text-xs md:text-sm font-bold text-emerald-950 font-poppins">Approved</h4>
-              <p className="text-[11px] md:text-xs text-emerald-800/80 font-medium mt-1 leading-relaxed">
+              <h4 className="text-xs md:text-sm font-bold text-emerald-950 dark:text-emerald-400 font-poppins">Approved</h4>
+              <p className="text-[11px] md:text-xs text-emerald-800/80 dark:text-emerald-100/70 font-medium mt-1 leading-relaxed">
                 Congratulations! Your loan application has been successfully approved.
               </p>
             </div>
@@ -122,13 +122,13 @@ const LoanStatus = ({ loanStage, appStatus = 'Submitted' }) => {
         );
       case 'Declined':
         return (
-          <div className="bg-rose-50 border border-rose-100 rounded-2xl p-5 flex flex-col md:flex-row items-start md:items-center gap-4 animate-in fade-in slide-in-from-bottom-2 duration-300">
+          <div className="bg-rose-50 dark:bg-rose-900/10 border border-rose-100 dark:border-rose-800/30 rounded-2xl p-5 flex flex-col md:flex-row items-start md:items-center gap-4 animate-in fade-in slide-in-from-bottom-2 duration-300">
             <div className="h-10 w-10 bg-rose-600 text-white rounded-xl flex items-center justify-center shrink-0 shadow-lg shadow-rose-600/10">
               <FiXCircle size={20} />
             </div>
             <div className="flex-1">
-              <h4 className="text-xs md:text-sm font-bold text-rose-950 font-poppins">Declined</h4>
-              <p className="text-[11px] md:text-xs text-rose-800/80 font-medium mt-1 leading-relaxed">
+              <h4 className="text-xs md:text-sm font-bold text-rose-950 dark:text-rose-400 font-poppins">Declined</h4>
+              <p className="text-[11px] md:text-xs text-rose-800/80 dark:text-rose-100/70 font-medium mt-1 leading-relaxed">
                 Loan application declined.
               </p>
             </div>
@@ -181,10 +181,10 @@ const LoanStatus = ({ loanStage, appStatus = 'Submitted' }) => {
             <h2 className="text-sm md:text-base font-bold text-gray-900 dark:text-gray-100 font-poppins">Loan Application Progress</h2>
             <p className="text-[10px] md:text-xs text-gray-400 font-medium mt-1">Ref: MM-94202 • Submitted today</p>
           </div>
-          <div className={`px-3 py-1.5 rounded-xl text-[9px] md:text-[10px] font-bold border uppercase tracking-wider transition-colors ${appStatus === 'Approved' ? 'bg-emerald-50 text-emerald-700 border-emerald-100' :
-              appStatus === 'Declined' ? 'bg-rose-50 text-rose-700 border-rose-100' :
-                appStatus === 'Disbursed' ? 'bg-emerald-950 text-white border-emerald-900' :
-                  'bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 border-blue-100 dark:border-blue-800/50'
+          <div className={`px-3 py-1.5 rounded-xl text-[9px] md:text-[10px] font-bold border uppercase tracking-wider transition-colors ${appStatus === 'Approved' ? 'bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400 border-emerald-100 dark:border-emerald-800/50' :
+            appStatus === 'Declined' ? 'bg-rose-50 dark:bg-rose-900/30 text-rose-700 dark:text-rose-400 border-rose-100 dark:border-rose-800/50' :
+              appStatus === 'Disbursed' ? 'bg-emerald-950 text-white border-emerald-900' :
+                'bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 border-blue-100 dark:border-blue-800/50'
             }`}>
             {appStatus === 'Verification' ? 'In Verification' : appStatus}
           </div>
@@ -233,8 +233,8 @@ const LoanStatus = ({ loanStage, appStatus = 'Submitted' }) => {
                   {status === 'done' ? <FiCheckCircle size={18} /> : step.icon}
                 </div>
                 <span className={`text-[8px] md:text-[10px] font-bold text-center tracking-wide ${status === 'pending' ? 'text-gray-300 dark:text-gray-600' :
-                    isDeclined ? 'text-rose-500' :
-                      status === 'active' ? 'text-emerald-700 dark:text-emerald-400' : 'text-gray-800 dark:text-gray-100'
+                  isDeclined ? 'text-rose-500' :
+                    status === 'active' ? 'text-emerald-700 dark:text-emerald-400' : 'text-gray-800 dark:text-gray-100'
                   }`}>
                   {step.label}
                 </span>

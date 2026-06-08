@@ -34,7 +34,6 @@ const PayFullBalance = () => {
     // Simulate processing
     setTimeout(() => {
       setIsProcessing(false);
-      alert('Full balance payment processed successfully! Your loan is now closed.');
       navigate('/dashboard');
     }, 2000);
   };

@@ -46,7 +46,6 @@ const RepaymentDetails = () => {
     // Simulate processing
     setTimeout(() => {
       setIsProcessing(false);
-      alert('Payment processing simulated successfully. In real life, Digitvantpay modal would open here.');
       navigate('/dashboard');
     }, 2000);
   };

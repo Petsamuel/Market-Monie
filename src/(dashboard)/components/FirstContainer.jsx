@@ -119,7 +119,7 @@ const FirstContainer = ({ loanStage, appStatus }) => {
           </div>
           <button
             onClick={() => navigate('/dashboard/repayments/missed-details')}
-            className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white font-bold text-xs rounded-xl whitespace-nowrap transition-colors cursor-pointer"
+            className="px-4 py-2 bg-red-600/50 hover:bg-red-700 text-white font-bold text-xs rounded-xl whitespace-nowrap transition-colors cursor-pointer"
           >
             View Details
           </button>
